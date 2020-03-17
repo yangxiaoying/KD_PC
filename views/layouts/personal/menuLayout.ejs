@@ -1,0 +1,72 @@
+        <div class="menu left">
+            <div class="photo">
+                <div class="avatar">
+                    <img src="/images/indexImages/temp/temp.jpg">
+                </div>
+                <p class="name">summer1023</p>
+                <div class="btns">
+                    <a href="#" class="a1">编辑资料</a>
+                    <a href="/personalCenter/connect" target="_blank" class="a2">机构关联</a>
+                </div>
+            </div>
+            <div class="flag">
+            	<a href="#" class="mem mem1">
+            		<p class="p1">开通VIP会员</p>
+            		<p class="p2">文献畅读，更享5-8折特惠</p>
+            	</a>
+            	<a href="/personalCenter/membersCenter" class="mem mem2">
+                    <p class="p1">会员中心</p>
+                </a>
+            </div>
+            <div class="list <% if(current==0) { %> cur <% } %>">
+                <a href="/personalCenter/home" class="m m1">首页</a>
+            </div>
+            <div class="list <% if(current==1) { %> cur <% } %>">
+                <span class="m m2">内容管理</span>
+                <div class="sublist">
+                    <a href="/pc/purchased" <% if(active==0){%> class="active" <%}%>>我的已购</a>
+                    <a href="/pc/collected" <% if(active==1){%> class="active" <%}%>>我的收藏</a>
+                    <!--<a href="#" <% if(active==2){%> class="active" <%}%>>我的朗读</a>-->
+                    <a href="/pc/follow" <% if(active==3){%> class="active" <%}%>>我的关注</a>
+                </div>
+            </div>
+            <div class="list <% if(current==2) { %> cur <% } %>">
+                <span class="m m3">账户管理</span>
+                <div class="sublist">
+                    <a href="/personalCenter/myAccount" <% if(active==4){%> class="active" <%}%>>我的账户</a>
+                    <a href="/personalCenter/myBills" <% if(active==5){%> class="active" <%}%>>我的账单</a>
+                    <a href="#" <% if(active==6){%> class="active" <%}%>>我的卡券</a>
+                </div>
+            </div>
+            <div class="list <% if(current==3) { %> cur <% } %>"><a href="/personalCenter/personalInfo" class="m m4">个人资料</a></div>
+        </div>
+    <script>
+        'use strict'
+//      $(function(){
+//          var height=$(".personalMain").height()
+//          $(".menu").height(height)
+//      })
+        //判断是否是会员
+        var isUrl='/personalCenter/isMember';
+        $.ajax({
+        	type:"get",
+        	url:isUrl,
+        	dataType: "json",
+        	success:function(response){
+        	      console.log(response)
+        	      if(response.rows==true)
+        	      {
+        	          $(".menu .flag .mem2").css("display","block");
+        	          $(".menu .flag .mem1").hide()
+        	      }
+        	      else{
+        	          $(".menu .flag .mem1").css("display","block");
+                      $(".menu .flag .mem2").hide()
+        	      }
+        	},
+        	error: function (error) {
+                    //请求出错处理
+                    console.log(error);
+            }   
+        });
+    </script>

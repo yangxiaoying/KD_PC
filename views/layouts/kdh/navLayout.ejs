@@ -1,0 +1,11 @@
+
+<div class="kda-nav">
+    <a href="/kdh/home/<%=viewModel.data.kdhBaseInfo.org.orgid%>" <% if(current == 0){ %>class="cur"
+        <% } %>>首页</a>
+    <a href="/kdh/works/<%=viewModel.data.kdhBaseInfo.org.orgid%>" <% if(current == 1){ %>class="cur"
+        <% } %>>作品</a>
+    <a href="/kdh/microbook/<%=viewModel.data.kdhBaseInfo.org.orgid%>" <% if(current == 2){ %>class="cur"
+        <% } %>>微刊</a>
+    <a href="/kdh/bookshop/<%=viewModel.data.kdhBaseInfo.org.orgid%>?otype=1" <% if(current == 3){ %>class="cur"
+        <% } %>>书店</a>
+</div>

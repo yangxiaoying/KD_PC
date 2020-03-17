@@ -1,0 +1,74 @@
+<div id="kda-banner" class="kda-banner">
+    <img class="bgPic" src="<%=viewModel.data.kdhBaseInfo.org.backgroundpic %>" alt="">
+    <div class="shadow"></div>
+    <div class="bannerWrap">
+        <div class="avatar"><img src="<%=viewModel.data.kdhBaseInfo.org.logopic %>"></div>
+        <p class="p1">
+            <%=viewModel.data.kdhBaseInfo.org.orgname %>
+        </p>
+        <p class="p2">
+            <%=viewModel.data.kdhBaseInfo.org.memo %>
+        </p>
+        <p class="p3"><a href="javascript:;" <% if(viewModel.data.kdhBaseInfo.org.isconcern==1 ){ %> class="active" <% }%> ><% if(viewModel.data.kdhBaseInfo.org.isconcern == 1){ %> 已关注 <%}else{%> +关注 <% }%></a><span><i class="fansCount"><%=viewModel.data.kdhBaseInfo.org.totalfans %></i>粉丝</span></p>
+    </div>
+</div>
+<input type="hidden" value="<%=viewModel.data.kdhBaseInfo.org.orgid %>" id="orgid">
+<script>
+    var kdaBanner = $('#kda-banner');
+    var fansCount = kdaBanner.find('.fansCount');
+    var concernBtn = $('.kda-banner .p3 a');
+    var orgid = $('#orgid').val();
+
+    function getBaseInfo() {
+        var url = '/kdh/getBaseInfo/' + orgid;
+        $.ajax({
+            url: url,
+            dataType: "json",
+            type: "GET",
+            success: function(response) {
+                if (response.code == 0) {
+                    var baseInfo = response.data.org;
+                    fansCount.html(baseInfo.totalfans);
+                    kdaBanner.find('.avatar img').attr('src', baseInfo.logopic);
+                    kdaBanner.find('.p1').html(baseInfo.orgname);
+                    kdaBanner.find('.p2').html(baseInfo.memo);
+                }
+            }
+        });
+    }
+
+    function addOrCancelConcern() {
+        var url = '/kdh/addOrCancelConcern/' + orgid + '?otype=' + otype;
+        $.ajax({
+            url: url,
+            dataType: "json",
+            type: "GET",
+            success: function(response) {
+                if (response.code == 0) {
+                    if (response.data.status == 1) {
+                        var concernInfo = response.data.org;
+                        fansCount.html(concernInfo.totalfans);
+                        kdaBanner.find('.avatar img').attr('src', concernInfo.logopic);
+                        kdaBanner.find('.p1').html(concernInfo.orgname);
+                        kdaBanner.find('.p2').html(concernInfo.memo);
+                    } else {
+                        getBaseInfo()
+                    }
+                }
+            }
+        });
+    }
+    concernBtn.click(function() {
+        if ($(this).hasClass('active')) {
+            // 取消关注
+            $(this).removeClass('active').html('+关注');
+            otype = 1;
+            addOrCancelConcern(otype);
+        } else {
+            // 关注
+            $(this).addClass('active').html('已关注');
+            otype = 0;
+            addOrCancelConcern(otype);
+        }
+    })
+</script>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" type="text/css" href="/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/home.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/carousel.css"/>
+    <script src="/js/jQuery-v1.11.1.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/jquery.cycle2.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/jquery.carousel.js" type="text/javascript" charset="utf-8"></script>
+    <title><%= title %></title>
+</head>
+<body>
+<div class="header">
+    <div class="headerWrap">
+        <div class="hl left">
+            <a href="/" class="cur">首页</a><a href="/discovery">发现</a><a href="/works">作品</a><a
+                    href="/microBook">微刊</a><a href="/kdh">看典号</a><a href="/literature">文献库</a><a href="#">书刊商城</a><a
+                    href="#">客户端</a>
+        </div>
+        <div class="hr right">
+            <% if(viewModel && viewModel.user.name != null){ %>
+                <%- include('./components/userOptionMenu', {}) %>
+            <% }else{ %>
+            <a href="/userCenter/register">注册</a>
+            <div class="line"></div>
+            <a href="/userCenter/login">登录</a>
+            <% } %>
+
+            <div class="search right">
+                <input type="text"/>
+                <a href="javascript:;" class="btn" id="searchBtn"></a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="bannerArea">
+    <div class="transition cycle-slideshow" data-cycle-pause-on-hover="true" data-cycle-slides=".slide"
+         data-cycle-timeout="4000" data-cycle-pager=".slidePager" data-cycle-speed="1000" data-cycle-prev=".cycle-prev"
+         data-cycle-next=".cycle-next">
+        <% if(viewModel.data.listlunbo && viewModel.data.listlunbo.length > 0) { %>
+        <% for(var i = 0;i < viewModel.data.listlunbo.length;i++){ %>
+        <!--<div class="slide"><a href="/detail/workDetail?id=<%= viewModel.data.listlunbo[i].foreignkeyid %>&mediatype=4" target="_blank" class="pic1" style="background-image:url('<%= viewModel.data.listlunbo[i].coverpic %>')"></a></div>-->
+        <div class="slide"><a href="javascript:;" class="pic1"
+                              style="background-image:url('<%= viewModel.data.listlunbo[i].coverpic %>')"></a></div>
+        <% } %>
+        <% } %>
+
+        <!--<div class="slide"><a href="#" target="_blank" class="pic3"></a></div>-->
+        <!--<div class="slide"><a href="#" target="_blank" class="pic2"></a></div>-->
+        <!--<div class="slide"><a href="#" target="_blank" class="pic1"></a></div>-->
+    </div>
+    <div class="slidePager"></div>
+</div>
+<div class="top">
+    <div class="btn">
+        <a target="_blank" href="/discovery" class="a1">发现精彩</a> <a href="#" class="a2">下载客户端<span><img src="/images/indexImages/ewm1.jpg"
+                                                                               width="174" height="174"></span></a>
+    </div>
+</div>
+<div class="section s1">
+    <div class="wrap clearfix">
+        <a target="_blank" href="/literature/library?dbname=cjfvtotal&ztcode=VN101" class="a1"><p>看典 · 文艺库</p></a>
+        <a target="_blank" href="/literature/library?dbname=cjfutotal&ztcode=UN101" class="a2"><p>看典 · 文化库</p></a>
+        <a target="_blank" href="/literature/library?dbname=cjfttotal&ztcode=TN201" class="a3"><p>看典 · 科普库</p></a>
+    </div>
+</div>
+<!--精选分类-->
+<div class="section s2">
+    <h1>精选分类</h1>
+    <div class="wrap">
+        <a target="_blank" href="/works?classifyId=A03&positionX=0&positionY=2" class="a1">美文</a>
+        <a target="_blank" href="/works?classifyId=A01&positionX=0&positionY=0" class="a2">诗词</a>
+        <a target="_blank" href="/works?classifyId=A02&positionX=0&positionY=1" class="a3">小说</a>
+        <a target="_blank" href="/works?classifyId=E&positionX=4" class="a4">历史</a>
+        <a target="_blank" href="/works?classifyId=D&positionX=3" class="a5">人物</a>
+        <a target="_blank" href="/works?classifyId=A04&positionX=0&positionY=3" class="a6">故事</a>
+        <a target="_blank" href="/works?classifyId=C03&positionX=2&positionY=2" class="a7">民俗</a>
+        <a target="_blank" href="/works?classifyId=I&positionX=8" class="a8">育儿</a>
+        <a target="_blank" href="/works?classifyId=M&positionX=12" class="a9">科普</a>
+        <a target="_blank" href="/works?classifyId=K&positionX=10" class="a10">职场</a>
+        <a target="_blank" href="/works?classifyId=H&positionX=7" class="a11">生活</a>
+        <a target="_blank" href="/works" class="a12">更多分类...</a>
+    </div>
+</div>
+<!--读好文-->
+<div class="section s3">
+    <h1>读好文</h1>
+    <div class="wrap">
+        <ul class="clearfix">
+            <% if(viewModel.data.listimgtxt && viewModel.data.listimgtxt.length > 0) { %>
+            <% for(var i = 0; i < viewModel.data.listimgtxt.length; i++){ if(i < 6){ %>
+            <li>
+                <a title="<%= viewModel.data.listimgtxt[i].title %>" target="_blank"
+                   href="/detail/workDetail?id=<%= viewModel.data.listimgtxt[i].foreignkeyid %>&mediatype=1"
+                   class="img"><img src="<%= viewModel.data.listimgtxt[i].coverpic %>" width="359"
+                                    height="223"></a>
+                <div class="detail">
+                    <p class="p1"><a title="<%= viewModel.data.listimgtxt[i].title %>" target="_blank"
+                                     href="/detail/workDetail?id=<%= viewModel.data.listimgtxt[i].foreignkeyid %>&mediatype=1"><%= viewModel.data.listimgtxt[i].title %></a>
+                    </p>
+                    <p class="p2"><%= viewModel.data.listimgtxt[i].memo %></p>
+                    <p class="p3"><a target="_blank" href="/kdh/home/<%= viewModel.data.listimgtxt[i].orgid %>"><img src="<%= viewModel.data.listimgtxt[i].orglogopic %>" width="21" height="21" align="absmiddle"><%= viewModel.data.listimgtxt[i].orgname %></a></p>
+                </div>
+            </li>
+            <% } %>
+            <% } %>
+            <% } %>
+        </ul>
+        <a target="_blank" href="/works/?positionX=-1&positionY=-1&positionZ=-1&mediatype=1" class="more">更多好文</a>
+    </div>
+</div>
+<!--听精选-->
+<div class="section s4">
+    <h1>听 精 选</h1>
+    <div class="wrap">
+        <ul class="clearfix">
+            <% if(viewModel.data.listaudio && viewModel.data.listaudio.length > 0){ %>
+            <% for(var i = 0; i < viewModel.data.listaudio.length; i++){if(i < 4){ %>
+            <li>
+                <a title="<%= viewModel.data.listaudio[i].title %>" target="_blank"
+                   href="/detail/workDetail?id=<%= viewModel.data.listaudio[i].foreignkeyid %>&mediatype=2" class="img"
+                   style="background:url('<%= viewModel.data.listaudio[i].coverpic %>') center center no-repeat; background-size:cover"></a>
+                <img class="icon" src="/images/indexImages/icon6.png">
+                <div class="info">
+                    <p class="p1"><a title="<%= viewModel.data.listaudio[i].title %>" target="_blank"
+                                     href="/detail/workDetail?id=<%= viewModel.data.listaudio[i].foreignkeyid %>&mediatype=2"><%= viewModel.data.listaudio[i].title %></a>
+                    </p>
+                    <p class="p2"><a target="_blank"  href="/kdh/home/<%= viewModel.data.listaudio[i].orgid %>"><img src="<%= viewModel.data.listaudio[i].orglogopic %>" width="21"
+                                                   height="21"
+                                                   align="absmiddle"><%= viewModel.data.listaudio[i].orgname %></a></p>
+                </div>
+            </li>
+            <% } %>
+            <% } %>
+            <% } %>
+        </ul>
+        <a target="_blank" href="/works/?positionX=-1&positionY=-1&positionZ=-1&mediatype=2" class="more">更多音频>></a>
+    </div>
+</div>
+<!--看视界-->
+<div class="section s5">
+    <h1>看 视 界</h1>
+    <div class="wrap">
+        <ul class="clearfix">
+            <% if(viewModel.data.listvideo && viewModel.data.listvideo.length > 0) { %>
+            <% for(var i = 0; i < viewModel.data.listvideo.length; i++){ if(i < 3){ %>
+            <li>
+                <a title="<%= viewModel.data.listvideo[i].title %>" target="_blank"
+                   href="/detail/workDetail?id=<%= viewModel.data.listvideo[i].foreignkeyid %>&mediatype=3" class="img"><img
+                            src="<%= viewModel.data.listvideo[i].coverpic %>" width="360" height="223"></a>
+                <a title="<%= viewModel.data.listvideo[i].title %>" target="_blank"
+                   href="/detail/workDetail?id=<%= viewModel.data.listvideo[i].foreignkeyid %>&mediatype=3"><img
+                            src="/images/indexImages/icon7.png" class="icon"></a>
+                <div class="detail">
+                    <p class="p1"><a title="<%= viewModel.data.listvideo[i].title %>" target="_blank"
+                                     href="/detail/workDetail?id=<%= viewModel.data.listvideo[i].foreignkeyid %>&mediatype=3"><%= viewModel.data.listvideo[i].title %></a>
+                    </p>
+                    <p class="p2"><%= viewModel.data.listvideo[i].memo %></p>
+                    <p class="p3">
+                        <% for(var j = 0, arr = ejsFunctions.arrayParseByBlank(viewModel.data.listvideo[i].keywords);j < arr.length;j++){ %>
+                        <span><%= arr[j] %></span>
+                        <% } %>
+                    </p>
+                    <p class="p4"><a target="_blank"  href="/kdh/home/<%= viewModel.data.listvideo[i].orgid %>"><img src="<%= viewModel.data.listvideo[i].orglogopic %>" width="21"
+                                                   height="21"
+                                                   align="absmiddle"><%= viewModel.data.listvideo[i].orgname %></a></p>
+                </div>
+            </li>
+            <% } %>
+            <% } %>
+            <% } %>
+        </ul>
+        <a target="_blank" href="/works/?positionX=-1&positionY=-1&positionZ=-1&mediatype=3" class="more">更多视频>></a>
+    </div>
+</div>
+<!--赏美图-->
+<div class="section s6">
+    <h1>赏 美 图</h1>
+    <div class="wrap">
+        <% if(viewModel.data.listpic && viewModel.data.listpic.length > 0) { %>
+        <div class="col col1 left">
+            <a title="<%= viewModel.data.listpic[0].title %>" target="_blank"
+               href="/detail/workDetail?id=<%= viewModel.data.listpic[0].foreignkeyid %>&mediatype=4" class="a1">
+                <% if(viewModel.data.listpic.length >= 1){ %>
+                <img src="<%= viewModel.data.listpic[0].coverpic %>" width="339" height="267">
+                <span><%= viewModel.data.listpic[0].title %></span>
+                <% } %>
+            </a>
+            <a title="<%= viewModel.data.listpic[1].title %>" target="_blank"
+               href="/detail/workDetail?id=<%= viewModel.data.listpic[1].foreignkeyid %>&mediatype=4" class="a2">
+                <% if(viewModel.data.listpic.length >= 2){ %>
+                <img src="<%= viewModel.data.listpic[1].coverpic %>" width="339" height="210">
+                <span><%= viewModel.data.listpic[1].title %></span>
+                <% } %>
+            </a>
+        </div>
+        <div class="col col2 left">
+            <div class=" clearfix">
+                <a title="<%= viewModel.data.listpic[2].title %>" target="_blank"
+                   href="/detail/workDetail?id=<%= viewModel.data.listpic[2].foreignkeyid %>&mediatype=4" class="a1">
+                    <% if(viewModel.data.listpic.length >= 3){ %>
+                    <img src="<%= viewModel.data.listpic[2].coverpic %>" width="254" height="177">
+                    <span><%= viewModel.data.listpic[2].title %></span>
+                    <% } %>
+                </a>
+                <a title="<%= viewModel.data.listpic[3].title %>" target="_blank"
+                   href="/detail/workDetail?id=<%= viewModel.data.listpic[3].foreignkeyid %>&mediatype=4" class="a1 a2">
+                    <% if(viewModel.data.listpic.length >= 4){ %>
+                    <img src="<%= viewModel.data.listpic[3].coverpic %>" width="254" height="177">
+                    <span><%= viewModel.data.listpic[3].title %></span>
+                    <% } %>
+                </a>
+            </div>
+
+            <a title="<%= viewModel.data.listpic[4].title %>" target="_blank"
+               href="/detail/workDetail?id=<%= viewModel.data.listpic[4].foreignkeyid %>&mediatype=4" class="a3">
+                <% if(viewModel.data.listpic.length >= 5){ %>
+                <img src="<%= viewModel.data.listpic[4].coverpic %>" width="520" height="300">
+                <span><%= viewModel.data.listpic[4].title %></span>
+                <% } %>
+            </a>
+        </div>
+        <div class="col col3 left">
+            <a title="<%= viewModel.data.listpic[5].title %>" target="_blank"
+               href="/detail/workDetail?id=<%= viewModel.data.listpic[5].foreignkeyid %>&mediatype=4" class="a1">
+                <% if(viewModel.data.listpic.length >= 6){ %>
+                <img src="<%= viewModel.data.listpic[5].coverpic %>" width="315" height="215">
+                <span><%= viewModel.data.listpic[5].title %></span>
+                <% } %>
+            </a>
+            <a title="<%= viewModel.data.listpic[6].title %>" target="_blank"
+               href="/detail/workDetail?id=<%= viewModel.data.listpic[6].foreignkeyid %>&mediatype=4" class="a2">
+                <% if(viewModel.data.listpic.length >= 7){ %>
+                <img src="<%= viewModel.data.listpic[6].coverpic %>" width="315" height="215">
+                <span><%= viewModel.data.listpic[6].title %></span>
+                <% } %>
+            </a>
+        </div>
+        <% } %>
+    </div>
+    <a target="_blank" href="/works/?positionX=-1&positionY=-1&positionZ=-1&mediatype=4" class="more">更多美图>></a>
+</div>
+<!--精彩微刊-->
+<% if(viewModel.data.listtinyjournal && viewModel.data.listtinyjournal.length > 0) { %>
+<div class="section s7">
+    <h1>精 彩 微 刊</h1>
+    <div class="wrap">
+        <div class="container_image">
+            <!--<a href="javascript:void(0)" tip="0" class="i_btn prev_L"></a>-->
+            <!--<a href="javascript:void(0)" tip="1" class="i_btn next_R"></a>-->
+            <div class="caroursel poster-main" data-setting='{
+                        "width":1198,
+                        "height":295,
+                        "posterWidth":655,
+                        "posterHeight":295,
+                        "scale":0.8,
+                        "dealy":"3000",
+                        "algin":"middle"
+                    }'>
+                <ul class="poster-list">
+                    <% for(var i = 0;i < viewModel.data.listtinyjournal.length;i++){ if(i < 3){ %>
+                    <li class="poster-item">
+                        <a title="<%= viewModel.data.listtinyjournal[i].title %>" target="_blank"
+                           href="/detail/microBookDetail?id=<%= viewModel.data.listtinyjournal[i].foreignkeyid %>">
+                            <img src="<%= viewModel.data.listtinyjournal[i].coverpic %>" alt=""/>
+                            <p><%= viewModel.data.listtinyjournal[i].title %></p>
+                        </a>
+                    </li>
+                    <% } %>
+                    <% } %>
+
+                </ul>
+                <div class="poster-btn poster-prev-btn"></div>
+                <div class="poster-btn poster-next-btn"></div>
+            </div>
+            <script>
+                Caroursel.init($('.caroursel'))
+            </script>
+
+        </div>
+        <a target="_blank" href="/microbook" class="more">更多微刊>></a>
+    </div>
+</div>
+<% } %>
+<!--书刊商城-->
+<% if(viewModel.data.listjournal && viewModel.data.listjournal.length > 0) { %>
+<div class="section s8">
+    <h1>书 刊 商 城</h1>
+    <div class="wrap">
+        <ul class="clearfix">
+            <!--期刊-->
+            <% for(var i = 0; i < viewModel.data.listjournal.length; i++){ if(i < 5){ %>
+            <li>
+                <a target="_blank" title="<%= viewModel.data.listjournal[i].title %>" href="/detail/periodDetail/<%=viewModel.data.listjournal[i].foreignkeyid%>">
+                    <img src="<%= viewModel.data.listjournal[i].coverpic %>" width="219" height="294">
+                    <p><%= viewModel.data.listjournal[i].title %></p>
+                </a>
+            </li>
+            <% } %>
+            <% } %>
+            <!--图书-->
+            <% for(var i = 0; i < viewModel.data.listbook.length; i++){ if(i < 5){ %>
+            <li>
+                <a target="_blank" title="<%= viewModel.data.listbook[i].title %>" href="#">
+                    <img src="<%= viewModel.data.listbook[i].coverpic %>" width="219" height="294">
+                    <p><%= viewModel.data.listbook[i].title %></p>
+                </a>
+            </li>
+            <% } %>
+            <% } %>
+        </ul>
+        <a href="#" class="more">书刊商城>></a>
+    </div>
+</div>
+<% } %>
+<!--看点号-->
+<% if(viewModel.data.listorg && viewModel.data.listorg.length > 0) { %>
+<div class="section s9">
+    <h1>看典号</h1>
+    <div class="wrap">
+        <div class="width clearfix">
+            <% for(var i = 0; i < viewModel.data.listorg.length; i++){ if(i < 6){ %>
+            <a href="/kdh/home/<%= viewModel.data.listorg[i].foreignkeyid %>" target="_blank">
+                <img src="<%= viewModel.data.listorg[i].coverpic %>">
+                <p><%= viewModel.data.listorg[i].title %></p>
+            </a>
+            <% } %>
+            <% } %>
+        </div>
+        <a target="_blank" href="/kdh" class="more">更多看典号>></a>
+    </div>
+</div>
+<% } %>
+<%- include('./layouts/footerLayout', {}) %>
+<script>
+    $(".header .search .btn").click(function () {
+        $(this).siblings().addClass("click").focus();
+    })
+</script>
+
+</body>
+</html>

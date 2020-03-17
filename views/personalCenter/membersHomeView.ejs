@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../layouts/headLayout', {}) %>
+    <link rel="stylesheet" type="text/css" href="/css/personalCenter/personal.css"/>
+    <script src="/js/jquery-tableMenu.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body bgcolor="#FFFFFF">
+<%- include('../layouts/navLayout', {current:null}) %>
+<div class="members">
+	<div class="banner">
+		<div class="w1200">
+			<a href="#" class="btn">立即开通</a>
+		</div>
+	</div>
+	<div class="s1">
+		<div class="w1200">
+			<h1 class="tit">VIP特权</h1>
+			<p class="tip">少量商品不享受看典VIP会员5-8折特惠</p>
+			<ul class="clearfix">
+				<li>
+				    <img src="/images/personal/members-icon1.png" />
+				    <p class="p1">文献</p>
+				    <p class="p2">百万文献畅读</p>
+				</li>
+				<li>
+                    <img src="/images/personal/members-icon2.png" />
+                    <p class="p1">期刊</p>
+                    <p class="p2">尊享5-8折</p>
+                </li>
+                <li>
+                    <img src="/images/personal/members-icon3.png" />
+                    <p class="p1">图书</p>
+                    <p class="p2">尊享5-8折</p>
+                </li>
+                <li>
+                    <img src="/images/personal/members-icon4.png" />
+                    <p class="p1">微刊</p>
+                    <p class="p2">尊享5-8折</p>
+                </li>
+                <li>
+                    <img src="/images/personal/members-icon5.png" />
+                    <p class="p1">图文</p>
+                    <p class="p2">百万文献畅读</p>
+                </li>
+                <li>
+                    <img src="/images/personal/members-icon6.png" />
+                    <p class="p1">音频</p>
+                    <p class="p2">尊享5-8折</p>
+                </li>
+                <li>
+                    <img src="/images/personal/members-icon7.png" />
+                    <p class="p1">视频</p>
+                    <p class="p2">尊享5-8折</p>
+                </li>
+                <li>
+                    <img src="/images/personal/members-icon8.png" />
+                    <p class="p1">图集</p>
+                    <p class="p2">尊享5-8折</p>
+                </li>
+			</ul>
+		</div>
+	</div>
+    <div class="s2">
+    	<div class="w1200">
+    		<h1 class="tit">开通看典VIP会员</h1>
+    		<ul class="clearfix">
+    		    <li>
+    		        <p class="p1">包月会员</p>
+    		        <p class="p2"><strong>￥</strong>18</p>
+    		    </li>
+    		    <li class="click">
+                    <p class="p1">包年会员</p>
+                    <p class="p2"><strong>￥</strong>188</p>
+                    <p class="p3"><span>原价216元</span>，赠2个月</p>
+                    <i>包年特惠</i>
+                </li>
+    		</ul>
+    		<a href="#" class="btn">立即开通</a>
+    		<p class="p4">看典文献库机构用户成员，绑定机构账号后，包月立减<i>3</i>元。<a href="#">去绑定></a></p>
+    	</div>
+    </div>
+    <div class="s3">
+    	<div class="w1200">
+    		<div class="text">
+    		  <h1 class="tit">精彩内容在线畅读</h1>	
+    		  <p>畅读精选图文、音频、视频、图集、微刊、期刊和图书</p>
+    		</div>
+    	</div>
+    </div>
+    <div class="s4">
+        <div class="w1200">
+            <div class="text">
+              <h1 class="tit">百万文献下载</h1> 
+              <p>每月下载上限1000篇，超出需另外付费下载</p>
+            </div>
+        </div>
+    </div>
+    <div class="s5">
+        <div class="w1200">
+            <div class="text">
+              <h1 class="tit">会员尊享折扣优惠</h1> 
+              <p>部分商品（音频、视频、图集、微刊、期刊、图书） 5-8 折特惠</p>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../layouts/footerLayout', {}) %>
+<script>
+   'use strict'
+   $(".s2 ul li").click(function(){
+       $(this).addClass("click").siblings().removeClass("click")
+   })
+</script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../layouts/headLayout', {}) %>
+    <link rel="stylesheet" type="text/css" href="/css/personalCenter/personal.css"/>
+    <script src="/js/divSelect.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/jquery.promptToggle.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body bgcolor="#F4F4F4">
+<%- include('../layouts/navLayout', {current:null}) %>
+    <div class="personalMain clearfix">
+        <%- include('../layouts/personal/menuLayout', {current:1,active:1}) %>
+        <div class="contentWrap">
+        	<h1 class="ls">
+        	    <span>浏览历史</span>
+        	    <div class="control">
+        	    	<a href="javascript:;" class="ba clear">清空记录</a>
+        	    </div>
+        	</h1>
+            <div class="collectWrap historywrap">
+            	<!--大图-->	            	
+            	<div class="tabarea t1" style="display:block;">
+            	    <div class="part">
+            	        <p class="timerecord">2019/11/12 <span>共123条浏览记录</span></p>
+                		<div class="boxlist clearfix">
+                        <!--作品-->
+                        <% for(var i=0;i<1;i++){ %>
+                        <% for(var j=1;j<5;j++){ %>    
+                        <div class="box">
+                            <div class="frame">
+                                <a href="#" class="img type2"><img src="/images/indexImages/temp/temp.jpg"><i class="icon icon<%= j %>"></i></a>
+                                <div class="widget">
+
+                                    <a href="javascript:;" class="del left"></a>
+                                    
+                                </div>
+                            </div>
+                            <p class="name"><a href="#">我喜欢的创作我喜欢的创作我喜欢的创作我喜欢的创作</a></p>
+                            
+                        </div>
+                        <% } %>
+                        <% } %>
+                        <!--微刊-->
+                        <div class="box">
+                            <div class="frame">
+                                <a href="#" class="img type2"><img src="/images/indexImages/temp/temp.jpg"></a>
+                                <div class="widget">
+
+                                    <a href="javascript:;" class="del left"></a>
+                                    
+                                </div>
+                            </div>
+                            <p class="name"><a href="#">我喜欢的创作我喜欢的创作我喜欢的创作我喜欢的创作</a></p>
+                            
+                        </div>
+                        <!--期刊、图书-->
+                        <div class="box">
+                            <div class="frame">
+                                <a href="#" class="img type3"><img src="/images/indexImages/temp/temp.jpg"></a>
+                                <div class="widget">
+
+                                    <a href="javascript:;" class="del left"></a>
+                                    
+                                </div>
+                            </div>
+                            <p class="name"><a href="#">我喜欢的创作我喜欢的创作我喜欢的创作我喜欢的创作</a></p>
+                            
+                        </div>
+                        <!--文献-->
+                        <div class="box">
+                            <div class="frame">
+                                <a href="#" class="img type4"><img src="/images/indexImages/temp/temp.jpg"></a>
+                                <div class="widget">
+
+                                    <a href="javascript:;" class="del left"></a>
+                                    
+                                </div>
+                            </div>
+                            <p class="name"><a href="#">我喜欢的创作我喜欢的创作我喜欢的创作我喜欢的创作</a></p>
+                            
+                        </div>
+                        <!--典言-->
+                        <div class="box">
+                            <div class="frame">
+                                <a href="#" class="img type5"><img src="/images/indexImages/temp/temp.jpg"></a>
+                                <div class="widget">
+
+                                    <a href="javascript:;" class="del left"></a>
+                                    
+                                </div>
+                            </div>
+                            <p class="name"><a href="#">我喜欢的创作我喜欢的创作我喜欢的创作我喜欢的创作</a></p>
+                            
+                        </div>
+
+                    </div>
+	
+            	    </div>
+             		<div class="part">
+                        <p class="timerecord">2019/11/12 <span>共123条浏览记录</span></p>
+                        <div class="boxlist clearfix">
+                        <!--作品-->
+                        <% for(var i=0;i<1;i++){ %>
+                        <% for(var j=1;j<5;j++){ %>    
+                        <div class="box">
+                            <div class="frame">
+                                <a href="#" class="img type2"><img src="/images/indexImages/temp/temp.jpg"><i class="icon icon<%= j %>"></i></a>
+                                <div class="widget">
+
+                                    <a href="javascript:;" class="del left"></a>
+                                    
+                                </div>
+                            </div>
+                            <p class="name"><a href="#">我喜欢的创作我喜欢的创作我喜欢的创作我喜欢的创作</a></p>
+                            
+                        </div>
+                        <% } %>
+                        <% } %>
+                        <!--微刊-->
+                        <div class="box">
+                            <div class="frame">
+                                <a href="#" class="img type2"><img src="/images/indexImages/temp/temp.jpg"></a>
+                                <div class="widget">
+
+                                    <a href="javascript:;" class="del left"></a>
+                                    
+                                </div>
+                            </div>
+                            <p class="name"><a href="#">我喜欢的创作我喜欢的创作我喜欢的创作我喜欢的创作</a></p>
+                            
+                        </div>
+                        <!--期刊、图书-->
+                        <div class="box">
+                            <div class="frame">
+                                <a href="#" class="img type3"><img src="/images/indexImages/temp/temp.jpg"></a>
+                                <div class="widget">
+
+                                    <a href="javascript:;" class="del left"></a>
+                                    
+                                </div>
+                            </div>
+                            <p class="name"><a href="#">我喜欢的创作我喜欢的创作我喜欢的创作我喜欢的创作</a></p>
+                            
+                        </div>
+                        <!--文献-->
+                        <div class="box">
+                            <div class="frame">
+                                <a href="#" class="img type4"><img src="/images/indexImages/temp/temp.jpg"></a>
+                                <div class="widget">
+
+                                    <a href="javascript:;" class="del left"></a>
+                                    
+                                </div>
+                            </div>
+                            <p class="name"><a href="#">我喜欢的创作我喜欢的创作我喜欢的创作我喜欢的创作</a></p>
+                            
+                        </div>
+                        <!--典言-->
+                        <div class="box">
+                            <div class="frame">
+                                <a href="#" class="img type5"><img src="/images/indexImages/temp/temp.jpg"></a>
+                                <div class="widget">
+
+                                    <a href="javascript:;" class="del left"></a>
+                                    
+                                </div>
+                            </div>
+                            <p class="name"><a href="#">我喜欢的创作我喜欢的创作我喜欢的创作我喜欢的创作</a></p>
+                            
+                        </div>
+
+                    </div>
+    
+                    </div>
+            		<div class="sp-page">
+                <span class="current">1</span><a href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">2</a><a
+                    href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">3</a><a
+                    href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">4</a><a
+                    href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">5</a><a
+                    href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">6</a><span>...</span><a
+                    href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">下一页</a><a
+                    href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">尾页</a>
+            </div>
+            	</div>
+            </div>
+        </div>
+    </div>
+<%- include('../layouts/footerLayout', {}) %>
+<script>
+   'use strict'
+
+</script>
+</body>
+</html>

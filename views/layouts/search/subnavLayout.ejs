@@ -1,0 +1,19 @@
+
+<div class="search-nav">
+    <div class="w1200Auto">
+        <a href="<%= ejsFunctions.encodeURL('/search/home?keyword='+keyword) %>" <% if(current == 0){ %>class="cur"
+            <% } %>>首页</a>
+        <a href="<%= ejsFunctions.encodeURL('/search/works?keyword='+keyword) %>" <% if(current == 1){ %>class="cur"
+            <% } %>>作品</a>
+        <a href="<%= ejsFunctions.encodeURL('/search/microbook?keyword='+keyword) %>" <% if(current == 2){ %>class="cur"
+            <% } %>>微刊</a>
+        <a href="<%= ejsFunctions.encodeURL('/search/period?keyword='+keyword) %>" <% if(current == 3){ %>class="cur"
+            <% } %>>期刊</a>
+        <a href="<%= ejsFunctions.encodeURL('/search/book?keyword='+keyword) %>" <% if(current == 4){ %>class="cur"
+            <% } %>>图书</a>
+        <a href="<%= ejsFunctions.encodeURL('/search/kdh?keyword='+keyword) %>" <% if(current == 5){ %>class="cur"
+            <% } %>>看典号</a>
+        <a href="<%= ejsFunctions.encodeURL('/literature/literatureResult?fulltext='+keyword) %>" <% if(current == 6){ %>class="cur"
+            <% } %>>文献</a>
+    </div>
+</div>

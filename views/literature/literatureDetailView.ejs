@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('../layouts/headLayout', {}) %>
+        <link rel="stylesheet" type="text/css" href="/css/literature/literature.css" />
+        <link rel="stylesheet" type="text/css" href="/css/literature/literature-artist.css" />
+        <script src="/js/imageShow.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/js/super_slider.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body bgcolor="#F6F6F6">
+    <!--header-->
+    <%- include('../layouts/libraryNavLayout', {}) %>
+        <div class="articelWrap clearfix">
+            <div class="al left">
+                <div class="atop">
+                    <span class="logo"></span>
+                    <h1 class="title">
+                        <%= viewModel.data.artilce.title %>
+                    </h1>
+                    <p class="author"><span><%= viewModel.data.artilce.author %></span></p>
+                    <p class="paragraph">
+                        <%= viewModel.data.artilce.summary %><span>（共<%= viewModel.data.artilce.pageCount %>页）</span>
+                    </p>
+                    <div class="sliderBox" style="display: none;">
+                        <span class="prev"></span>
+                        <div>
+                            <ul id="roll">
+                                <li>
+                                    <a href="#" class="img" target="_blank"><span><img src="/images/temp.jpg"></span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="img" target="_blank"><span><img src="/images/temp.jpg"></span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="img" target="_blank"><span><img src="/images/temp.jpg"></span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="img" target="_blank"><span><img src="/images/temp.jpg"></span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="img" target="_blank"><span><img src="/images/temp.jpg"></span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="img" target="_blank"><span><img src="/images/temp.jpg"></span></a>
+                                </li>
+                                <li>
+                                    <a href="#" class="img" target="_blank"><span><img src="/images/temp.jpg"></span></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <span class="next"></span>
+                    </div>
+                    <script>
+                        $(".sliderBox").superSlider({
+                            prevBtn: ".prev", //左按钮
+                            nextBtn: ".next", //右按钮
+                            listCont: "#roll", //滚动列表外层
+                            scrollWhere: "prev", //自动滚动方向next
+                            delayTime: 1000, //自动轮播时间间隔
+                            speed: 500, //滚动速度
+                            amount: 1, //单次滚动数量
+                            showNum: 4, //显示数量
+                            autoPlay: false //自动播放
+                        });
+                    </script>
+                    <div class="handler clearfix">
+                        <a href="/literature/download?filename=<%=viewModel.filename%>" class="btn"><img src="/images/literature/licon24.gif"></a>
+                        <div class="ewm"><img src="/images/literature/licon28.png">
+                            <div class="pop">
+                                <p>扫描二维码 前往手机版</p>
+                                <img src="/images/literature/licon30.jpg" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="operate">
+                        <a href="javascript:;" class="collect">收藏</a>&nbsp;|&nbsp;<a href="javascript:;" class="share">分享</a>
+                        <div class="sharebox">
+                            <a href="javascript:;"><img src="/images/literature/qq.gif" title="分享到QQ"></a>
+                            <a href="javascript:;"><img src="/images/literature/sina.gif" title="分享到微博"></a>
+                            <a href="javascript:;"><img src="/images/literature/wechat.gif" title="分享到微信"></a>
+                        </div>
+
+                    </div>
+                    <div class="similar" style="display:none;">
+                        <h2>相似文献</h2>
+                        <div id="similar"></div>
+                    </div>
+                </div>
+                <div class="abottom" style="display: none;">
+                    <h3><span>看典推荐</span><a href="/discovery">更多>> </a></h3>
+                    <ul id="worksRecommend" class="clearfix"></ul>
+                </div>
+            </div>
+            <div class="ar left">
+                <div class="box1">
+                    <span class="logo">来源期刊</span>
+                    <a title="<%= viewModel.data.journal.title %>" href="/detail/singlePeriodDetail/<%= viewModel.data.journal.thname %>" target="_blank" class="img"><img
+                        src="<%= viewModel.data.journal.coverpic %>"/></a>
+                    <p class="p1">
+                        <a title="<%= viewModel.data.journal.title %>" href="/detail/singlePeriodDetail/<%= viewModel.data.journal.thname %>" target="_blank">
+                            <%= viewModel.data.journal.title %>
+                        </a>
+                    </p>
+                    <p class="p2">
+                        <%= viewModel.data.journal.name %>
+                    </p>
+                </div>
+                <div class="box2" style="display: none;">
+                    <h1><span>最新刊期</span><a href="#" target="_blank">查看全部往期 >></a></h1>
+                    <ul id="pastPeriods" class="clearfix"></ul>
+                </div>
+            </div>
+        </div>
+        <!--footer-->
+        <%- include('../layouts/footerLayout', {}) %>
+            <div style="display: none;">
+                <input type="hidden" id="filename" value="<%= viewModel.data.artilce.fileName %>">
+                <input type="hidden" id="thName" value="<%= viewModel.data.journal.thname %>">
+            </div>
+            <script>
+                var similar = $('#similar');
+                var filename = $('#filename').val();
+                var roll = $('#roll');
+                var sliderBox = $('.sliderBox');
+                var thName = $('#thName').val();
+                var worksRecommend = $('#worksRecommend');
+                var pastPeriods = $('#pastPeriods');
+                var time = 50;
+
+                // 获取文献图片
+                var literaturePicsUrl = '/literature/getLiteraturePics?filename=' + filename;
+                $.ajax({
+                    url: literaturePicsUrl,
+                    dataType: "json",
+                    type: "GET",
+                    success: function(response) {
+                        // console.log(response)
+                        if (response.Code == 1) {
+                            var list = response.ImgUrls;
+                            var str = '';
+                            if (list && list.length > 0) {
+                                for (var i = 0; i < list.length; i++) {
+                                    str += '<li>' +
+                                        '      <a class=img><span><img src="' + list[i] + '"></span></a>' +
+                                        '   </li>';
+                                }
+                                roll.html(str);
+                                sliderBox.slideDown(time);
+                            }
+                        } else {
+                            console.log('请检查获取文献图片接口！');
+                        }
+                        list = null;
+                    },
+                    error: function(error) {
+                        //请求出错处理
+                        console.log(error);
+                    }
+                });
+                // 获取相似文献
+                var similarUrl = '/literature/getSimilarLiterature?filename=' + filename;
+                $.ajax({
+                    url: similarUrl,
+                    dataType: "json",
+                    type: "GET",
+                    success: function(response) {
+                        console.log(response.data)
+                        if (response.code == 0) {
+                            var list = response.data.list;
+                            var str = '';
+                            if (list && list.length > 0) {
+                                for (var i = 0; i < list.length; i++) {
+                                    str += '<p>' + parseInt(i + 1) + '&nbsp;<span>' + list[i].Author + '</span><a target="_blank" href="/literature/literatureDetail?filename=' + list[i].Filename + '&dbType=' + list[i].Type + '">' + list[i].Title + '</a><span><a class="cbs" href="#">' + list[i].Name + '</a>；' + list[i].Year + '年' + list[i].Period + '期</span></p>'
+                                }
+                                similar.html(str);
+                                similar.parent().slideDown(time);
+                            }
+                        } else {
+                            console.log('请检查接口是否有数据返回或查看传参是否正确！');
+                        }
+                        list = null;
+                    },
+                    error: function(error) {
+                        //请求出错处理
+                        console.log(error);
+                    }
+                });
+                // 获取往期期刊
+                var pastPeriodsUrl = '/literature/getPastPeriod?thName=' + thName;
+                $.ajax({
+                    url: pastPeriodsUrl,
+                    dataType: "json",
+                    type: "GET",
+                    success: function(response) {
+                        if (response.pastperiod && response.pastperiod.length > 0) {
+                            var str = '';
+                            for (var i = 0; i < response.pastperiod.length; i++) {
+                                str += '<li>' +
+                                    '         <a title="' + response.pastperiod[i].name + '" href="/detail/singlePeriodDetail/' + response.pastperiod[i].thname + '" target="_blank" class="img"><img src="' + response.pastperiod[i].coverpic + '"></a>' +
+                                    '         <p><a title="' + response.pastperiod[i].name + '" href="/detail/singlePeriodDetail/' + response.pastperiod[i].thname + '" target="_blank" >' + response.pastperiod[i].name + '</a></p>' +
+                                    '         <p class="pp">' + response.pastperiod[i].year + '年' + response.pastperiod[i].period + '期</p>' +
+                                    '   </li>';
+                            }
+                            pastPeriods.html(str);
+                            pastPeriods.parent().slideDown(time);
+                        } else {
+                            console.log('前端获取往期期刊接口');
+                        }
+                    },
+                    error: function(error) {
+                        //请求出错处理
+                        console.log(error);
+                    }
+                });
+
+                // 看典推荐
+                var worksRecommendUrl = '/discoveryMore';
+                $.ajax({
+                    url: worksRecommendUrl,
+                    dataType: "json",
+                    data: {
+                        count: 4,
+                        sort: 'submittime'
+                    },
+                    type: "POST",
+                    success: function(response) {
+                        // console.log(response)
+                        if (response.list && response.list.length > 0) {
+                            var str = '';
+                            for (var i = 0; i < response.list.length; i++) {
+                                str += '<li>' +
+                                    '         <a target="_blank" href="/detail/workDetail?id=' + response.list[i].id + '&mediatype=' + response.list[i].mediatype + '" class="img"><img src="' + response.list[i].coverpic + '"/></a>' +
+                                    '         <p class="p1"><a href="#">' + response.list[i].title + '</a></p>' +
+                                    '         <p class="p2"><a target="_blank" href="/kdh/home/' + response.list[i].orgid + '"><img src="' + response.list[i].logopic + '">' + response.list[i].orgname + '</a></p>' +
+                                    '   </li>'
+                            }
+                            worksRecommend.html(str);
+                            worksRecommend.parent().slideDown(time);
+                        } else {
+                            console.log('请检查接口是否有数据返回或查看传参是否正确！');
+                        }
+                        list = null;
+                    },
+                    error: function(error) {
+                        //请求出错处理
+                        console.log(error);
+                    }
+                });
+
+
+
+                // 加载图片插件
+                //图片尺寸
+                var imgdefereds = [];
+                jQuery('img').each(function() {
+                    var dfd = jQuery.Deferred();
+                    $(this).bind('load', function() {
+                        dfd.resolve(); //load执行代表图片加载完成
+                    }).bind('error', function() {
+                        //图片加载错误，加入错误处理
+                        // dfd.resolve();
+                    });
+
+                    if (this.complete) { //complete属性为true，代表图片加载完成
+                        dfd.resolve();
+                    }
+                    imgdefereds.push(dfd);
+                })
+                jQuery.when.apply(null, imgdefereds).done(function() {
+                    imgSize($("#roll img"), 140, 102)
+                });
+                //收藏分享
+                $(".collect, .share").click(function() {
+                    $(this).toggleClass("click")
+                })
+                $(".share").click(function() {
+                    $(this).siblings(".sharebox").fadeToggle()
+                })
+            </script>
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../layouts/headLayout', {}) %>
+    <link rel="stylesheet" type="text/css" href="/css/mall/mall.css"/>
+</head>
+<body>
+    <%- include('../layouts/mall/navLayout', {current: 0,sublogo:true}) %>
+    <div class="booklist-banner"></div>
+    <div class="booklist-main">
+        <div class="booklist-navs clearfix"></div>
+        <div class="booklist-items clearfix"></div>
+        <div class="booklist-pages"></div>      
+    </div>
+    <%- include('../layouts/mall/footerLayout') %>
+    <!-- <div class="footer blfooter">
+        <p>数字出版：《中国学术期刊（光盘版）》电子杂志社有限公司</p>
+        <p>京ICP证040431号&nbsp;互联网出版许可证&nbsp;新出网证(京)字271号&nbsp;北京市公安局海淀分局&nbsp;备案号11010802020460</p>
+    </div> -->
+    <script src="/js/plugin/jquery.methods.js"></script>
+    <script>
+        getMallBooklist();
+        getBooklistCateGory();
+        function getBooklistCateGory(parentcode) {
+            var parentcode = parentcode || '';
+            var url = '/mall/getBooklistCateGory?parentcode='+parentcode;
+            $.ajax({
+                type: "GET",
+                url: url, 
+                dataType: "json",
+                success: function(response) {
+                    if (response.code == 0) {
+                        var list = response.data.list;
+                        if (list && list.length > 0){
+                            var str = '<span class="current">全部书单</span>';
+                            for (let i = 0; i < list.length; i++) {
+                                str += '<span data-code="'+list[i].code+'">'+list[i].name+'</span>';
+                            }
+                            $('.booklist-navs').html(str);
+                        }
+                    }   
+                }
+            });
+        }
+        function getMallBooklist(code,pageNum) {
+            var url = '/mall/getMallBooklist';
+            var pageNum = pageNum || 1;
+            var code = code || '';
+            var limit = 8;
+            $.ajax({
+                type: "GET",
+                url: url, 
+                data: {
+                    code: code,
+                    pageNum: pageNum,
+                    limit: limit
+                },
+                dataType: "json",
+                success: function(response) {
+                    if (response.code == 0) {
+                        var total = response.data.total;
+                        var booklist = response.data.list;
+                        var str = '';
+                        if (total > 0){
+                            for (var i = 0; i < booklist.length; i++) {
+                                str += '<div class="booklist-item" data-code="'+booklist[i].shelfcode+'">'+
+                                            '<a href="/mall/booklistDetail?booklistId='+booklist[i].shelfid+'" title="'+booklist[i].shelftitle+'" target="_blank">'+
+                                                '<img src="'+booklist[i].coverpic+'" alt="">'+
+                                            '</a>'+
+                                            '<p class="booklist-item-title"><a href="/mall/booklistDetail?booklistId='+booklist[i].shelfid+'" title="'+booklist[i].shelftitle+'" target="_blank">'+booklist[i].shelftitle+'</a></p>'+
+                                            '<div class="booklist-item-numbers">'+
+                                                '<span class="booklist-works-number">'+booklist[i].detailcount+'</span>'+
+                                                '<span class="booklist-view-number">'+booklist[i].viewcount+'</span>'+
+                                                '<span class="booklist-collect-number active">'+booklist[i].collectcount+'</span>'+
+                                            '</div>'+
+                                        '</div>';
+                            }
+                            $('.booklist-items').html(str);
+                            var pageStr = $.kd.outputPager(total, limit, 5, pageNum);
+                            $('.booklist-pages').html(pageStr);
+                        }
+                    }   
+                }
+            });
+        }
+        $('.booklist-navs').on('click','span',function () {
+            var code = $(this).attr('data-code');
+            $(this).addClass('current').siblings().removeClass('current');
+            getMallBooklist(code);
+        })
+        $('.booklist-pages').on('click', 'a', function() {
+            var code = $('.booklist-navs span.current').attr('data-code');
+            var pageNum = $(this).attr('data-page');
+            getMallBooklist(code,pageNum);
+        });
+    </script>
+</body>
+</html>

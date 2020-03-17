@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('../layouts/headLayout', {}) %>
+        <link rel="stylesheet" type="text/css" href="/css/reglog/reglog.css" />
+        <script src="/js/jquery.enplaceholder.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body class="bg1">
+    <form id="form" method="post" action="/userCenter/login" enctype="application/x-www-form-urlencoded">
+        <div class="login">
+                <div class="header">
+                    <a href="/" target="_blank" class="left"><img src="/images/reglog/rl-logo4.png"/></a>
+                    <img class="right" src="/images/reglog/rl-logo5.png"/>
+                </div>
+                <div class="clearfix" style="margin-bottom: 110px;">
+                    <div class="loginbody right">
+                        <h1><span class="left">会员登录</span><a href="/userCenter/register" class="right">立即注册</a></h1>
+                        <div class="frame">
+                            <div class="item name">
+                                <label for="name"></label>
+                                <input type="text" name="name" id="name" placeholder="用户名/邮箱/手机号（知网会员可直接登录）" />
+                            </div>
+                            <div class="item psw">
+                                <label for="psw"></label>
+                                <input type="password" name="psw" id="psw" placeholder="请输入密码" />
+                                
+                            </div>
+                            <p style="display: none;" class="error">用户名或密码错误，请重新输入！</p>
+                            <a id="loginBtn" href="javascript:;" class="loginBtn">登&nbsp;&nbsp;录</a>
+                            <div class="info">
+                                <span class="checkbox">记住密码</span>
+                                <input type="checkbox" name="rememberPws" id="rememberPws" style="display: none;">
+                                <a href="#" target="_blank" class="forpsw">忘记密码？</a>
+                            </div>
+                            <div class="fastlogin">
+                                <h2>快速登录</h2>
+                                <div class="ways">
+                                    <a href="" class="qq"></a>
+                                    <a href="" class="wechat"></a>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <p class="linkreg">还没有账号？<a href="/userCenter/register">立即注册</a></p>
+                    </div>
+                </div>
+        </div>
+    </form>
+
+    <%- include('../layouts/reglog/footerLayout', {}) %>
+
+        <script>
+            'use strict'
+            // 切换记住密码
+            var rememberPws = $('#rememberPws');
+            var isChecked = 0;
+            $("input").placeholder()
+            $(".checkbox").click(function() {
+                $(this).toggleClass("c");
+                if (rememberPws.is(":checked")) {
+                    isChecked = 0;
+                    rememberPws.attr('checked', false);
+                } else {
+                    isChecked = 1;
+                    rememberPws.attr('checked', true);
+                }
+            })
+
+            // 登录------------------------------------------------//
+            var loginBtn = $('#loginBtn');
+            var form = $('#form');
+            loginBtn.click(function() {
+                // form.submit();
+                var username = $('#name').val();
+                var password = $('#psw').val();
+                var errorP = $('.error');
+                var originalUrl = $('#originalUrl').val();
+                var loginCheckingUrl = '/userCenter/loginChecking?username=' + username + '&password=' + password + '&rememberPws=' + isChecked;
+                $.ajax({
+                    url: loginCheckingUrl,
+                    dataType: "json",
+                    type: "get",
+                    success: function(response) {
+                        // console.log(response)
+                        if (response.errorCode == 1) {
+                            location.href = document.referrer;
+                            if (document.referrer == '') {
+                                location.href = '/';
+                            }
+                            // if(originalUrl && originalUrl.length>0){
+                            //     location.href = originalUrl;
+                            // }else{
+                            //
+                            // }
+                        } else {
+                            errorP.show();
+                        }
+                    },
+                    error: function(error) {
+                        //请求出错处理
+                        console.log(error);
+                    }
+                });
+            })
+        </script>
+
+
+
+</script>
+</body>
+
+</html>

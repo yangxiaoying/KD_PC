@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../layouts/headLayout', {}) %>
+    <link rel="stylesheet" type="text/css" href="/css/personalCenter/personal.css"/>
+     <script src="/js/jquery.promptToggle.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/jquery-tableMenu.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body bgcolor="#F4F4F4">
+<%- include('../layouts/navLayout', {current:null}) %>
+    <div class="personalMain clearfix">
+        <%- include('../layouts/personal/menuLayout', {current:2,active:5}) %>
+        <div class="contentWrap billsWrap">
+        	<h1 class="fp"><span>发票索取</span><a href="/personalCenter/myBills">返回我的账单>></a></h1>
+        	<div class="billBlock">
+        		<div class="tools">
+        			<div class="tabs left">
+        				<a href="javascript:;" class="cur">未开票</a>
+        				<a href="javascript:;">已开票</a>
+        			</div>
+        		</div>
+        		<div class="tabc" style="display: block;">
+        	       <table class="table tableMargin" border="0" cellspacing="0" cellpadding="0">
+        	      		<tr>
+        	      	    <th>序号</th>
+        	      	    <th>订单编号</th>
+        	      	    <th>充值方式</th>
+        	      	    <th>充值金额</th>
+        	      	    <th>赠券金额</th>
+        	      	    <th class="last">充值时间</th>
+        	      	</tr>
+        	      	    <% for(var i=1;i<16;i++){ %>
+        	      		<tr>
+        	      	    <% if(i<10){ %>
+        	      	    <td><div><span class="checkbox"></span><label for="">0<%= i %></label></div></td>
+        	      	    <% } else{ %>
+        	      	    <td><div><span class="checkbox"></span><label for=""><%= i %></label></div></td>   
+        	      	    <% } %>
+        	      	    <td>wechat1902281455341762</td>
+        	      	    <td>微信支付</td>
+        	      	    <td>200.00元</td>
+        	      	    <td>50.00元</td>
+        	      	    <td class="last">2019-02-28 14:56</td>
+        	      	</tr>
+        	      	    <% } %>
+        	      </table>
+        	       <div class="bottomBar">
+        	       	 <div class="all left">全部选择</div>
+        	       	 <a href="/personalCenter/invoiceInfo" class="kp">去开票>></a>
+        	       	 <p>已选择<span>2</span>个订单，开票金额共计：<span>300.00</span>元</p>
+        	       </div>
+        		</div> 
+        	    <div class="tabc">
+               <table class="table tableMargin" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                        <th width="73">序号</th>
+                        <th width="186">开票时间</th>
+                        <th width="152">发票类型</th>
+                        <th width="156">发票内容</th>
+                        <th width="166">开票金额</th>
+                        <th width="156" class="last">操作</th>
+                    </tr>
+                        <% for(var i=1;i<16;i++){ %>
+                        <tr>
+                        <% if(i<10){ %>
+                        <td>0<%= i %></td>
+                        <% } else{ %>
+                        <td><%= i %></td>   
+                        <% } %>
+                        <td>2019-02-28 14:56</td>
+                        <td>个人</td>
+                        <td>资料检索费</td>
+                        <td>50.00元</td>
+                        <td class="last"><a href="/personalCenter/invoiceDetail" target="_blank">查看详情</a></td>
+                    </tr>
+                        <% } %>
+                  </table>
+                  <div class="sp-page">
+                        <span class="current">1</span><a href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">2</a><a
+                            href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">3</a><a
+                            href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">4</a><a
+                            href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">5</a><a
+                            href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">6</a><span>...</span><a
+                            href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">下一页</a><a
+                            href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">尾页</a>
+            </div>
+        	    	
+        	    </div>
+        	</div>
+        </div>
+    </div>
+<%- include('../layouts/footerLayout', {}) %>
+<script>
+   'use strict'
+   //选项卡
+   TableTransition($(".tabs a"),$(".tabc"),"click","cur")
+   //表格隔行变色
+   $(".table tr:even").find("td").addClass("bg")
+   //复选框
+   $("td div").click(function(){
+       $(this).find(".checkbox").toggleClass("checked")
+   })
+   $(".all").click(function(){
+       $(this).toggleClass("checked")
+       if($(this).hasClass("checked")){
+           $("td .checkbox").addClass("checked")
+       }
+       else{$("td .checkbox").removeClass("checked")}
+   })
+</script>
+</body>
+</html>

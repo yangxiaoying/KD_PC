@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../layouts/headLayout', {}) %>
+    <link rel="stylesheet" type="text/css" href="/css/mall/mall.css"/>
+</head>
+<body>
+    <%- include('../layouts/mall/navLayout', {current: 0,sublogo:true}) %>
+    <div class="booklist-detail-banner">
+        <div class="booklist-detail-title"></div>
+    </div>
+    <div class="booklist-detail-recommendword">
+        <div class="booklist-recommendword-wrap">
+            <div class="booklist-recommendword-title">— — 推荐语 — —</div>
+            <div class="booklist-recommendword-content"></div>
+        </div>
+    </div>
+    <div class="booklist-main booklist-detail-main">
+        <div class="booklist-detail-numbers">
+            <span class="booklist-works-number">124</span>
+            <span class="booklist-view-number">45</span>
+            <span class="booklist-collect-number">7895</span>
+        </div>
+        <div class="booklist-detail-items clearfix">
+            <!-- 20条 -->
+            <!-- <div class="booklist-detail-item">
+                <a class="img" href="" title="" target="_blank">
+                    <img src="http://via.placeholder.com/172x239" alt="">
+                </a>
+                <p class="title"><a href="" title="标题" target="_blank"></a></p>
+                <p class="author">作者</p> 
+            </div> -->
+        </div>
+        <div class="booklist-pages"></div>      
+    </div>
+    <%- include('../layouts/mall/footerLayout') %>
+    <script src="/js/plugin/jquery.methods.js"></script>
+    <script>
+        var booklistId = $.kd.getparams("booklistId");
+        getBooklistDetail(booklistId);
+        function getBooklistDetail(booklistId,pageNum) {
+            var url = '/mall/getBooklistDetail';
+            var pageNum = pageNum || 1;
+            var booklistId = booklistId || '';
+            var limit = 20;
+            $.ajax({
+                type: "GET",
+                url: url, 
+                data: {
+                    pageNum: pageNum,
+                    limit: limit,
+                    booklistId: booklistId
+                },
+                dataType: "json",
+                success: function(response) {
+                    if (response.code == 0) {
+                        var total = response.data.detail.total;
+                        var list = response.data.detail.list;
+                        var booklistInfo = response.data.shelf;
+                        if(booklistInfo){
+                            $('.booklist-detail-title').html(booklistInfo.shelftitle);
+                            $('.booklist-recommendword-content').html(booklistInfo.shelfmemo);
+                            $('.booklist-works-number').html(booklistInfo.detailcount);
+                            $('.booklist-view-number').html(booklistInfo.viewcount);
+                            $('.booklist-collect-number').html(booklistInfo.collectcount);
+                        }
+                        if (total > 0){
+                            var str = '';
+                            for (var i = 0; i < list.length; i++) {
+                                str += '<div class="booklist-detail-item">'+
+                                            '<a class="img" href="/detail/bookDetail/'+list[i].code+'" title="'+list[i].title+'" target="_blank">'+
+                                                '<img src="'+list[i].coverpic+'" alt="">'+
+                                            '</a>'+
+                                            '<p class="title"><a href="/detail/bookDetail/'+list[i].code+'" title="'+list[i].title+'" target="_blank">'+list[i].title+'</a></p>'+  
+                                        '</div>';
+                            }
+                            $('.booklist-detail-items ').html(str);
+                            var pageStr = $.kd.outputPager(total, limit, 5, pageNum);
+                            $('.booklist-pages').html(pageStr);
+                        }
+                    }   
+                }
+            });
+        }
+        $('.booklist-pages').on('click', 'a', function() {
+            var pageNum = $(this).attr('data-page');
+            getBooklistDetail(booklistId,pageNum);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../layouts/headLayout', {}) %>
+    <link rel="stylesheet" type="text/css" href="/css/personalCenter/personal.css"/>
+    <script src="/js/divSelect.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/jquery.promptToggle.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/plugin/jquery.methods.js"></script>
+</head>
+<body bgcolor="#F4F4F4">
+<%- include('../layouts/navLayout', {current:null}) %>
+<div class="personalMain clearfix">
+    <%- include('../layouts/personal/menuLayout', {current:1,active:1}) %>
+    <div class="contentWrap">
+        <h1 class="sc">
+            <span>我的收藏</span>
+            <div class="control">
+                <a href="javascript:;" class="ba ba1">新建收藏夹</a>
+                <a href="javascript:;" class="ba ba2">批量管理</a>
+                <div class="tools">
+                    <a href="javascript:;" class="a a1">删除</a>
+                    <a href="javascript:;" class="a a2">移至收藏夹</a>
+                    <a href="javascript:;" class="checkbox">全选</a>
+                </div>
+            </div>
+        </h1>
+        <div class="collectWrap">
+            <div class="bar">
+                <div class="select left">
+                    <p>全部（132）</p>
+                    <ul>
+                        <li>全部（132）</li>
+                        <li>作品（132）</li>
+                        <li>微刊（132）</li>
+                        <li>期刊（132）</li>
+                        <li>图书（132）</li>
+                        <li>文献（132）</li>
+                        <li>典言（132）</li>
+                    </ul>
+                </div>
+                <div class="showtab right">
+                    <a href="javascript:;" class="left datu cur"></a>
+                    <a href="javascript:;" class="left liebiao"></a>
+
+                </div>
+            </div>
+            <!--大图-->
+            <div class="tabarea t1" style="display:block;">
+                <div id="boxlist" class="boxlist clearfix">
+                    <% for(var i = 0, list = viewModel.data.list; i < list.length; i++){ %>
+                    <% if(list[i].typeid == 100){ %>
+                    <!--收藏夹-->
+                    <div class="box">
+                        <div class="frame">
+                            <a href="javascript:;" class="img type1"><img src="/images/personal/p-colletc-file.png"></a>
+                            <div class="widget">
+                                <a href="javascript:;" class="edit left"></a>
+                                <a href="javascript:;" class="del left"></a>
+                            </div>
+                        </div>
+                        <p class="name"><a href="javascript:;"><%= list[i].foreignname %></a></p>
+                        <div class="editbox">
+                            <input type="text" class="colorGrey" value="请输入收藏夹名称"/>
+                            <a href="javascript:;" class="sure"></a>
+                            <a href="javascript:;" class="cancel"></a>
+                        </div>
+                    </div>
+                    <% }else if(list[i].typeid == 0){ %>
+                    <!--作品-->
+                    <div class="box">
+                        <div class="frame">
+                            <a target="_blank"
+                               href="/detail/workDetail?id=<%= list[i].foreignkeyid %>&mediatype=<%= list[i].mediatype %>"
+                               class="img type2">
+                                <img src="<%= list[i].coverpic %>">
+                                <% if(list[i].mediatype == 1){ %>
+                                <!--图文-->
+                                <i class="icon icon1"></i>
+                                <% }else if(list[i].mediatype == 2){ %>
+                                <!---音频-->
+                                <i class="icon icon2"></i>
+                                <% }else if(list[i].mediatype == 3){ %>
+                                <!--视频-->
+                                <i class="icon icon4"></i>
+                                <% }else if(list[i].mediatype == 4){ %>
+                                <!--图集-->
+                                <i class="icon icon3"></i>
+                                <% } %>
+                            </a>
+                            <div class="widget">
+                                <a href="javascript:;" class="zy left"></a>
+                                <a href="javascript:;" class="del left"></a>
+                            </div>
+                        </div>
+                        <p class="name"><a target="_blank"
+                                           href="/detail/workDetail?id=<%= list[i].foreignkeyid %>&mediatype=<%= list[i].mediatype %>"><%= list[i].foreignname %></a>
+                        </p>
+                        <a href="javascript:;" class="shadow"></a>
+                    </div>
+                    <% }else if(list[i].typeid == 1){ %>
+                    <!--微刊-->
+                    <div class="box">
+                        <div class="frame">
+                            <a target="_blank" href="/detail/microBookDetail?id=<%= list[i].foreignkeyid %>"
+                               class="img type2"><img src="<%= list[i].coverpic %>"></a>
+                            <div class="widget">
+                                <a href="javascript:;" class="zy left"></a>
+                                <a href="javascript:;" class="del left"></a>
+                            </div>
+                        </div>
+                        <p class="name"><a target="_blank"
+                                           href="/detail/microBookDetail?id=<%= list[i].foreignkeyid %>"><%= list[i].foreignname %></a>
+                        </p>
+                        <a href="javascript:;" class="shadow"></a>
+                    </div>
+                    <% }else if(list[i].typeid == 2){ %>
+                    <!--朗读-->
+                    <% }else if(list[i].typeid == 3){ %>
+                    <!--典言-->
+                    <div class="box">
+                        <div class="frame">
+                            <a href="#" class="img type5"><img src="/images/indexImages/temp/temp.jpg"></a>
+                            <div class="widget">
+                                <a href="javascript:;" class="zy left"></a>
+                                <a href="javascript:;" class="del left"></a>
+                            </div>
+                        </div>
+                        <p class="name"><a href="#">我喜欢的创作我喜欢的创作我喜欢的创作我喜欢的创作</a></p>
+                        <a href="javascript:;" class="shadow"></a>
+                    </div>
+                    <% }else if(list[i].typeid == 4 || list[i].typeid == 5){ %>
+                    <!--期刊、图书-->
+                    <div class="box">
+                        <div class="frame">
+                            <a target="_blank" href="/detail/singlePeriodDetail/<%= list[i].foreignkeyid %>"
+                               class="img type3"><img src="<%= list[i].coverpic %>"></a>
+                            <div class="widget">
+                                <a href="javascript:;" class="zy left"></a>
+                                <a href="javascript:;" class="del left"></a>
+                            </div>
+                        </div>
+                        <p class="name"><a target="_blank"
+                                           href="/detail/singlePeriodDetail/<%= list[i].foreignkeyid %>"><%= list[i].foreignname %></a>
+                        </p>
+                        <a href="javascript:;" class="shadow"></a>
+                    </div>
+                    <% }else if(list[i].typeid == 6){ %>
+                    <!--文献-->
+                    <div class="box">
+                        <div class="frame">
+                            <a href="#" class="img type4"><img src="/images/personal/p-colletc-icon6.jpg"></a>
+                            <div class="widget">
+                                <a href="javascript:;" class="zy left"></a>
+                                <a href="javascript:;" class="del left"></a>
+                            </div>
+                        </div>
+                        <p class="name"><a target="_blank" href="#"><%= list[i].foreignname %></a></p>
+                        <a href="javascript:;" class="shadow"></a>
+                    </div>
+                    <% } %>
+                    <% } %>
+                </div>
+                <div id="sp-page" class="sp-page" ref="page"><%- viewModel.pageStr %></div>
+            </div>
+
+            <!--列表-->
+            <div class="tabarea t2">
+                <div class="tablist">
+                    <div class="title">
+                        <span class="part1">资料名称</span>
+                        <span class="part2">类型</span>
+                        <span class="part3">操作</span>
+                    </div>
+                    <div class="box">
+                        <div class="file">
+                            <a href="#" class="name">舌尖上的中国</a>
+                            <div class="editbox">
+                                <input type="text" class="colorGrey" value="请输入收藏夹名称"/>
+                                <a href="javascript:;" class="sure"></a>
+                                <a href="javascript:;" class="cancel"></a>
+                            </div>
+                        </div>
+                        <span class="sort">收藏夹</span>
+                        <div class="widget">
+                            <a href="javascript:;" class="edit"></a>
+                            <a href="javascript:;" class="del"></a>
+                        </div>
+                    </div>
+                    <% for(var i = 1;i < 5;i++){ %>
+                    <div class="box">
+                        <div class="doc">
+                            <a href="#" class="name type<%= i %>">舌尖上的中国</a>
+                        </div>
+                        <span class="sort">作品</span>
+                        <div class="widget">
+                            <a href="javascript:;" class="zy"></a>
+                            <a href="javascript:;" class="del"></a>
+                        </div>
+
+                    </div>
+                    <% } %>
+                    <div class="box">
+                        <div class="doc">
+                            <a href="#" class="name type5">舌尖上的中国</a>
+                        </div>
+                        <span class="sort">微刊</span>
+                        <div class="widget">
+                            <a href="javascript:;" class="zy"></a>
+                            <a href="javascript:;" class="del"></a>
+                        </div>
+
+                    </div>
+                    <div class="box">
+                        <div class="doc">
+                            <a href="#" class="name type6">舌尖上的中国</a>
+                        </div>
+                        <span class="sort">典言</span>
+                        <div class="widget">
+                            <a href="javascript:;" class="zy"></a>
+                            <a href="javascript:;" class="del"></a>
+                        </div>
+
+                    </div>
+                    <div class="box">
+                        <div class="doc">
+                            <a href="#" class="name type7">舌尖上的中国</a>
+                        </div>
+                        <span class="sort">文献</span>
+                        <div class="widget">
+                            <a href="javascript:;" class="zy"></a>
+                            <a href="javascript:;" class="del"></a>
+                        </div>
+
+                    </div>
+                    <div class="box">
+                        <div class="doc">
+                            <a href="#" class="name type8">舌尖上的中国</a>
+                        </div>
+                        <span class="sort">图书</span>
+                        <div class="widget">
+                            <a href="javascript:;" class="zy"></a>
+                            <a href="javascript:;" class="del"></a>
+                        </div>
+
+                    </div>
+                    <div class="box">
+                        <div class="doc">
+                            <a href="#" class="name type9">舌尖上的中国</a>
+                        </div>
+                        <span class="sort">期刊</span>
+                        <div class="widget">
+                            <a href="javascript:;" class="zy"></a>
+                            <a href="javascript:;" class="del"></a>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="sp-page">
+                    <span class="current">1</span><a href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">2</a><a
+                            href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">3</a><a
+                            href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">4</a><a
+                            href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">5</a><a
+                            href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">6</a><span>...</span><a
+                            href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">下一页</a><a
+                            href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">尾页</a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<%- include('../layouts/footerLayout', {}) %>
+<script>
+    'use strict'
+    $.divselect($(".select p"), $(".select ul"), $(".select ul li"));
+    PromptToggle($(".editbox input"), "请输入收藏夹名称", "colorGrey")
+    //列表大图切换
+    $(".showtab a").click(function () {
+        var index = $(".showtab a").index(this)
+        $(this).addClass("cur").siblings().removeClass("cur")
+        $(".tabarea").eq(index).show().siblings(".tabarea").hide()
+    })
+
+    //编辑收藏夹名称
+    $(".widget .edit").click(function () {
+        $(this).parents(".box").find(".name").hide().siblings(".editbox").show()
+    })
+    $(".editbox .cancel").click(function () {
+        $(this).parent().hide().siblings(".name").show()
+    })
+    //批量管理操作
+    $(".control .ba2").click(function () {
+        var text = $(this).text()
+        if (text == "批量管理") {
+            $(this).text("取消管理");
+            $(".control .tools").show();
+            $(".boxlist .box .shadow").show();
+        }
+        else {
+            $(this).text("批量管理");
+            $(".control .tools").hide();
+            $(".boxlist .box .shadow").hide();
+        }
+    })
+    //全选
+    $(".control .tools .checkbox").click(function () {
+        $(this).toggleClass("checked")
+        if ($(this).hasClass("checked")) {
+            $(".box .shadow").addClass("cur")
+        }
+        else {
+            $(".box .shadow").removeClass("cur")
+        }
+    })
+    //选择
+    $(".box .shadow").click(function () {
+        $(this).toggleClass("cur")
+    })
+    //列表选中
+    $(".box .doc").click(function () {
+        $(this).toggleClass("checked")
+    })
+
+</script>
+
+<script>
+    // ---------------------------------------------------------------------
+    var listDom = $('#boxlist');
+    var page = $('.sp-page');
+    var pageA = $('.sp-page a');
+
+    // 获取收藏的所有数据输出（包括页码）
+    function getAllColletedData(pageNum) {
+        var pageNum = pageNum || 1;
+        var url = encodeURI('/pc/collected?pageNum=' + pageNum + '&isAsync=1');
+        $.ajax({
+            url: url,
+            dataType: "json",
+            type: "GET",
+            success: function (response) {
+                console.log('返回的收藏数据：', response)
+                if (response.code == 0) {
+                    var list = response.data.list;
+                    var str = '';
+                    if (list && list.length > 0) {
+                        for (var i = 0; i < list.length; i++) {
+                            if (list[i].typeid == 100) {
+                                //
+                                <!--收藏夹-->
+                                str += '<div class="box">' +
+                                    '                               <div class="frame">' +
+                                    '                               <a href="javascript:;" class="img type1"><img src="/images/personal/p-colletc-file.png"></a>' +
+                                    '                               <div class="widget">' +
+                                    '                               <a href="javascript:;" class="edit left"></a>' +
+                                    '                               <a href="javascript:;" class="del left"></a>' +
+                                    '                               </div>' +
+                                    '                               </div>' +
+                                    '                               <p class="name"><a href="javascript:;">' + list[i].foreignname + '</a></p>' +
+                                    '                           <div class="editbox">' +
+                                    '                               <input type="text" class="colorGrey" value="请输入收藏夹名称" />' +
+                                    '                               <a href="javascript:;" class="sure"></a>' +
+                                    '                               <a href="javascript:;" class="cancel"></a>' +
+                                    '                               </div>' +
+                                    '                               </div>';
+
+                            } else if (list[i].typeid == 0) {
+                                // 作品
+                                var subStr = '';
+                                if (list[i].mediatype == 1) {
+                                    //图文
+                                    subStr = '<i class="icon icon1"></i>';
+                                } else if (list[i].mediatype == 2) {
+                                    // 音频
+                                    subStr = '<i class="icon icon2"></i>';
+                                } else if (list[i].mediatype == 3) {
+                                    // 视频
+                                    subStr = '<i class="icon icon4"></i>';
+                                } else if (list[i].mediatype == 4) {
+                                    // 图集
+                                    subStr = '<i class="icon icon3"></i>';
+                                }
+
+                                str += '<div class="box">' +
+                                    '                               <div class="frame">' +
+                                    '                               <a target="_blank" href="/detail/workDetail?id=' + list[i].foreignkeyid + '&mediatype=' + list[i].mediatype + '" class="img type2">' +
+                                    '                               <img src="' + list[i].coverpic + '">' + subStr + '</a>' +
+                                    '                               <div class="widget">' +
+                                    '                               <a href="javascript:;" class="zy left"></a>' +
+                                    '                               <a href="javascript:;" class="del left"></a>' +
+                                    '                               </div>' +
+                                    '                               </div>' +
+                                    '                               <p class="name"><a target="_blank" href="/detail/workDetail?id=' + list[i].foreignkeyid + '&mediatype=' + list[i].mediatype + '">' + list[i].foreignname + '</a></p>' +
+                                    '                           <a href="javascript:;" class="shadow"></a>' +
+                                    '                               </div>';
+
+                            } else if (list[i].typeid == 1) {
+                                // 微刊
+                                str += '<div class="box">' +
+                                    '                               <div class="frame">' +
+                                    '                               <a target="_blank" href="/detail/microBookDetail?id=' + list[i].foreignkeyid + '" class="img type2"><img src="' + list[i].coverpic + '"></a>' +
+                                    '                               <div class="widget">' +
+                                    '                               <a href="javascript:;" class="zy left"></a>' +
+                                    '                               <a href="javascript:;" class="del left"></a>' +
+                                    '                               </div>' +
+                                    '                               </div>' +
+                                    '                               <p class="name"><a target="_blank" href="/detail/microBookDetail?id=' + list[i].foreignkeyid + '">' + list[i].foreignname + '</a></p>' +
+                                    '                           <a href="javascript:;" class="shadow"></a>' +
+                                    '                               </div>'
+                            } else if (list[i].typeid == 2) {
+                                // 朗读
+                            } else if (list[i].typeid == 3) {
+                                // 典言
+                                str += '<div class="box">' +
+                                    '                               <div class="frame">' +
+                                    '                               <a href="#" class="img type5"><img src="/images/indexImages/temp/temp.jpg"></a>' +
+                                    '                               <div class="widget">' +
+                                    '                               <a href="javascript:;" class="zy left"></a>' +
+                                    '                               <a href="javascript:;" class="del left"></a>' +
+                                    '                               </div>' +
+                                    '                               </div>' +
+                                    '                               <p class="name"><a href="#">我喜欢的创作我喜欢的创作我喜欢的创作我喜欢的创作</a></p>' +
+                                    '                           <a href="javascript:;" class="shadow"></a>' +
+                                    '                               </div>'
+                            } else if (list[i].typeid == 4 || list[i].typeid == 5) {
+                                // 期刊、图书
+                                str += '<div class="box">' +
+                                    '                               <div class="frame">' +
+                                    '                               <a target="_blank" href="/detail/singlePeriodDetail/' + list[i].foreignkeyid + '" class="img type3"><img src="' + list[i].coverpic + '"></a>' +
+                                    '                               <div class="widget">' +
+                                    '                               <a href="javascript:;" class="zy left"></a>' +
+                                    '                               <a href="javascript:;" class="del left"></a>' +
+                                    '                               </div>' +
+                                    '                               </div>' +
+                                    '                               <p class="name"><a target="_blank" href="/detail/singlePeriodDetail/' + list[i].foreignkeyid + '">' + list[i].foreignname + '</a></p>' +
+                                    '                           <a href="javascript:;" class="shadow"></a>' +
+                                    '                               </div>';
+                            } else if (list[i].typeid == 6) {
+                                // 文献
+                                str += '<div class="box">' +
+                                    '                               <div class="frame">' +
+                                    '                               <a href="#" class="img type4"><img src="/images/personal/p-colletc-icon6.jpg"></a>' +
+                                    '                               <div class="widget">' +
+                                    '                               <a href="javascript:;" class="zy left"></a>' +
+                                    '                               <a href="javascript:;" class="del left"></a>' +
+                                    '                               </div>' +
+                                    '                               </div>' +
+                                    '                               <p class="name"><a target="_blank" href="#">' + list[i].foreignname + '</a></p>' +
+                                    '                           <a href="javascript:;" class="shadow"></a>' +
+                                    '                               </div>';
+                            }
+
+                        }
+                        listDom.html(str);
+                        console.log('测试pagenum:',pageNum)
+                        var pageStr = $.kd.outputPager(response.data.total, 12, 5, pageNum);
+                        page.html(pageStr);
+                        page.children('a').click(function () {
+                            var pageNum = $(this).attr('data-page');
+                            getAllColletedData(pageNum);
+                            // 回顶部
+                            $('body,html').animate({scrollTop: 0}, 500);
+                        });
+                    }
+                    else {
+                        listDom.html('暂时没有数据！');
+                        page.html('');
+                    }
+                } else {
+                    console.log('请检查搜索文献列表接口！');
+                }
+            },
+            error: function (error) {
+                //请求出错处理
+                console.log(error);
+            }
+        });
+    }
+
+
+    pageA.click(function () {
+        var pageNum = $(this).attr('data-page');
+        getAllColletedData(pageNum);
+    })
+
+</script>
+
+</body>
+</html>

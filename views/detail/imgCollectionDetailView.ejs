@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../layouts/headLayout', {}) %>
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/details.css"/>
+    <script src="/js/jquery.SuperSlide.2.1.3.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/wordLimit.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/moment/moment.js"></script>
+</head>
+<body>
+<%- include('../layouts/navLayout', {current: null}) %>
+<div class="topBlock">
+    <div class="topcenter">
+        <!--<div class="route"><a href="/">首页</a> > <a href="<%= '/works?mediatype=' + viewModel.data.collection.mediatype %>">图集作品</a> > <%= viewModel.data.collection.title %></div>-->
+        <div class="route">
+            <a href="/">首页</a>
+            <% if(viewModel.platformcatename && viewModel.platformcatename.length > 0){ var first = ejsFunctions.workCodeParseToCoord(viewModel.platformcatename[0].code) %>
+            >
+            <a href="/works?mediatype=<%= viewModel.data.collection.mediatype %>&positionX=<%= first.x %>&classifyId=<%= viewModel.platformcatename[0].code %>"><%= viewModel.platformcatename[0].name %></a>
+            <% } %>
+            <% if(viewModel.platformcatename && viewModel.platformcatename.length > 0){ var second = ejsFunctions.workCodeParseToCoord(viewModel.platformcatename[1].code) %>
+            >
+            <a href="/works?mediatype=<%= viewModel.data.collection.mediatype %>&positionX=<%= second.x %>&positionY=<%= second.y %>&classifyId=<%= viewModel.platformcatename[1].code %>"><%= viewModel.platformcatename[1].name %></a>
+            <% } %>
+            <!--有三级菜单-->
+            <% if(viewModel.platformcatename.length == 3) { %>
+            <% if(true){ var third = ejsFunctions.workCodeParseToCoord(viewModel.platformcatename[2].code) %>
+            >
+            <a href="/works?mediatype=<%= viewModel.data.collection.mediatype %>&positionX=<%= third.x %>&positionY=<%= third.y %>&positionZ=<%= third.z %>&classifyId=<%= viewModel.platformcatename[2].code %>"><%= viewModel.platformcatename[2].name %></a>
+            <% } %>
+            <% } %>
+        </div>
+        <div class="info ipic">
+            <div class="play clearfix">
+                <div class="box left">
+                    <a><img src="<%= viewModel.data.collection.coverpic %>"><a target="_blank"
+                                                                               href="<%= '/detail/imgPreview?id=' + viewModel.data.collection.id %>" class="icon1"></a>
+                        <i class="icon2"></i></a>
+                </div>
+                <div class="picScroll-top">
+                    <a href="javascript:;" class="prev"></a>
+                    <a href="javascript:;" class="next"></a>
+                    <div class="bd">
+                        <ul id="listUl" class="picList" data-work-id="<%= viewModel.workId %>"
+                            data-image-url="<%= addr.imgServerAddr %>"></ul>
+                        <script>
+                            // 获取多媒体推荐列表
+                            // $(function(){
+                            //     var listUl = $('#listUl');
+                            //     var workId = listUl.attr('data-work-id');
+                            //     var imgAddr = listUl.attr('data-image-url');
+                            //     $.ajax({
+                            //         url: "/detail/getMultimediaRecommendList",
+                            //         dataType: "json", //返回格式
+                            //         data: {id: workId},
+                            //         type: "POST",
+                            //         success: function (response) {
+                            //             // console.log(response)
+                            //             if (response.code == 0) {
+                            //                 var liStr = '';
+                            //                 for (var i = 0; i < response.data.list.length; i++) {
+                            //                     liStr += '<li><a target="_blank" href="/detail/workDetail?id='+ response.data.list[i].id + '&mediatype='+ response.data.list[i].mediatype +'"><img src="'+ imgAddr + response.data.list[i].coverpic +'"></a></li>'
+                            //                 }
+                            //                 listUl.append(liStr);
+                            //             } else {
+                            //                 console.log('推荐数据错误！')
+                            //             }
+                            //             jQuery(".picScroll-top").slide({mainCell:".bd ul",autoPage:true,effect:"topLoop",autoPlay:false,vis:4,trigger:"click"});
+                            //         },
+                            //         error: function (error) {
+                            //             //请求出错处理
+                            //             console.log(error);
+                            //         }
+                            //     });
+                            // })
+
+                            // 获取图集图片
+                            $(function(){
+                                var listUl = $('#listUl');
+                                var workId = listUl.attr('data-work-id');
+                                // var imgAddr = listUl.attr('data-image-url');
+                                $.ajax({
+                                    url: "/detail/imgPreview?isAsync=1&id=" + workId,
+                                    dataType: "json", //返回格式
+                                    type: "GET",
+                                    success: function (response) {
+                                        // console.log(response)
+                                        if (response.code == 0) {
+                                            var liStr = '';
+                                            var picList = response.data.piclist[0].CollectionPicList
+                                            for (var i = 0; i < picList.length; i++) {
+                                                liStr += '<li><a href="javascript:;"><img src="' + picList[i].CollectionPicUrl + '"></a></li>';
+                                            }
+                                            listUl.append(liStr);
+                                        } else {
+                                            console.log('请检查图集详情接口！');
+                                        }
+                                        // 绑定上下滚动事件
+                                        jQuery(".picScroll-top").slide({mainCell:".bd ul",autoPage:true,effect:"topLoop",autoPlay:false,vis:4,trigger:"click"});
+                                        // 绑定点击切换主窗口图片
+                                        $('#listUl li').click(function () {
+                                            $('.play .box img').attr('src', $(this).children('a').children('img').attr('src'));
+                                        })
+
+                                    },
+                                    error: function (error) {
+                                        //请求出错处理
+                                        console.log(error);
+                                    }
+                                });
+                            })
+
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="intro">
+                <h1><span class="tit"><%= viewModel.data.collection.title %></span><span class="right name"><a target=
+                    "_blank" href="/kdh/home/<%= viewModel.data.collection.orgid %>"><img width="20" height="20" src="<%= viewModel.data.collection.logopic %>" align="absmiddle"><%= viewModel.data.collection.orgname %></a></span></h1>
+                <p><%= viewModel.data.collection.intromemo %></p>
+                <div class="bottom">
+                    <div class="left">
+                        <span><%= viewModel.data.collection.author %>&nbsp;&nbsp;<!--2017/12/18--></span><span><img
+                                    src="/images/details/deicon5.png" align="absmiddle">
+                            <% for(var j = 0, keywords = ejsFunctions.arrayParseByBlank(viewModel.data.collection.keywords);j < keywords.length;j++){ %>
+                            <%= keywords[j] %>&nbsp;
+                            <% } %>
+                        </span>
+                    </div>
+                    <div class="right">
+                        <a href="javascript:;" class="bshare right"></a>
+                        <a href="javascript:;" class="bcollect right"></a>
+                       <span class="right">播放：<%= viewModel.data.collection.viewcount %>次</span>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dcont clearfix">
+    <!--左侧内容-->
+    <div class="dcl left">
+        <div class="article">
+            <% if(viewModel.data.collection.mediatype == 2){ %>
+            <h1>音频简介</h1>
+            <% } %>
+            <% if(viewModel.data.collection.mediatype == 3){ %>
+            <h1>视频简介</h1>
+            <% } %>
+            <% if(viewModel.data.collection.mediatype == 4){ %>
+            <h1>图文简介</h1>
+            <% } %>
+            <%- viewModel.data.collection.content %>
+        </div>
+        <div id="commentBox" class="commentBox">
+            <div class="write">
+                <p>我来评两句</p>
+                <div class="textarea">
+                    <textarea></textarea>
+                    <span class="count"><i>0</i>/400</span>
+                    <script>
+                        //PromptToggle($(".textarea textarea"),"请输入您的评论内容，评论内容将由主编筛选后显示，对所有人可见。","colorGrey")
+                        wordLimit($(".textarea textarea"), 400)
+                        $(".textarea textarea").keyup(function () {
+                            var counts = $(this).val().length
+                            $(".textarea .count i").text(counts)
+                        })
+                    </script>
+                </div>
+                <a href="javascript:;" class="tj">提交</a>
+            </div>
+            <div class="showArea">
+                <div class="content">
+                    <%if(viewModel.data.commentlist.list && viewModel.data.commentlist.list.length>0){%>
+                    <% for (var i = 0;i < viewModel.data.commentlist.list.length;i++) { %>
+                    <div class="block clearfix">
+                        <div class="bc">
+                            <div class="part1 clearfix"><a href="#" target="_blank" class="img1 left"><img
+                                            src="<%=viewModel.data.commentlist.list[i].avatar%>" width="32" height="32"></a><a href="#"
+                                                                                                                               target="_blank"
+                                                                                                                               class="name left"><%=viewModel.data.commentlist.list[i].nickname%></a><span
+                                        class="left"><%= ejsFunctions.dateFormat(viewModel.data.commentlist.list[i].addtime)%> </span><a href="javascript:;" class="zan right"><%=viewModel.data.commentlist.list[i].agreecount%></a><a
+                                        href="javascript:;" class="collect right"></a></div>
+                            <p class="part2"><%=viewModel.data.commentlist.list[i].memo%></p>
+                        </div>
+
+                    </div>
+                    <%}%>
+                    <%}%>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--右侧内容-->
+    <div class="drl left">
+        <% if(viewModel.data.mircbooklist.length>0){ %>
+        <div class="aside">
+            <h1>微刊推荐</h1>
+            <ul class="list1">
+                <% for(var i=0,list=viewModel.data.mircbooklist;i<list.length;i++){ %>
+                <li>
+                    <a target="_blank" href="<%= '/detail/microBookDetail/' + viewModel.data.mircbooklist[i].id %>"><img src="<%= list[i].coverpic %>"></a>
+                    <p><a target="_blank" href="<%= '/detail/microBookDetail/' + viewModel.data.mircbooklist[i].id %>"><%= list[i].title %></a></p>
+                </li>
+                <%}%>
+            </ul>
+        </div>
+        <%}%>
+        <% if(viewModel.data.collection.periodicalcode){ %>
+        <div class="aside">
+            <h1>期刊推荐</h1>
+            <dl>
+                <dt><img src="<%= viewModel.data.collection.periodicalimage %>"></dt>
+                <dd class="tit"><%= viewModel.data.collection.periodicalname %></dd>
+                <dd>
+                    <p>主办：<%= viewModel.data.collection.periodicalorg %></p>
+                    <p>周期：<%= viewModel.data.collection.periodicalperiod %> </p>
+                    <p>收录：<%= viewModel.data.collection.periodicaltime %> </p>
+                </dd>
+                <dd><a href="#" class="btn">阅读本刊</a></dd>
+            </dl>
+        </div>
+        <%}%>
+        <% if(viewModel.data.recommendlist.length>0){ %>
+        <div class="aside">
+            <h1>作品推荐</h1>
+            <ul class="list1">
+                <% for(var i=0,list=viewModel.data.recommendlist;i<list.length;i++){ %>
+                <li>
+                    <a target="_blank" href="<%= '/detail/workDetail?id=' + list[i].id + '&mediatype=' + list[i].mediatype %>"><img src="<%= list[i].coverpic %>"></a>
+                    <p><a target="_blank" href="<%= '/detail/workDetail?id=' + list[i].id + '&mediatype=' + list[i].mediatype %>"><%= list[i].title %></a></p>
+                </li>
+                <%}%>
+            </ul>
+        </div>
+        <%}%>
+
+    </div>
+    <!--小工具-->
+    <!--<div class="tools">-->
+    <!--<a href="javascript:;" class="a1"></a>-->
+    <!--<a href="javascript:;" class="a2"></a>-->
+    <!--<a href="javascript:;" class="a3"></a>-->
+    <!--</div>-->
+</div>
+
+
+<%- include('../layouts/footerLayout', {}) %>
+<script>
+    // $.divselect($(".select p"),$(".select ul"),$(".select ul li"));
+
+    $(".picList li").click(function(){
+        $(this).addClass("click").siblings().removeClass("click")
+    })
+    //点赞
+    $(".bc .part1 .zan").click(function(){
+        $(this).toggleClass("click")
+    })
+    //最后的评论没有边框
+    $(".showArea .block:last").css("border-bottom-width","0px")
+</script>
+</body>
+</html>

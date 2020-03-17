@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../layouts/headLayout', {}) %>
+    <link rel="stylesheet" type="text/css" href="/css/details.css"/>
+    <script src="/js/divSelect.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/wordLimit.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body class="bgGrey">
+<%- include('../layouts/navLayout', {current: null}) %>
+<div class="dcont mdcont clearfix">
+    <!--左侧内容-->
+    <div class="dcl left">
+        <div class="card">
+            <img class="img" src="<%= viewModel.data.microBookDetail.coverpic %>"/>
+            <!--作品数、浏览数-->
+            <div class="num"><span class="s1"><%= viewModel.data.microBookDetail.childcollectioncount %></span><span
+                            class="s2"><%= viewModel.data.microBookDetail.viewcount %></span></div>
+            <a href="#" class="subscibe">订阅微刊（19.9元）</a>
+            <div class="text">
+                <h1><%= viewModel.data.microBookDetail.title %></h1>
+                <p><%= viewModel.data.microBookDetail.intromemo %></p>
+                
+            </div>
+            <div class="bottom">
+                <span class="left"><img src="/images/details/deicon18.png" align="absmiddle">宋词&nbsp;&nbsp;踏歌行</span>
+                <!--<span class="right">作品数：<%= viewModel.data.microBookDetail.childcollectioncount %>
+                    &nbsp;&nbsp;浏览：<%= viewModel.data.microBookDetail.viewcount %>次  </span>-->
+                <a href="javascript:;" class="collect"></a>
+                <a href="javascript:;" class="tshare"></a>
+            </div>
+        </div>
+        <div class="mblock">
+            <div class="tab"><a href="javascript:;">详情</a><a class="cur" href="javascript:;">目录</a></div>
+            <div class="tabc xq" style="display: none;">
+                <div class="article">
+                    <%- viewModel.data.microBookDetail.introcontent %>
+                </div>
+                <!--<div class="commentBox">-->
+                    <!--<div class="write">-->
+                        <!--<p>我来评两句</p>-->
+                        <!--<div class="textarea">-->
+                            <!--<textarea></textarea>-->
+                            <!--<span class="count"><i>0</i>/400</span>-->
+                            <!--<script>-->
+                                <!--//PromptToggle($(".textarea textarea"),"请输入您的评论内容，评论内容将由主编筛选后显示，对所有人可见。","colorGrey")-->
+                                <!--wordLimit($(".textarea textarea"), 400)-->
+                                <!--$(".textarea textarea").keyup(function () {-->
+                                    <!--var counts = $(this).val().length-->
+                                    <!--$(".textarea .count i").text(counts)-->
+                                <!--})-->
+                            <!--</script>-->
+                        <!--</div>-->
+                        <!--<a href="javascript:;" class="tj">提交</a>-->
+                    <!--</div>-->
+                    <!--<div class="showArea">-->
+                        <!--<div class="content">-->
+                            <!--<div class="block clearfix">-->
+                                <!--<div class="bc">-->
+                                    <!--<div class="part1 clearfix"><a href="#" target="_blank" class="img1 left"><img-->
+                                                    <!--src="imagesTemp/temp.jpg" width="32" height="32"></a><a href="#"-->
+                                                                                                            <!--target="_blank"-->
+                                                                                                            <!--class="name left">中国知网·专家评论</a><span-->
+                                                <!--class="left">2017-02-17  09:15 </span><a href="javascript:;"-->
+                                                                                         <!--class="zan right">22</a><a-->
+                                                <!--href="javascript:;" class="collect right"></a></div>-->
+                                    <!--<p class="part2">-->
+                                        <!--这是一本丝毫不掩饰野心的书，和《第三个警察》几乎一样，在开头就把震撼的事件抛出，全文随着男孩坦诚地回顾自己的一生，将读者一步步拖入一个对亲情、信仰、传统。</p>-->
+                                <!--</div>-->
+
+                            <!--</div>-->
+                            <!--<div class="block clearfix">-->
+                                <!--<div class="bc">-->
+                                    <!--<div class="part1 clearfix"><a href="#" target="_blank" class="img1 left"><img-->
+                                                    <!--src="imagesTemp/temp.jpg" width="32" height="32"></a><a href="#"-->
+                                                                                                            <!--target="_blank"-->
+                                                                                                            <!--class="name left">中国知网·专家评论</a><span-->
+                                                <!--class="left">2017-02-17  09:15 </span><a href="javascript:;"-->
+                                                                                         <!--class="zan right">22</a><a-->
+                                                <!--href="javascript:;" class="collect right"></a></div>-->
+                                    <!--<p class="part2">-->
+                                        <!--这是一本丝毫不掩饰野心的书，和《第三个警察》几乎一样，在开头就把震撼的事件抛出，全文随着男孩坦诚地回顾自己的一生，将读者一步步拖入一个对亲情、信仰、传统。</p>-->
+                                <!--</div>-->
+
+                            <!--</div>-->
+                            <!--<div class="block clearfix">-->
+                                <!--<div class="bc">-->
+                                    <!--<div class="part1 clearfix"><a href="#" target="_blank" class="img1 left"><img-->
+                                                    <!--src="imagesTemp/temp.jpg" width="32" height="32"></a><a href="#"-->
+                                                                                                            <!--target="_blank"-->
+                                                                                                            <!--class="name left">中国知网·专家评论</a><span-->
+                                                <!--class="left">2017-02-17  09:15 </span><a href="javascript:;"-->
+                                                                                         <!--class="zan right">22</a><a-->
+                                                <!--href="javascript:;" class="collect right"></a></div>-->
+                                    <!--<p class="part2">-->
+                                        <!--这是一本丝毫不掩饰野心的书，和《第三个警察》几乎一样，在开头就把震撼的事件抛出，全文随着男孩坦诚地回顾自己的一生，将读者一步步拖入一个对亲情、信仰、传统。</p>-->
+                                    <!--<div class="rebc clearfix">-->
+                                        <!--<a href="#" target="_blank" class="img1 left"><img src="imagesTemp/temp.jpg"-->
+                                                                                           <!--width="32" height="32"></a>-->
+                                        <!--<div class="rer left">-->
+                                            <!--<p class="part2"><a href="#" target="_blank" class="name">黄森的回复: </a>看了半天算是看懂了，这里的重载不是c++或者java意义上的重载，而是php的默认函数看了半天算是看懂了，这里的重载不是c++或者java-->
+                                            <!--</p>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                            <!--</div>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+
+                <!--</div>-->
+
+            </div>
+            <div class="tabc catalog" style="display: block;">
+                <div class="list">
+                    <% for(var i = 0;i < viewModel.data.microBookCatalog.length;i++){ %>
+                    <div class="item clearfix">
+                        <a target="_blank"
+                           href="<%= '/detail/workDetail?id=' + viewModel.data.microBookCatalog[i].id + '&mediatype=' + viewModel.data.microBookCatalog[i].mediatype %>"
+                           class="left img"><img src="<%= viewModel.data.microBookCatalog[i].coverpic %>"><span
+                                    class="icon i<%= viewModel.data.microBookCatalog[i].mediatype %>"></span> </a>
+                        <div class="info left">
+                            <h1><a target="_blank"
+                                   href="<%= '/detail/workDetail?id=' + viewModel.data.microBookCatalog[i].id + '&mediatype=' + viewModel.data.microBookCatalog[i].mediatype %>"><%= viewModel.data.microBookCatalog[i].title %></a>
+                            </h1>
+                            <p><%= viewModel.data.microBookCatalog[i].intromemo %></p>
+                            <div class="bottom clearfix">
+
+                                <a target="_blank"
+                                   href="/detail/workDetail?id=<%= viewModel.data.microBookCatalog[i].id %>&mediatype=<%= viewModel.data.microBookCatalog[i].mediatype %>"><span
+                                            class="tag left">试看</span></a>
+                                <span class="time right"> <%= ejsFunctions.dateFormat(viewModel.data.microBookCatalog[i].submittime) %></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <% } %>
+                </div>
+                <div class="rpage">
+                    <%- viewModel.data.microBookCatalogPageStr %>
+                </div>
+            </div>
+            <script>
+                var tabA = $('.tab a');
+                var tabc = $('.tabc');
+                tabA.click(function () {
+                    var index = $(this).index();
+                    tabA.removeClass('cur');
+                    $(this).addClass('cur');
+                    tabc.css('display', 'none');
+                    tabc.eq(index).show();
+                })
+            </script>
+        </div>
+
+    </div>
+    <!--右侧内容-->
+    <div class="drl left">
+        <!--看典号-->
+        <div id="face" class="face" data-org-id="<%= viewModel.data.microBookDetail.orgid %>">
+            <div class="bg">
+                <img src=""/>
+            </div>
+            <div class="info">
+                <a target="_blank" href="/kdh/home/<%= viewModel.data.microBookDetail.orgid %>"><img class="avatar"></a>
+                <p class="p1"><a target="_blank" href="/kdh/home/<%= viewModel.data.microBookDetail.orgid %>"></a></p>
+                <p class="p2"></p>
+                <p class="p2"></p>
+                <a href="javascript:;" class="btn">+关注</a>
+            </div>
+        </div>
+        <script>
+            // 获取看典号信息
+            var node = $('#face');
+            var orgId = node.attr('data-org-id');
+            var url = '/detail/getOrgIdById/' + orgId;
+            $.ajax({
+                url: url,
+                dataType: "json", //返回格式
+                type: "get",
+                success: function (response) {
+                    if (response) {
+                        node.children('.bg').children('img').attr('src', response.backgroundpic);
+                        node.children('.info').find('.avatar').attr('src', response.logopic);
+                        node.children('.info').children('p').eq(0).children('a').html(response.orgname);
+                        node.children('.info').children('p').eq(1).html(response.memo);
+                        node.children('.info').children('p').eq(2).html(response.totalfans + '粉丝');
+                    } else {
+                        console.log('看典号数据错误！')
+                    }
+                },
+                error: function (error) {
+                    //请求出错处理
+                    console.log(error);
+                }
+            });
+        </script>
+
+        <!--微刊推荐-->
+        <div class="aside">
+            <h1>微刊推荐</h1>
+            <ul id="microBookRecommend" class="list1" data-microBook-id="<%= viewModel.data.microBookId %>"
+                data-img-url="<%= addr.imgServerAddr %>">
+                <li>
+                    <a href="#"><img src="imagesTemp/temp.jpg"></a>
+                    <p><a href="#">世间理想的生活，都离不开一座...</a></p>
+                </li>
+                <li>
+                    <a href="#"><img src="imagesTemp/temp.jpg"></a>
+                    <p><a href="#">世间理想的生活，都离不开一座...</a></p>
+                </li>
+            </ul>
+        </div>
+        <!--微刊推荐-->
+        <script>
+            // 获取信息
+            var microBookRecommend = $('#microBookRecommend');
+            var microBookId = microBookRecommend.attr('data-microBook-id');
+            var url = '/detail/getMicroBookRecommendMicroBooks/' + microBookId;
+            var imgUrl = microBookRecommend.attr('data-img-url');
+            $.ajax({
+                url: url,
+                dataType: "json", //返回格式
+                type: "get",
+                success: function (response) {
+                    // console.log(response)
+                    if (response.mircbooklist.length > 0) {
+                        var microBookStr = '';
+                        for (var i = 0; i < (response.mircbooklist.length > 2 ? 2 : response.mircbooklist.length); i++) {
+                            microBookStr += '<li>' +
+                                '<a target="_blank" href="/detail/microBookDetail?id=' + response.mircbooklist[i].id + '&mediatype=' + response.mircbooklist[i].mediatype + '"><img src="' + response.mircbooklist[i].coverpic + '"></a>' +
+                                '<p><a target="_blank" href="/detail/microBookDetail?id=' + response.mircbooklist[i].id + '&mediatype=' + response.mircbooklist[i].mediatype + '">' + response.mircbooklist[i].title + '</a></p>' +
+                                '</li>';
+                        }
+                        microBookRecommend.html(microBookStr);
+                    } else {
+                        console.log('微刊数据错误！')
+                    }
+                },
+                error: function (error) {
+                    //请求出错处理
+                    console.log(error);
+                }
+            });
+        </script>
+
+        <!--作品推荐-->
+        <div class="aside">
+            <h1>作品推荐</h1>
+            <ul id="worksRecommend" class="list1" data-microBook-id="<%= viewModel.data.microBookId %>"
+                data-img-url="<%= addr.imgServerAddr %>"></ul>
+        </div>
+        <script>
+            // 作品推荐
+            var worksRecommend = $('#worksRecommend');
+            var microBookId = worksRecommend.attr('data-microBook-id');
+            var url = '/detail/getMicroBookRecommendWorks/' + microBookId;
+            var imgUrl = worksRecommend.attr('data-img-url');
+            $.ajax({
+                url: url,
+                dataType: "json", //返回格式
+                type: "get",
+                success: function (response) {
+                    // console.log(response)
+                    if (response.list.length > 0) {
+                        var str = '';
+                        for (var i = 0; i < (response.list.length > 2 ? 2 : response.list.length); i++) {
+                            str += '<li>' +
+                                '<a target="_blank" href="/detail/workDetail?id=' + response.list[i].id + '&mediatype=' + response.list[i].mediatype + '"><img src="' + imgUrl + response.list[i].coverpic + '"></a>' +
+                                '<p><a target="_blank" href="/detail/workDetail?id=' + response.list[i].id + '&mediatype=' + response.list[i].mediatype + '">' + response.list[i].title + '</a></p>' +
+                                '</li>';
+                        }
+                        worksRecommend.html(str);
+                    } else {
+                        console.log('作品数据错误！')
+                    }
+                },
+                error: function (error) {
+                    //请求出错处理
+                    console.log(error);
+                }
+            });
+        </script>
+    </div>
+    <!--小工具-->
+    <!--<div class="tools">-->
+    <!--<a href="javascript:;" class="a1"></a>-->
+    <!--<a href="javascript:;" class="a2"></a>-->
+    <!--<a href="javascript:;" class="a3"></a>-->
+    <!--</div>-->
+</div>
+
+
+<%- include('../layouts/footerLayout', {}) %>
+<script>
+    $.divselect($(".select p"), $(".select ul"), $(".select ul li"));
+
+    //点赞
+    $(".bc .part1 .zan").click(function () {
+        $(this).toggleClass("click")
+    })
+    //最后的评论没有边框
+    $(".showArea .block:last").css("border-bottom-width", "0px")
+</script>
+</body>
+</html>

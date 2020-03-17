@@ -1,0 +1,933 @@
+/* css.reset */
+
+body {
+    font-family: "Microsoft Yahei";
+    font-size: 14px;
+}
+
+html,
+body,
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+blockquote,
+figure,
+fieldset,
+legend,
+textarea,
+pre,
+iframe,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+ul {
+    list-style: none;
+}
+
+button,
+input,
+select,
+textarea {
+    margin: 0;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+img,
+video {
+    height: auto;
+    max-width: 100%;
+}
+
+iframe {
+    border: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+td,
+th {
+    padding: 0;
+}
+
+td:not([align]),
+th:not([align]) {
+    text-align: left;
+}
+
+::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: #a6a6a6;
+    font-size: 14px;
+}
+
+:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #a6a6a6;
+    font-size: 14px;
+}
+
+::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #a6a6a6;
+    font-size: 14px;
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #a6a6a6;
+    font-size: 14px;
+}
+
+.pheader .phwrap .hr .userSelect .username .avatar {
+    margin-top: 0;
+}
+
+.cRed {
+    color: #e7452f !important;
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.breadcrumb {
+    margin: 37px 0 14px 0;
+    color: #495263;
+}
+
+.breadcrumb a {
+    color: #495263;
+}
+
+.periodical-main-line {
+    height: 5px;
+    background: url("../../images/bookstore/bookstore2.png") 22px top no-repeat;
+    background-color: #df3f3b;
+    width: 100%;
+}
+
+.periodical-main-body {
+    position: relative;
+    padding: 48px 0 35px 46px;
+    margin-bottom: 21px;
+    border: 1px solid #dadada;
+}
+
+.periodical-book {
+    display: block;
+    float: left;
+    width: 240px;
+}
+
+.periodical-book img {
+    display: block;
+    width: 240px;
+    height: 316px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .25);
+    border-radius: 5px;
+}
+
+.periodical-main-single .periodical-book {
+    width: 212px;
+}
+
+.periodical-main-single .periodical-book img {
+    width: 212px;
+    height: 278px;
+}
+
+.periodical-main-single .periodical-title {
+    float: left;
+}
+
+.periodical-main-single .periodical-time {
+    float: left;
+    display: block;
+    margin-left: 13px;
+    padding-top: 16px;
+    font-size: 18px;
+    color: #808080;
+}
+
+.periodical-main-single .periodical-collect {
+    float: right;
+    line-height: 46px;
+    padding-left: 23px;
+    margin-left: 20px;
+    background: url("../../images/bookstore/bookstore20.png") left center no-repeat;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.periodical-main-single .periodical-collect.active {
+    background-image: url("../../images/bookstore/bookstore20a.png");
+}
+
+.periodical-main-single .periodical-detail-item {
+    padding: 6px 0;
+    border-bottom: 0;
+}
+
+.periodical-main-single .periodical-detail-items {
+    border-bottom: 0;
+}
+
+.single-btns {
+    margin-top: 15px;
+}
+
+.single-btn {
+    float: left;
+    height: 36px;
+    width: 103px;
+    display: block;
+    text-align: center;
+    border: 1px solid #df3f3b;
+    line-height: 36px;
+    background: white;
+    color: #df3f3b;
+    border-radius: 3px;
+}
+
+.single-btn-right {
+    float: right;
+}
+
+.periodical-info {
+    float: left;
+    width: 580px;
+    padding-top: 0px;
+    margin-left: 38px;
+}
+
+.periodical-title {
+    font-size: 28px;
+    color: #df3f3b;
+    font-weight: bold;
+    line-height: 46px;
+}
+
+.periodical-subtitle {
+    height: 16px;
+    font-size: 14px;
+    margin-top: 14px;
+    color: #a6a6a6;
+}
+
+.periodical-detail {
+    margin-top: 20px;
+}
+
+.periodical-detail-items {
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.periodical-detail-item {
+    float: left;
+    width: 50%;
+}
+
+.periodical-detail-item {
+    padding: 11px 0;
+}
+
+.periodical-detail-label {
+    float: left;
+    width: 80px;
+    color: #262626;
+    font-weight: bold;
+}
+
+.periodical-detail-content {
+    float: left;
+    width: 220px;
+    color: #4c4c4c;
+}
+
+.periodical-bar {
+    margin-left: 28px;
+    float: left;
+}
+
+.periodical-tabs {
+    height: 42px;
+    line-height: 42px;
+    margin: 0 auto;
+    background: #f2f2f2;
+    text-align: center;
+}
+
+.periodical-tab {
+    display: inline-block;
+    font-size: 18px;
+    color: #282828;
+    width: 158px;
+    position: relative;
+    cursor: pointer;
+    text-align: center;
+}
+
+.periodical-tab-right {
+    float: right;
+}
+
+.periodical-tab-select::after {
+    position: absolute;
+    content: ' ';
+    bottom: 0;
+    left: 50%;
+    margin-left: -45px;
+    width: 90px;
+    height: 3px;
+    background: #df3f3b;
+}
+
+.periodical-tab-select::before {
+    position: absolute;
+    content: ' ';
+    left: 50%;
+    bottom: 1px;
+    border-bottom: 6px solid #df3f3b;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    margin-left: -3px;
+}
+
+.periodical-years {
+    padding: 0px 0px 20px 0;
+}
+
+.periodical-year {
+    width: 97px;
+    height: 38px;
+    line-height: 38px;
+    color: #252525;
+    display: block;
+    margin: 0px 6px 10px 6px;
+    float: left;
+    text-align: center;
+    position: relative;
+}
+
+.periodical-year:hover {
+    background-color: #ffeeed;
+    color: #252525;
+}
+
+.periodical-year::after {
+    position: absolute;
+    width: 1px;
+    height: 28px;
+    background: #e8e8e8;
+    content: ' ';
+    top: 3px;
+    right: -6px;
+}
+
+.periodical-year::before {
+    position: absolute;
+    width: 1px;
+    height: 28px;
+    background: #e8e8e8;
+    content: ' ';
+    top: 3px;
+    left: -7px;
+}
+
+.periodical-year-select {
+    background-color: #df3f3b;
+    color: white;
+}
+
+.periodical-img {
+    width: 172px;
+    height: 230px;
+}
+
+.periodical-img img {
+    width: 172px;
+    height: 230px;
+}
+
+.periodical-item-title {
+    font-size: 14px;
+    color: #262626;
+    padding: 17px 0;
+    text-align: center;
+}
+
+.periodical-item {
+    padding: 5px 5px 0 5px;
+    border: 1px solid #dadada;
+    border-radius: 4px;
+    float: left;
+    margin: 0 8px 18px 8px;
+    box-shadow: 1px 1px 2px 1px rgba(100, 100, 100, 0.2);
+}
+
+.periodical-item:hover {
+    border-color: #efbab7;
+    background: #ffeeed;
+    box-shadow: 0 0 10px rgba(103, 14, 9, 0.2);
+}
+
+.periodical-pages {
+    margin: 30px 0 30px 0;
+    text-align: center;
+}
+
+.periodical-page {
+    display: inline-block;
+    color: #595959;
+    font-size: 14px;
+    padding: 10px 14px;
+    border: 1px solid #d9d9d9;
+    margin: 0 5px;
+}
+
+.periodical-pages .select {
+    background-color: #df3f3b;
+    border: 1px solid #df3f3b;
+    color: white;
+}
+
+.periodical-pages .periodical-page-more {
+    background-color: white;
+    border-color: white;
+}
+
+.column-left {
+    float: left;
+    background-color: #f5f5f5;
+    width: 257px;
+    padding-bottom: 15px;
+}
+
+.column {
+    color: #262626;
+    padding: 12px 10px 12px 46px;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.column:after {
+    content: '•';
+    color: #262626;
+    ;
+    position: absolute;
+    left: 30px;
+    top: 12px;
+}
+
+.column-select {
+    background: #df3f3b;
+    color: white;
+}
+
+.column-select:after {
+    content: '•';
+    color: white;
+}
+
+.column-select:before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 16px;
+    border-right: 5px solid white;
+    border-top: transparent solid 5px;
+    border-bottom: transparent solid 5px;
+}
+
+.columns-number {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 28px;
+}
+
+.columns-number strong {
+    color: #df3f3b;
+    font-weight: normal;
+}
+
+.columns-pages {
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.columns-pages a,
+.columns-pages span {
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    line-height: 22px;
+    color: #494949;
+    border-radius: 100px;
+    background-color: #e0e0e0;
+    margin: 0 3px;
+    display: inline-block;
+}
+
+.columns-pages .current {
+    background-color: #df3f3b;
+    color: white;
+}
+
+.periodical-subtab {
+    display: none;
+}
+
+
+/* .column-page {
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    line-height: 22px;
+    color: #494949;
+    border-radius: 100px;
+    background-color: #e0e0e0;
+    margin: 0 3px;
+    display: inline-block;
+}
+.column-page-select {
+    background-color: #df3f3b;
+    color: white;
+} */
+
+.periodical-tab2 {
+    margin-bottom: 70px;
+}
+
+.column-right {
+    margin-left: 36px;
+    float: left;
+    width: 907px;
+}
+
+.periodical-body {
+    margin: 30px 0;
+}
+
+.column-right-title {
+    float: left;
+    line-height: 26px;
+    font-size: 16px;
+    color: #494949;
+    padding-left: 11px;
+    border-left: 4px solid #df3f3b;
+    margin-bottom: 5px;
+}
+
+.column-right-bar {
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.column-right-numbers {
+    float: right;
+    line-height: 26px;
+    font-size: 12px;
+}
+
+.column-right-numbers strong {
+    color: #df3f3b;
+    font-weight: normal;
+}
+
+.column-right-item {
+    padding: 16px;
+    border-bottom: 1px dotted #ccc;
+}
+
+.column-right-item:hover {
+    background: #f5f5f5;
+}
+
+.column-right-content {
+    float: left;
+    padding-left: 29px;
+    width: 640px;
+    color: #1f80e4;
+    display: block;
+    position: relative;
+}
+
+.column-right-content:after {
+    position: absolute;
+    content: '•';
+    left: 10px;
+    top: 0px;
+    color: #c8c8c8;
+}
+
+.column-right-time {
+    float: left;
+    color: #808080;
+}
+
+.column-right-author {
+    float: right;
+    color: #808080;
+    word-break: break-all;
+    width: 138px;
+    /* text-align: left; */
+}
+
+.column-right-pages {
+    margin-top: 20px;
+}
+
+.column-right-page {
+    float: left;
+}
+
+.column-download {
+    width: 16px;
+    height: auto;
+    margin-left: 5px;
+}
+
+.single-order {
+    background-color: #f5f5f5;
+    border-radius: 3px;
+    margin-top: 14px;
+    padding: 15px 19px;
+}
+
+.order-title {
+    color: #df3f3b;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.order-inputs {
+    margin: 14px 0 0 0;
+}
+
+.order-inputs label {
+    display: block;
+    margin-bottom: 10px;
+    color: #262626;
+}
+
+.periodical-main-single .periodical-detail {
+    margin-top: 10px;
+}
+
+.order-btn {
+    display: block;
+    background-color: #df3f3b;
+    color: white;
+    width: 110px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 44px;
+    border-radius: 3px;
+}
+
+.single-main {
+    margin-top: 16px;
+    margin-bottom: 43px;
+}
+
+.single-sidebar {
+    float: left;
+    width: 256px;
+    border: 1px solid #e6e6e6;
+}
+
+.single-sidebar-title {
+    background-color: #f2f2f2;
+    padding: 15px 16px;
+    color: #262626;
+    font-size: 16px;
+}
+
+.single-sidebar-body {
+    padding: 30px 15px 10px 23px;
+}
+
+.single-sidebar-item {
+    margin-bottom: 20px;
+}
+
+.single-sidebar-item img {
+    display: block;
+    float: left;
+}
+
+.single-sidebar-main {
+    float: left;
+    width: 115px;
+    margin-left: 12px;
+}
+
+.sidebar-item-title {
+    color: #262626;
+    font-size: 14px;
+    padding-top: 4px;
+}
+
+.sidebar-item-title a {
+    color: #262626;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.sidebar-item-intro {
+    color: #808080;
+    font-size: 12px;
+    margin-top: 12px;
+}
+
+.sidebar-item-btn {
+    width: 52px;
+    line-height: 22px;
+    float: left;
+    border-radius: 3px;
+    text-align: center;
+    font-size: 12px;
+    color: white;
+    margin-top: 18px;
+    margin-right: 4px;
+}
+
+.sidebar-btn-hexin {
+    background-color: #ff6e0d;
+}
+
+.sidebar-btn-yx {
+    background-color: #6cd60d;
+}
+
+.catalog {
+    margin-left: 17px;
+    width: 926px;
+    float: left;
+}
+
+.catalog-tabs {
+    /* padding-top: 3px; */
+    background-color: #f2f2f2;
+}
+
+.catalog-tab {
+    float: left;
+    width: 130px;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    /* background-color: #f74f4b;
+    color: white; */
+    margin-right: 3px;
+    display: block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.catalog-tab-select {
+    color: #df3f3b;
+    background-color: white;
+    border-top: 3px solid #df3f3b;
+}
+
+.catalog-title {
+    text-align: center;
+    margin: 38px 0;
+}
+
+.catalog-item {
+    font-size: 16px;
+    font-weight: bold;
+    /* padding: 11px 0; */
+    line-height: 40px;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.catalog-item a {
+    color: #000;
+}
+
+.catalog-subitem {
+    font-size: 14px;
+    padding-left: 30px;
+    line-height: 40px;
+    border-bottom: 1px dashed #ccc;
+}
+
+.catalog-subitem-title {
+    float: left;
+    width: 608px;
+    margin-right: 20px;
+    color: #1f80e4;
+    height: 40px;
+    line-height: 40px;
+    overflow: hidden;
+}
+
+.catalog-subitem-author {
+    color: #808080;
+    font-size: 12px;
+    float: left;
+    width: 115px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.catalog-subitem-page {
+    float: right;
+    color: #808080;
+}
+
+.catalog-more,
+.loadingMore {
+    padding: 14px 0;
+    text-align: center;
+    margin-top: 4px;
+    color: #1161e6;
+    display: block;
+    background-color: #e8f0f7;
+    cursor: pointer;
+}
+
+.catalog-inputs {
+    padding: 0 20px;
+}
+
+.catalog-inputs-left {
+    float: left;
+}
+
+.catalog-inputs-right {
+    float: right;
+    position: relative;
+}
+
+.catalog-input-year,
+.catalog-input-month,
+.catalog-input-type {
+    padding: 6px 10px 8px 10px;
+    font-size: 15px;
+    color: #262626;
+    border: 1px solid #d9d9d9;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.catalog-input-search {
+    padding: 8px 10px;
+    font-size: 16px;
+    color: #262626;
+    width: 250px;
+    background-color: white;
+    border: 1px solid #d9d9d9;
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.catalog-input-search-btn {
+    background: url("/images/bookstore/bookstore12.png") right 10px center no-repeat;
+    background-size: 20px;
+    position: absolute;
+    right: 0px;
+    top: 5px;
+    display: block;
+    width: 32px;
+    height: 23px;
+}
+
+.catalog-items {
+    margin-top: 15px;
+    padding: 0 20px;
+}
+
+.catalog-more img {
+    position: relative;
+    top: -2px;
+}
+
+.periodical-pages {
+    padding-top: 20px;
+    margin-top: 20px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333333;
+    margin-bottom: 50px;
+}
+
+.periodical-pages a,
+.periodical-pages span {
+    color: #333333;
+    margin-right: 12px;
+    padding: 8px 12px;
+    text-decoration: none;
+    font-size: 14px;
+    border: 1px solid #D1D1D1;
+}
+
+.periodical-pages span {
+    padding: 8px 11px;
+}
+
+.periodical-pages a:hover {
+    color: #ffffff;
+    background-color: #ED5E5A;
+    border-color: #ED5E5A;
+}
+
+.periodical-pages span.current {
+    background-color: #ED5E5A;
+    border: 1px solid #ED5E5A;
+    color: #fff;
+    margin-right: 12px;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.periodical-pages span.disabled {
+    color: #333333;
+    margin-right: 12px;
+    padding: 8px 12px;
+    text-decoration: none;
+    font-size: 14px;
+    border: 1px solid #D1D1D1;
+}

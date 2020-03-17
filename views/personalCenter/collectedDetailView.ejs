@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../layouts/headLayout', {}) %>
+    <link rel="stylesheet" type="text/css" href="/css/personalCenter/personal.css"/>
+    <script src="/js/divSelect.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/jquery.promptToggle.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body bgcolor="#F4F4F4">
+<%- include('../layouts/navLayout', {current:null}) %>
+    <div class="personalMain clearfix">
+        <%- include('../layouts/personal/menuLayout', {current:1,active:1}) %>
+        <div class="contentWrap">
+        	<h1 class="sc">
+        	    <span>我的收藏</span>
+        	</h1>
+            <div class="collectWrap">
+                <!--收藏夹名称编辑-->
+                <div class="filename">
+                	<div class="fileleft">
+                	   <div class="showname">
+                        <span class="name"><% var name='我喜欢的创作' %><%= name %></span>
+                        <a href="javascript:;" class="edit"></a>
+                        <a href="javascript:;" class="del"></a>
+                	   </div>
+                	   <div class="editname">
+                	       <input type="text" name="" id="" value="<%= name %>" />  
+                	       <a href="javascript:;" class="sure">确定</a>
+                	       <a href="javascript:;" class="cancel">取消</a>
+                	   </div>
+
+                	</div>
+                	<div class="fileright">
+                        <a href="javascript:;" class="refresh"></a>
+                        <span class="time">2019/10/30</span>
+                	</div>
+                </div>
+            	<div class="bar">
+            		<div class="select left">
+            			<p>全部（132）</p>
+            			<ul>
+            			    <li>全部（132）</li>
+            			    <li>作品（132）</li>
+            			    <li>微刊（132）</li>
+            			    <li>期刊（132）</li>
+            			    <li>图书（132）</li>
+            			    <li>文献（132）</li>
+            			    <li>典言（132）</li>
+            			</ul>
+            		</div>
+                	<div class="control">
+                    <a href="javascript:;" class="ba ba2">批量管理</a>  
+                    <div class="tools">
+                        <a href="javascript:;" class="a a1">删除</a>
+                        <a href="javascript:;" class="a a2">移至收藏夹</a>
+                        <a  href="javascript:;" class="checkbox">全选</a>
+                    </div>
+                </div>
+            	    
+            	</div>
+            	<!--大图-->	            	
+            	<div class="tabarea t1" style="display:block;">
+            		<div class="boxlist clearfix">
+            		    <!--作品-->
+            		    <% for(var i=0;i<1;i++){ %>
+            		    <% for(var j=1;j<5;j++){ %>    
+                        <div class="box">
+            		    	<div class="frame">
+            		    		<a href="#" class="img type2"><img src="/images/indexImages/temp/temp.jpg"><i class="icon icon<%= j %>"></i></a>
+            		    		<div class="widget">
+                                    <a href="javascript:;" class="zy left"></a>
+                                    <a href="javascript:;" class="del left"></a>
+                                    
+                                </div>
+            		    	</div>
+            		        <p class="name"><a href="#">我喜欢的创作我喜欢的创作我喜欢的创作我喜欢的创作</a></p>
+            		        <a href="javascript:;" class="shadow"></a>
+            		    </div>
+            		    <% } %>
+            		    <% } %>
+                        <!--微刊-->
+                        <div class="box">
+                            <div class="frame">
+                                <a href="#" class="img type2"><img src="/images/indexImages/temp/temp.jpg"></a>
+                                <div class="widget">
+                                    <a href="javascript:;" class="zy left"></a>
+                                    <a href="javascript:;" class="del left"></a>
+                                    
+                                </div>
+                            </div>
+                            <p class="name"><a href="#">我喜欢的创作我喜欢的创作我喜欢的创作我喜欢的创作</a></p>
+                            <a href="javascript:;" class="shadow"></a>
+                        </div>
+                        <!--期刊、图书-->
+                        <div class="box">
+                            <div class="frame">
+                                <a href="#" class="img type3"><img src="/images/indexImages/temp/temp.jpg"></a>
+                                <div class="widget">
+                                    <a href="javascript:;" class="zy left"></a>
+                                    <a href="javascript:;" class="del left"></a>
+                                    
+                                </div>
+                            </div>
+                            <p class="name"><a href="#">我喜欢的创作我喜欢的创作我喜欢的创作我喜欢的创作</a></p>
+                            <a href="javascript:;" class="shadow"></a>
+                        </div>
+                        <!--文献-->
+                        <div class="box">
+                            <div class="frame">
+                                <a href="#" class="img type4"><img src="/images/indexImages/temp/temp.jpg"></a>
+                                <div class="widget">
+                                    <a href="javascript:;" class="zy left"></a>
+                                    <a href="javascript:;" class="del left"></a>
+                                    
+                                </div>
+                            </div>
+                            <p class="name"><a href="#">我喜欢的创作我喜欢的创作我喜欢的创作我喜欢的创作</a></p>
+                            <a href="javascript:;" class="shadow"></a>
+                        </div>
+                        <!--典言-->
+                        <div class="box">
+                            <div class="frame">
+                                <a href="#" class="img type5"><img src="/images/indexImages/temp/temp.jpg"></a>
+                                <div class="widget">
+                                    <a href="javascript:;" class="zy left"></a>
+                                    <a href="javascript:;" class="del left"></a>
+                                    
+                                </div>
+                            </div>
+                            <p class="name"><a href="#">我喜欢的创作我喜欢的创作我喜欢的创作我喜欢的创作</a></p>
+                            <a href="javascript:;" class="shadow"></a>
+                        </div>
+
+            		</div>
+            		<div class="sp-page">
+                <span class="current">1</span><a href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">2</a><a
+                    href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">3</a><a
+                    href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">4</a><a
+                    href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">5</a><a
+                    href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">6</a><span>...</span><a
+                    href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">下一页</a><a
+                    href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">尾页</a>
+            </div>
+            	</div>
+            </div>
+        </div>
+    </div>
+<%- include('../layouts/footerLayout', {}) %>
+<script>
+   'use strict'
+   $.divselect($(".select p"),$(".select ul"),$(".select ul li"));
+   PromptToggle($(".editbox input"),"请输入收藏夹名称","colorGrey")
+   //列表大图切换
+   $(".showtab a").click(function(){
+       var index=$(".showtab a").index(this)
+       $(this).addClass("cur").siblings().removeClass("cur")
+       $(".tabarea").eq(index).show().siblings(".tabarea").hide()
+   })
+   
+   //编辑收藏夹名称
+   $(".widget .edit").click(function(){
+$(this).parents(".box").find(".name").hide().siblings(".editbox").show()
+   })
+   $(".editbox .cancel").click(function(){
+       $(this).parent().hide().siblings(".name").show()
+   })
+   //批量管理操作
+   $(".control .ba2").click(function(){
+       var text=$(this).text()
+       if(text=="批量管理"){
+           $(this).text("取消管理");
+           $(".control .tools").show();
+           $(".boxlist .box .shadow").show();
+       }
+       else{
+           $(this).text("批量管理");
+           $(".control .tools").hide();
+           $(".boxlist .box .shadow").hide();
+       }
+   })
+   //全选
+   $(".control .tools .checkbox").click(function(){
+       $(this).toggleClass("checked")
+     if($(this).hasClass("checked")){
+        $(".box .shadow").addClass("cur") 
+     }
+     else{$(".box .shadow").removeClass("cur") }
+   })
+   //选择
+   $(".box .shadow").click(function(){
+       $(this).toggleClass("cur")
+   })
+   //列表选中
+   $(".box .doc").click(function(){
+       $(this).toggleClass("checked")
+   })
+   //修改收藏夹名称
+   $(".showname .edit").click(function(){
+       $(this).parent().hide().siblings().show()
+   })
+   $(".editname .cancel").click(function(){
+       $(this).parent().hide().siblings().show()
+   })
+</script>
+</body>
+</html>

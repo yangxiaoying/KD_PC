@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('../layouts/headLayout', {}) %>
+        <link rel="stylesheet" type="text/css" href="/css/kdh/kda.css" />
+        <script src="/js/jquery.carousel.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+    <%- include('../layouts/navLayout', {current: 4}) %>
+        <%- include('../layouts/kdh/bannerLayout') %>
+            <%- include('../layouts/kdh/navLayout', {current: 0}) %>
+                <div class="kda-main">
+                    <% if (viewModel.data.bannerList&&viewModel.data.bannerList.length>0) { %>
+                        <div class="s1">
+                            <div class="wrap">
+                                <div class="caroursel poster-main" data-setting='{
+                        "width":1190,
+                        "height":295,
+                        "posterWidth":653,
+                        "posterHeight":295,
+                        "scale":0.8,
+                        "dealy":"3000",
+                        "algin":"middle"
+                    }'>
+                                    <ul class="poster-list">
+                                        <% for(var i = 0; i < viewModel.data.bannerList.length; i++){%>
+                                            <% if (viewModel.data.bannerList[i].bannertype=='mircbook') { %>
+                                                <li class="poster-item">
+                                                    <a href="/detail/microBookDetail?id=<%= viewModel.data.bannerList[i].bannerlink%>" target="blank">
+                                                        <img src="<%= viewModel.data.bannerList[i].bannerurl%>" width="100%" height="100%">
+                                                    </a>
+                                                </li>
+                                                <% } %>
+                                                    <% if (viewModel.data.bannerList[i].bannertype=='magazine') { %>
+                                                        <li class="poster-item">
+                                                            <a href="/detail/singlePeriodDetail/<%= viewModel.data.bannerList[i].bannerlink%>" target="blank">
+                                                                <img src="<%= viewModel.data.bannerList[i].bannerurl%>" width="100%" height="100%">
+                                                            </a>
+                                                        </li>
+                                                        <% } %>
+                                                            <% if (viewModel.data.bannerList[i].bannertype=='book') { %>
+                                                                <li class="poster-item">
+                                                                    <a href="/detail/bookDetail/<%= viewModel.data.bannerList[i].bannerlink%>" target="blank">
+                                                                        <img src="<%= viewModel.data.bannerList[i].bannerurl%>" width="100%" height="100%">
+                                                                    </a>
+                                                                </li>
+                                                                <% } %>
+                                                                    <% } %>
+                                    </ul>
+                                    <div class="poster-btn poster-prev-btn"></div>
+                                    <div class="poster-btn poster-next-btn"></div>
+                                </div>
+                                <script>
+                                    Caroursel.init($('.s1 .caroursel'))
+                                </script>
+                            </div>
+                        </div>
+                        <% } %>
+                            <% if (viewModel.data.listimgtxt&&viewModel.data.listimgtxt.length>0) { %>
+                                <div class="section s2">
+                                    <h1>读 美 文</h1>
+                                    <div class="ul clearfix">
+                                        <% for(var i = 0; i < viewModel.data.listimgtxt.length; i++){if(i < 3){ %>
+                                            <div class="li" data-id="<%= viewModel.data.listimgtxt[i].id%>">
+                                                <a target="_blank" href="/detail/workDetail?id=<%= viewModel.data.listimgtxt[i].id%>&mediatype=<%=viewModel.data.listimgtxt[i].mediatype%>">
+                                                    <img src="<%= viewModel.data.listimgtxt[i].coverpic %>">
+                                                </a>
+                                                <h2>
+                                                    <a target="_blank" href="/detail/workDetail?id=<%= viewModel.data.listimgtxt[i].id%>&mediatype=<%=viewModel.data.listimgtxt[i].mediatype%>">
+                                                        <%= viewModel.data.listimgtxt[i].title %>
+                                                    </a>
+                                                </h2>
+                                                <p>
+                                                    <%= viewModel.data.listimgtxt[i].intromemo %>
+                                                </p>
+                                                <div class="bottom">
+                                                    <span class="name left">
+                                                        <%= viewModel.data.listimgtxt[i].author %>
+                                                    </span>
+                                                    <div class="num right">
+                                                        <a href="javascript:;" class="collect right <% if(viewModel.data.listimgtxt[i].iscollect == 1){ %> active <% }%> "></a>
+                                                        <span class="view right">
+                                                            <%= viewModel.data.listimgtxt[i].viewcount %>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <% } %>
+                                                <% } %>
+                                    </div>
+                                    <a target="_blank" href="/kdh/works/<%=viewModel.data.kdhBaseInfo.org.orgid%>?mediatype=1" class="more">发现更多</a>
+                                </div>
+                                <% } %>
+
+                                    <% if (viewModel.data.listaudio&&viewModel.data.listaudio.length>0) { %>
+                                        <div class="section s3">
+                                            <h1>听 精 选</h1>
+                                            <div class="ul clearfix">
+                                                <% for(var i = 0; i < viewModel.data.listaudio.length; i++){if(i < 3){ %>
+                                                    <div class="li left" id="<%= viewModel.data.listaudio[i].id%>">
+                                                        <a target="_blank" href="/detail/workDetail?id=<%= viewModel.data.listaudio[i].id%>&mediatype=<%=viewModel.data.listaudio[i].mediatype%>" class="img">
+                                                            <img src="<%= viewModel.data.listaudio[i].coverpic %>" />
+                                                        </a>
+                                                        <h2>
+                                                            <a target="_blank" href="/detail/workDetail?id=<%= viewModel.data.listaudio[i].id%>&mediatype=<%=viewModel.data.listaudio[i].mediatype%>">
+                                                                <%= viewModel.data.listaudio[i].title %>
+                                                            </a>
+                                                        </h2>
+                                                        <div class="bottom">
+                                                            <span class="name left">
+                                                                <%= viewModel.data.listaudio[i].author %>
+                                                            </span>
+                                                            <div class="num right">
+                                                                <a href="javascript:;" class="collect right <% if(viewModel.data.listimgtxt[i].iscollect == 1){ %> active <% }%> "></a>
+                                                                <span class="view right">
+                                                                    <%= viewModel.data.listaudio[i].viewcount %>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <% } %>
+                                                        <% } %>
+                                            </div>
+                                            <a target="_blank" href="/kdh/works/<%=viewModel.data.kdhBaseInfo.org.orgid%>?mediatype=2" class="more">发现更多</a>
+                                        </div>
+                                        <% } %>
+
+                                            <% if (viewModel.data.listvideo&&viewModel.data.listvideo.length>0) { %>
+                                                <div class="section s4">
+                                                    <h1>看视界</h1>
+                                                    <div class="ul clearfix">
+                                                        <% for(var i = 0; i < viewModel.data.listvideo.length; i++){if(i < 3){ %>
+                                                            <div class="li">
+                                                                <a target="_blank" href="/detail/workDetail?id=<%= viewModel.data.listvideo[i].id%>&mediatype=<%=viewModel.data.listvideo[i].mediatype%>" class="img">
+                                                                    <img src="<%= viewModel.data.listvideo[i].coverpic %>" />
+                                                                </a>
+                                                                <span class="icon"></span>
+                                                                <a target="_blank" href="/detail/workDetail?id=<%= viewModel.data.listvideo[i].id%>&mediatype=<%=viewModel.data.listvideo[i].mediatype%>" class="name">
+                                                                    <img src="<%=viewModel.data.kdhBaseInfo.org.logopic %>" />
+                                                                    <%= viewModel.data.listvideo[i].title %>
+                                                                </a>
+                                                            </div>
+                                                            <% } %>
+                                                                <% } %>
+                                                    </div>
+                                                    <a target="_blank" href="/kdh/works/<%=viewModel.data.kdhBaseInfo.org.orgid%>?mediatype=3" class="more">发现更多</a>
+                                                </div>
+                                                <% } %>
+
+                                                    <% if (viewModel.data.listvideo&&viewModel.data.listpic.length>0) { %>
+                                                        <div class="section s5">
+                                                            <h1>赏美图</h1>
+                                                            <div class="ul clearfix">
+                                                                <% for(var i = 0; i < viewModel.data.listpic.length; i++){if(i < 2){ %>
+                                                                    <div class="li special">
+                                                                        <a target="_blank" href="/detail/workDetail?id=<%= viewModel.data.listpic[i].id%>&mediatype=<%=viewModel.data.listpic[i].mediatype%>">
+                                                                            <img src="<%= viewModel.data.listpic[i].coverpic %>" />
+                                                                            <p>
+                                                                                <%= viewModel.data.listpic[i].title%>
+                                                                            </p>
+                                                                        </a>
+                                                                    </div>
+                                                                    <% if (viewModel.data.listpic[i].piclist&&viewModel.data.listpic[i].piclist.length>0) { %>
+                                                                        <% for(var j = 0; j < viewModel.data.listpic[i].piclist.length; j++){if(j < 4){ %>
+                                                                            <div class="li">
+                                                                                <a target="_blank" href="/detail/workDetail?id=<%= viewModel.data.listpic[i].id%>&mediatype=<%=viewModel.data.listpic[i].mediatype%>">
+                                                                                    <img src="<%= viewModel.data.listpic[i].piclist[j].fileid %>" />
+                                                                                </a>
+                                                                            </div>
+                                                                            <% } %>
+                                                                                <% } %>
+                                                                                    <% } %>
+                                                                                        <% } %>
+                                                                                            <% } %>
+                                                            </div>
+                                                            <a target="_blank" href="/kdh/works/<%=viewModel.data.kdhBaseInfo.org.orgid%>?mediatype=4" class="more">发现更多</a>
+                                                        </div>
+                                                        <% } %>
+
+                                                            <% if(viewModel.data.kdhIndexInfo.mircbooklist&&viewModel.data.kdhIndexInfo.mircbooklist.length>0){ %>
+                                                                <div class="section s6">
+                                                                    <h1>精彩微刊</h1>
+                                                                    <div class="wrap">
+                                                                        <div class="caroursel poster-main" data-setting='{
+                    "width":1124,
+                    "height":266,
+                    "posterWidth":588,
+                    "posterHeight":264,
+                    "scale":0.8,
+                    "dealy":"3000",
+                    "algin":"middle"
+                }'>
+                                                                            <ul class="poster-list">
+                                                                                <% for(var i = 0; i < viewModel.data.kdhIndexInfo.mircbooklist.length; i++){if(i < 3){ %>
+                                                                                    <li class="poster-item">
+                                                                                        <a target="_blank" href="/detail/microBookDetail?id=<%= viewModel.data.kdhIndexInfo.mircbooklist[i].id%>">
+                                                                                            <img src="<%= viewModel.data.kdhIndexInfo.mircbooklist[i].coverpic %>" width="100%" height="100%">
+                                                                                        </a>
+                                                                                    </li>
+                                                                                    <% } %>
+                                                                                        <% } %>
+                                                                            </ul>
+                                                                            <div class="poster-btn poster-prev-btn"></div>
+                                                                            <div class="poster-btn poster-next-btn"></div>
+                                                                        </div>
+                                                                        <script>
+                                                                            Caroursel.init($('.s6 .caroursel'))
+                                                                        </script>
+                                                                    </div>
+                                                                    <a target="_blank" href="/kdh/microbook/<%=viewModel.data.kdhBaseInfo.org.orgid%>" class="more">发现更多</a>
+                                                                </div>
+                                                                <% } %>
+
+                                                                    <% if(viewModel.data.journallist&&viewModel.data.journallist.length>0){ %>
+                                                                        <div class="section s7">
+                                                                            <h1>期 刊</h1>
+                                                                            <div class="ul clearfix">
+                                                                                <% for(var i = 0; i < viewModel.data.journallist.length; i++){if(i < 5){ %>
+                                                                                    <div class="li">
+                                                                                        <a href="/detail/periodDetail/<%= viewModel.data.journallist[i].foreignkeyid %>" target="_blank">
+                                                                                            <img src="<%= viewModel.data.journallist[i].coverpic %>" />
+                                                                                        </a>
+                                                                                        <p>
+                                                                                            <a href="/detail/periodDetail/<%= viewModel.data.journallist[i].foreignkeyid %>" target="_blank">
+                                                                                                <%= viewModel.data.journallist[i].name %>
+                                                                                            </a>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                    <% } %>
+                                                                                        <% } %>
+                                                                            </div>
+                                                                            <a target="_blank " href="/kdh/bookshop/<%=viewModel.data.kdhBaseInfo.org.orgid %>?otype=1" class="more">发现更多
+                                                                                            </a>
+                                                                        </div>
+                                                                        <% } %>
+
+                                                                            <% if(viewModel.data.bookInfo.list&&viewModel.data.bookInfo.list.length>0){ %>
+                                                                                <div class="section s8">
+                                                                                    <h1>图 书</h1>
+                                                                                    <div class="ul clearfix">
+                                                                                        <% for(var i = 0; i < viewModel.data.bookInfo.list.length; i++){if(i < 5){ %>
+                                                                                            <div class="li">
+                                                                                                <a href="/detail/bookDetail/<%= viewModel.data.bookInfo.list[i].foreignkeyid %>" target="_blank">
+                                                                                                    <img src="<%= viewModel.data.bookInfo.list[i].coverpic %>">
+                                                                                                </a>
+                                                                                                <p>
+                                                                                                    <a href="/detail/bookDetail/<%= viewModel.data.bookInfo.list[i].foreignkeyid %>" target="_blank">
+                                                                                                        <%= viewModel.data.bookInfo.list[i].title %>
+                                                                                                    </a>
+                                                                                                </p>
+                                                                                            </div>
+                                                                                            <% } %>
+                                                                                                <% } %>
+                                                                                    </div>
+                                                                                    <a target="_blank" href="/kdh/bookshop/<%=viewModel.data.kdhBaseInfo.org.orgid %>?otype=2" class="more">发现更多</a>
+                                                                                </div>
+                                                                                <% } %>
+                </div>
+                <div class="kda-footer"></div>
+                <%- include('../layouts/footerLayout', {}) %>
+                    <div class="pop"></div>
+                    <script>
+                        $(".header .search .btn").click(function() {
+                            $(this).siblings().addClass("click")
+                        });
+
+                        var collectBtn = $('.collect');
+
+                        collectBtn.click(function() {
+                            var _this = $(this);
+                            var id = $(this).parents('.li').attr('data-id');
+
+                            function addCollect(id) {
+                                var url = '/common/addCollect/' + id;
+                                $.ajax({
+                                    url: url,
+                                    dataType: "json",
+                                    type: "GET",
+                                    success: function(response) {
+                                        if (response.code == 0) {
+                                            if (response.data.status == 1) {
+                                                $('.pop').show().html(response.data.info).fadeOut(
+                                                    2000)
+                                                _this.addClass('active');
+
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+
+                            function cancelCollect(id) {
+                                var url = '/common/cancelCollect/' + id;
+                                $.ajax({
+                                    url: url,
+                                    dataType: "json",
+                                    type: "GET",
+                                    success: function(response) {
+                                        if (response.code == 0) {
+                                            if (response.data.status == 0) {
+                                                $('.pop').show().html(response.data.info).fadeOut(
+                                                    2000)
+                                                _this.removeClass('active');
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                            if ($(this).hasClass('active')) {
+                                $(this).removeClass('active');
+                                cancelCollect(id);
+                            } else {
+                                $(this).addClass('active');
+                                addCollect(id);
+                            }
+                        })
+                    </script>
+</body>
+
+</html>

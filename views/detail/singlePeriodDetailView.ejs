@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('../layouts/headLayout', {}) %>
+        <link rel="stylesheet" type="text/css" href="/css/bookstore/bookstore.css" />
+        <link rel="stylesheet" href="/lib/layui/css/layui.css" media="all">
+        <link rel="stylesheet" type="text/css" href="/css/bookstore/mylayer.css" />
+        <script src="/lib/layui/layui.js"></script>
+</head>
+
+<body>
+    <%- include('../layouts/navLayout', {current: null}) %>
+        <div class="container">
+            <div class="breadcrumb clearfix">
+                <span>全部期刊</span>&nbsp;>&nbsp;
+                <a href="" class="title"></a>
+            </div>
+            <div class="periodical-main periodical-main-single">
+                <div class="periodical-main-line"></div>
+                <div class="periodical-main-body clearfix">
+                    <div class="periodical-book">
+                        <img id="periodImg" src="http://via.placeholder.com/240x316" alt="">
+                        <div class="single-btns clearfix">
+                            <a href="#" class="single-btn">在线阅读</a>
+                            <a href="#" class="single-btn single-btn-right" id="downloadBtn">下载阅读</a>
+                        </div>
+                    </div>
+                    <div class="periodical-info" id="periodInfo">
+                        <div class="periodical-top clearfix">
+                            <h1 class="periodical-title"></h1>
+                            <span class="periodical-time"></span>
+                            <span class="periodical-collect"></span>
+                        </div>
+                        <div class="periodical-detail">
+                            <div class="periodical-detail-items clearfix">
+                                <div class="periodical-detail-item">
+                                    <div class="periodical-detail-label">
+                                        主&emsp;&emsp;办：
+                                    </div>
+                                    <div class="periodical-detail-content" id="organizers"></div>
+                                </div>
+                                <div class="periodical-detail-item">
+                                    <div class="periodical-detail-label">
+                                        ISSN：
+                                    </div>
+                                    <div class="periodical-detail-content" id="issn"></div>
+                                </div>
+                            </div>
+                            <div class="periodical-detail-items clearfix">
+                                <div class="periodical-detail-item">
+                                    <div class="periodical-detail-label">
+                                        出版周期：
+                                    </div>
+                                    <div class="periodical-detail-content" id="cycle"></div>
+                                </div>
+                                <div class="periodical-detail-item clearfix">
+                                    <div class="periodical-detail-label">
+                                        CN：
+                                    </div>
+                                    <div class="periodical-detail-content" id="cn"></div>
+                                </div>
+                            </div>
+                            <div class="periodical-detail-items clearfix">
+                                <div class="periodical-detail-item">
+                                    <div class="periodical-detail-label">
+                                        语&emsp;&emsp;种：
+                                    </div>
+                                    <div class="periodical-detail-content" id="lang"></div>
+                                </div>
+                                <div class="periodical-detail-item">
+                                    <div class="periodical-detail-label">
+                                        创刊时间：
+                                    </div>
+                                    <div class="periodical-detail-content" id="createTime"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-order">
+                            <div class="order-title">
+                                电子版订阅
+                            </div>
+                            <div class="order-inputs">
+                                <label>
+                                <input type="radio" name="order" data-type="1"> 单&emsp;期：&nbsp;<span id="price"></span>元
+                            </label>
+                                <label>
+                                <input type="radio" name="order" data-type="2" checked> 全&emsp;年：&nbsp;<span id="unitprice"></span>元/期，全年<span id="periodcount"></span>期，共<span id="yearprice"></span>元
+                            </label>
+                                <a href="#" class="order-btn" id="orderBtn">
+                                订阅
+                            </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="periodical-bar" style="margin-top:-10px;">
+                        <img src="/images/bookstore/bookstore1.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="single-main clearfix">
+                <div class="single-sidebar">
+                    <div class="single-sidebar-title">
+                        推荐阅读
+                    </div>
+                    <div class="single-sidebar-body" id="bookRecommendList"></div>
+                </div>
+                <div class="catalog">
+                    <div class="catalog-tabs clearfix">
+                        <span class="catalog-tab catalog-tab-select">本期目录</span>
+                        <span class="catalog-tab">更多往期</span>
+                    </div>
+                    <div class="catalog-title">
+                        <img src="/images/bookstore/bookstore4.png" alt="">
+                    </div>
+                    <div class="catalog-inputs clearfix">
+                        <div class="catalog-inputs-left">
+                            <select class="catalog-input-year" id="periodYear"></select>
+                            <select class="catalog-input-month" id="periodMonth"></select>
+                        </div>
+                        <div class="catalog-inputs-right">
+                            <select class="catalog-input-type">
+                            <option value="fulltext">全文</option>
+                            <option value="topic">主题</option>
+                            <option value="title">篇名</option>
+                            <option value="keyword">关键词</option>
+                            <option value="author">作者</option>
+                            <option value="workuunit">单位</option>
+                            <option value="source">来源</option>
+                            <option value="fund">基金</option>
+                        </select>
+                            <input class="catalog-input-search" type="text" placeholder="刊内搜索" />
+                            <a id="literatureSearchBtn" class="catalog-input-search-btn" href="javascript:;"></a>
+                        </div>
+                    </div>
+                    <ul class="catalog-items" id="catelog"></ul>
+                </div>
+            </div>
+        </div>
+        <%- include('../layouts/footerLayout', {}) %>
+            <input type="hidden" value="<%=viewModel.user.name%>" id="username">
+            <script src="/js/plugin/jquery.methods.js"></script>
+            <script src="/js/detail/singlePeriodDetail.js"></script>
+</body>
+
+</html>

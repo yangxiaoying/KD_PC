@@ -1,0 +1,108 @@
+<div class="pheader">
+    <div class="phwrap">
+        <a href="/" class="logoimg left"><img src="/images/literature/lheaderlogo.png" height="54"></a>
+        <a href="/" class="logo left"><img src="/images/literature/lhlogo1.gif" height="71"></a>
+        <div class="hl left">        
+            <a <% if(current == 0){ %>class="cur"
+                    <% } %>
+               href="/">首页</a>
+            <a <% if(current == 1){ %>class="cur"
+                    <% } %>
+               href="/discovery">发现</a>
+            <a <% if(current == 2){ %>class="cur"
+                    <% } %>
+               href="/works">作品</a>
+            <a <% if(current == 3){ %>class="cur"
+                    <% } %>
+               href="/microbook">微刊</a>
+            <a <% if(current == 4){ %>class="cur"
+                    <% } %>
+               href="/kdh">看典号</a>
+            <a <% if(current == 5){ %>class="cur"
+                    <% } %>
+               href="/literature">文献库</a>
+            <a <% if(current == 6){ %>class="cur"
+                    <% } %>
+               href="#">书刊商城</a>
+            <a <% if(current == 7){ %>class="cur"
+                    <% } %>
+               href="#">客户端</a>
+        </div>
+        <div class="hr right">
+            <% if(viewModel && viewModel.user.name != null){ %>
+            <!--<a href="/userCenter/quit">退出</a>-->
+            <!--<div class="line"></div>-->
+            <div class="userSelect">
+                <p class="username"><a class="avatar" href="javascript:;"><img src="images/indexImages/userCenter1.png"></a><a
+                            href="javascript:;" class="name"><%= viewModel.user.name %></a></p>
+                <ul class="clearfix">
+                    <li><a class="icon1" href="#">我的收藏</a></li>
+                    <li><a class="icon2" href="#">我的已购</a></li>
+                    <li><a class="icon3" href="#">我的朗读</a></li>
+                    <li><a class="icon4" href="#">我的机构</a></li>
+                    <li><a class="icon5" href="#">我的账户</a></li>
+                    <li><a class="icon6" href="#">充值中心</a></li>
+                    <li><a class="icon7" href="#">消息中心</a></li>
+                    <li><a class="icon8" href="#">账号设置</a></li>
+                    <li><a class="icon9" href="/userCenter/quit">退出登录</a></li>
+                </ul>
+            </div>
+
+            <% }else{ %>
+            <a href="/userCenter/register">注册</a>
+            <div class="line"></div>
+            <a href="/userCenter/login">登录</a>
+            <% } %>
+            <div class="search right">
+                <input type="text" class="click" value="<%= keyword %>"/>
+                <a href="javascript:;" class="btn" id="searchBtn"></a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    (function () {
+        var time = 200;
+        var usp = $('.userSelect p');
+        var usul = $('.userSelect ul');
+        usp.click(function (e) {
+            var event = e || window.event;
+            event.stopPropagation();
+            event.cancelable = true;
+            $(this).siblings('ul').slideDown(time);
+        })
+        usul.hover(function () {
+            // $(this).siblings('ul').slideUp(time);
+        }, function () {
+            $(this).slideUp(time);
+        })
+        usul.children('li').click(function () {
+            $(this).parent('ul').slideUp(time);
+        })
+        $('.pheader').click(function () {
+            usul.slideUp(time);
+        })
+    })()
+
+</script>
+<script>
+    $(".pheader .phwrap .hr .search .btn").click(function () {
+        $(this).siblings().addClass("click").focus();
+    })
+    
+    var searchBtn = $('#searchBtn');
+    searchBtn.on('click',function () {
+        var keyword = $(this).siblings('input').val();
+        if (keyword.trim().length == 0) {
+            return;
+        }
+        location.href = encodeURI('/search/home?keyword='+keyword);
+    })
+    // 回车 提交
+    $(document).bind("keydown", function (e) {
+        if (e.keyCode == 13) {
+            searchBtn.click();
+        }
+    })
+</script>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../layouts/headLayout', {}) %>
+    <link rel="stylesheet" type="text/css" href="/css/personalCenter/personal.css"/>
+     <script src="/js/jquery.promptToggle.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/jquery-tableMenu.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body bgcolor="#F4F4F4">
+<%- include('../layouts/navLayout', {current:null}) %>
+    <div class="personalMain clearfix">
+        <%- include('../layouts/personal/menuLayout', {current:2,active:5}) %>
+        <div class="contentWrap">
+            <div class="invoiceInfo">
+            	<h2>发 票 索 取</h2>
+            	<p class="tip">( 请如实填写以下信息，星号<span>*</span>为必填项 )</p>
+            	<div class="form">
+                	<div class="box">
+                    <h3><span>填写发票信息</span><a href="/personalCenter/invoice">重新选择开票订单>></a></h3>
+                    <div class="item">
+                        <label for=""><img src="/images/personal/p-invoice-icon3.gif" align="absmiddle">发票类型</label>
+                        <div class="type">
+                            <span class="cur">个人</span>
+                            <span>单位</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <label for=""><img src="/images/personal/p-invoice-icon3.gif" align="absmiddle">发票抬头</label>
+                        <input type="text" name="" id="" value="" />
+                    </div>
+                    <div class="item">
+                        <label for=""><img src="/images/personal/p-invoice-icon3.gif" align="absmiddle">纳税人识别号</label>
+                        <input type="text" name="" id="" class="colorGrey" value="请准确填写贵单位纳税人识别号或统一社会信用代码，如无请填写“0”" />
+                    </div>
+                    <div class="item">
+                        <label for="">开户银行</label>
+                        <input type="text" name="" id="" value="" />
+                    </div>
+                    <div class="item">
+                        <label for="">银行账号</label>
+                        <input type="text" name="" id="" value="" />
+                    </div>
+                    <div class="item">
+                        <label for="">注册地址</label>
+                        <input type="text" name="" id="" value="" />
+                    </div>
+                    <div class="item">
+                        <label for="">注册电话</label>
+                        <input type="text" name="" id="" value="" />
+                    </div>
+                    <div class="item">
+                        <label for="">发票内容</label>
+                        <div class="sort">
+                            <span class="cur">资料检索费<i class="cover"></i></span>
+                            <span>中国知网卡<i class="cover"></i></span>
+                            <span>中国知网数据费<i class="cover"></i></span>
+                            <span>电子图书<i class="cover"></i></span>
+                        </div>
+                    </div>
+                     <div class="item">
+                        <label for="">发票金额</label>
+                        <span class="amount">300.00元</span>
+                    </div>
+                </div>
+                	<div class="box">
+                  <h3><span>寄送信息</span></h3>
+                  <div class="item">
+                        <label for=""><img src="/images/personal/p-invoice-icon3.gif" align="absmiddle">姓名</label>
+                        <input type="text" name="" id="" value="" />
+                  </div>
+                  <div class="item">
+                        <label for=""><img src="/images/personal/p-invoice-icon3.gif" align="absmiddle">手机</label>
+                        <input type="text" name="" id="" value="" />
+                  </div>
+                  <div class="item">
+                        <label for=""><img src="/images/personal/p-invoice-icon3.gif" align="absmiddle">邮箱</label>
+                        <input type="text" name="" id="" value="" />
+                  </div>
+                  <div class="item">
+                        <label for="">备注</label>
+                        <textarea class="colorGrey">中国知网自9月20日起，实行增值税电子普通发票，电子发票将发送至您的手机及电子邮箱。（增值税电子普通发票的法律效力、用途与税务机关监制的增值税普通发票相同）</textarea>
+                  </div>
+                </div>
+            	</div>
+            	<a href="javascript:;" class="submit">提交信息</a>
+            </div> 
+        </div>	
+    </div>
+<%- include('../layouts/footerLayout', {}) %>
+<script>
+   'use strict'
+   //radio
+   $(".type span").click(function(){
+       $(this).addClass("cur").siblings().removeClass("cur")
+   })
+   PromptToggle($(".item input"),"请准确填写贵单位纳税人识别号或统一社会信用代码，如无请填写“0”","colorGrey")
+   PromptToggle($(".item textarea"),"中国知网自9月20日起，实行增值税电子普通发票，电子发票将发送至您的手机及电子邮箱。（增值税电子普通发票的法律效力、用途与税务机关监制的增值税普通发票相同）","colorGrey")
+   //选择内容
+   $(".sort span").click(function(){
+       $(this).addClass("cur").siblings().removeClass("cur")
+   })
+</script>
+</body>
+</html>

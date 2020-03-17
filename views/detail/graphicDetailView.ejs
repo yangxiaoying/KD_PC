@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include('../layouts/headLayout', {}) %>
+        <link rel="stylesheet" type="text/css" href="/css/details.css" />
+        <link rel="stylesheet" href="/lib/layui/css/layui.css" media="all">
+        <script src="/lib/layui/layui.js"></script>
+        <script src="/js/wordLimit.js" type="text/javascript" charset="utf-8"></script>
+        <script src="https://cdn.bootcss.com/jsencrypt/3.0.0-beta.1/jsencrypt.js"></script>
+</head>
+
+<body class="bg">
+    <%- include('../layouts/navLayout', {current: null}) %>
+        <div class="bgcontainer">
+            <div class="route">
+                <a href="/">首页</a>
+                <% if(viewModel.platformcatename && viewModel.platformcatename.length > 0){ var first = ejsFunctions.workCodeParseToCoord(viewModel.platformcatename[0].code) %>
+                    >
+                    <a href="/works?mediatype=<%= viewModel.data.collection.mediatype %>&positionX=<%= first.x %>&classifyId=<%= viewModel.platformcatename[0].code %>">
+                        <%= viewModel.platformcatename[0].name %>
+                    </a>
+                    <% } %>
+                        <% if(viewModel.platformcatename && viewModel.platformcatename.length > 0){ var second = ejsFunctions.workCodeParseToCoord(viewModel.platformcatename[1].code) %>
+                            >
+                            <a href="/works?mediatype=<%= viewModel.data.collection.mediatype %>&positionX=<%= second.x %>&positionY=<%= second.y %>&classifyId=<%= viewModel.platformcatename[1].code %>">
+                                <%= viewModel.platformcatename[1].name %>
+                            </a>
+                            <% } %>
+                                <!--有三级菜单-->
+                                <% if(viewModel.platformcatename.length == 3) { %>
+                                    <% if(true){ var third = ejsFunctions.workCodeParseToCoord(viewModel.platformcatename[2].code) %>
+                                        >
+                                        <a href="/works?mediatype=<%= viewModel.data.collection.mediatype %>&positionX=<%= third.x %>&positionY=<%= third.y %>&positionZ=<%= third.z %>&classifyId=<%= viewModel.platformcatename[2].code %>">
+                                            <%= viewModel.platformcatename[2].name %>
+                                        </a>
+                                        <% } %>
+                                            <% } %>
+            </div>
+            <div class="dcont paycont clearfix">
+                <!--左侧内容-->
+                <div class="dcl left">
+                    <div class="bg"></div>
+                    <div class="chapter">
+                        <div class="top">
+                            <h1>
+                                <%= viewModel.data.collection.title %>
+                            </h1>
+                            <!--<div class="info clearfix">-->
+                            <!--<span class="left">&lt;!&ndash; 时间去掉 &ndash;&gt;<%= viewModel.data.collection.author %></span>-->
+                            <!--<a href="#" class="right"><img src="<%= viewModel.data.collection.logopic %>"><%= viewModel.data.collection.orgname %></a>-->
+                            <!--</div>-->
+                            <div class="info clearfix">
+                                <div class="author">
+                                    <!-- 时间去掉 -->
+                                    <%= viewModel.data.collection.author %>
+                                </div>
+                                <a class="org" target="_blank" href="/kdh/home/<%= viewModel.data.collection.orgid %>" class="right"><img
+                                    src="<%= viewModel.data.collection.logopic %>"><%= viewModel.data.collection.orgname %>
+                        </a>
+                            </div>
+                        </div>
+                        <!--作品免费-->
+                        <% if(viewModel.data.collection.isfree == 1){ %>
+                            <div class="textPra">
+                                <%- viewModel.data.collection.content %>
+                            </div>
+                            <% }else if(viewModel.isPurchased == 0){ %>
+                                <!--作品付费 未购买-->
+                                <div class="textPra">
+                                    <%- viewModel.data.collection.content %>
+                                </div>
+                                <div class="pay">
+                                    <p class="p1"><img src="/images/details/test.jpg" /></p>
+                                    <p class="p2">价格：¥
+                                        <%= viewModel.data.collection.realprice %>元</p>
+                                    <a href="<%= ejsFunctions.encodeURL('/payment/checkout?id=' + viewModel.workId + '&title=' + viewModel.data.collection.title + '&mediaType=' + viewModel.mediatype + '&price=' + viewModel.data.collection.realprice) + '&coverPic=' + viewModel.data.collection.coverpic %>"
+                                        class="buy">立即支付</a>
+                                </div>
+                                <% }else{ %>
+                                    <!--作品付费 已购买-->
+                                    <div class="textPra">
+                                        <%- viewModel.data.collection.paidcontent %>
+                                    </div>
+                                    <% } %>
+                                        <script>
+                                            // 去掉简介内容中对img的宽度控制
+                                            $('.textPra img').removeAttr('style');
+                                        </script>
+                    </div>
+                    <div class="commentBox">
+                        <div class="tab"><a href="javascript:;">静听</a>/<a class="cur" href="javascript:;">评论</a></div>
+                        <%if(viewModel.data.readlist && viewModel.data.readlist.list.length>0){%>
+                            <div class="tabc jt displayN">
+                                <% for (var i = 0;i < viewModel.data.readlist.list.length;i++) { %>
+                                    <div class="item clearfix">
+                                        <a href="#" class="img left"><img src="<%=viewModel.data.readlist.list[i].avatar%>"></a>
+                                        <div class="info left">
+                                            <div class="top">
+                                                <a href="#" class="name left">
+                                                    <%=viewModel.data.readlist.list[i].nickname%>
+                                                </a>
+                                                <span class="time left"><%= ejsFunctions.dateFormatFromNow(viewModel.data.readlist.list[i].addtime)%></span>
+                                                <a href="javascript:;" class="zan right">
+                                                    <%=viewModel.data.readlist.list[i].agreecount%>
+                                                </a>
+                                                <a href="javascript:;" class="collect right"></a>
+                                            </div>
+                                            <div class="player"><img src="/images/details/player.png" width="633"></div>
+                                        </div>
+                                    </div>
+                                    <%}%>
+                            </div>
+                            <%}%>
+                                <div class="tabc pl">
+                                    <div class="write">
+                                        <p>我来评两句</p>
+                                        <div class="textarea">
+                                            <textarea id="commentInput"></textarea>
+                                            <span class="count"><i>0</i>/400</span>
+                                            <script>
+                                                //PromptToggle($(".textarea textarea"),"请输入您的评论内容，评论内容将由主编筛选后显示，对所有人可见。","colorGrey")
+                                                wordLimit($(".textarea textarea"), 400)
+                                                $(".textarea textarea").keyup(function() {
+                                                    var counts = $(this).val().length
+                                                    $(".textarea .count i").text(counts);
+                                                })
+                                            </script>
+                                        </div>
+                                        <div class="comment-bottom clearfix">
+                                            <div class="comment-score clearfix">
+                                                <span class="comment-score-text">我的评分：</span>
+                                                <div class="rate" id="rate"></div>
+                                            </div>
+                                            <a href="javascripr:; " class="tj" id="commentBtn">提交</a>
+                                        </div>
+                                    </div>
+                                    <div class="showArea">
+                                        <div class="content">
+                                            <% for (var i = 0;i < viewModel.data.commentlist.list.length;i++) { %>
+                                                <div class="block clearfix">
+                                                    <div class="bc">
+                                                        <div class="part1 clearfix"><a href="#" target="_blank" class="img1 left"><img
+                                                    src="<%=viewModel.data.commentlist.list[i].avatar%>" width="32" height="32"></a>
+                                                            <a href="#" target="_blank" class="name left">
+                                                                <%=viewModel.data.commentlist.list[i].nickname%>
+                                                            </a><span class="left"><%= ejsFunctions.dateFormat(viewModel.data.commentlist.list[i].addtime)%> </span>
+                                                            <a href="javascript:;" class="zan right">
+                                                                <%=viewModel.data.commentlist.list[i].agreecount%>
+                                                            </a>
+                                                            <a href="javascript:;" class="collect right"></a>
+                                                        </div>
+                                                        <p class="part2">
+                                                            <%=viewModel.data.commentlist.list[i].memo%>
+                                                        </p>
+                                                    </div>
+
+                                                </div>
+                                                <% } %>
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+                <!--右侧内容-->
+                <div class="drl left">
+                    <% if(viewModel.data.mircbooklist.length > 0){ %>
+                        <div class="aside">
+                            <h1>微刊推荐</h1>
+                            <ul class="list1">
+                                <% for(var i = 0, list = viewModel.data.mircbooklist;i < list.length;i++){ %>
+                                    <li>
+                                        <a target="_blank" href="<%= '/detail/microBookDetail?id=' + viewModel.data.mircbooklist[i].id %>"><img
+                                    src="<%= list[i].coverpic %>"></a>
+                                        <p>
+                                            <a target="_blank" href="<%= '/detail/microBookDetail?id=' + viewModel.data.mircbooklist[i].id %>">
+                                                <%= list[i].title %>
+                                            </a>
+                                        </p>
+                                    </li>
+                                    <% } %>
+                            </ul>
+                        </div>
+                        <% } %>
+
+                            <% if(viewModel.data.collection.periodicalcode){ %>
+                                <div class="aside">
+                                    <h1>期刊推荐</h1>
+                                    <dl>
+                                        <dt><img src="<%= viewModel.data.collection.periodicalimage %>"></dt>
+                                        <dd class="tit">
+                                            <%= viewModel.data.collection.periodicalname %>
+                                        </dd>
+                                        <dd>
+                                            <p>主办：
+                                                <%= viewModel.data.collection.periodicalorg %>
+                                            </p>
+                                            <p>周期：
+                                                <%= viewModel.data.collection.periodicalperiod %>
+                                            </p>
+                                            <!--<p>收录：<%= viewModel.data.collection.periodicaltime %> </p>-->
+                                        </dd>
+                                        <dd><a href="#" class="btn">阅读本刊</a></dd>
+                                    </dl>
+                                </div>
+                                <% } %>
+                                    <% if(viewModel.data.recommendlist.length > 0){ %>
+                                        <div class="aside">
+                                            <h1>作品推荐</h1>
+                                            <ul class="list1">
+                                                <% for(var i = 0, list = viewModel.data.recommendlist;i < list.length;i++){ %>
+                                                    <li>
+                                                        <a target="_blank" href="<%='/detail/workDetail?id=' + list[i].id + '&mediatype=' + list[i].mediatype %>"><img
+                                    src="<%= list[i].coverpic %>"></a>
+                                                        <p>
+                                                            <a target="_blank" href="<%= '/detail/workDetail?id=' + list[i].id + '&mediatype=' + list[i].mediatype %>">
+                                                                <%= list[i].title %>
+                                                            </a>
+                                                        </p>
+                                                    </li>
+                                                    <% } %>
+                                            </ul>
+                                        </div>
+                                        <% } %>
+                </div>
+                <!--小工具-->
+                <div class="tools">
+                    <a href="javascript:;" class="a1"></a>
+                    <a href="javascript:;" class="a2"></a>
+                    <a href="javascript:;" class="a3"></a>
+                </div>
+            </div>
+        </div>
+        <%- include('../layouts/footerLayout', {}) %>
+            <input type="hidden" value="<%=viewModel.user.name%>" id="username">
+            <input type="hidden" value="<%=viewModel.workId%>" id="workId">
+            <script>
+                //滚动条
+                //   (function($){
+                //     $(window).load(function(){
+                //     $(".scrollWrap").mCustomScrollbar();
+                //     });
+                // })(jQuery);
+                //点赞
+                $(".bc .part1 .zan").click(function() {
+                    $(this).toggleClass("click")
+                })
+                $(".tabc .item .zan, .tabc .item .collect").click(function() {
+                        $(this).toggleClass("click")
+                    })
+                    //右侧列表点击
+                $(".scrollWrap ul li").click(function() {
+                        $(this).addClass("click").siblings().removeClass("click")
+                    })
+                    //最后的评论没有边框
+                $(".showArea .block:last").css("border-bottom-width", "0px")
+                    //静听，评论切换
+                $(".tab a").click(function() {
+                    var index = $(this).index()
+                    $(this).addClass("cur").siblings().removeClass("cur")
+                    $(".tabc").eq(index).show().siblings(".tabc").hide()
+                })
+
+                var layer = '';
+                layui.use('layer', function() {
+                    layer = layui.layer;
+                });
+                // 评分
+                var score = 0;
+                layui.use(['rate'], function() {
+                    var rate = layui.rate;
+                    rate.render({
+                        elem: '#rate',
+                        value: 0,
+                        text: true,
+                        setText: function(value) {
+                            this.span.text(value + "分");
+                            score = value;
+                        }
+                    })
+                });
+                var commentBtn = $('#commentBtn');
+                var commentInput = $('#commentInput');
+                var username = $('#username').val();
+                var workId = $('#workId').val();
+                // 提交评论
+                commentBtn.click(function() {
+                    if (username == '' || username == 'undefined') {
+                        layer.msg("请登录后评论");
+                        return;
+                    };
+                    var commentText = commentInput.val();
+                    if (commentText.trim().length == 0) {
+                        layer.msg("请输入评论内容!");
+                        return;
+                    }
+                    if (commentText.trim().length >= 400) {
+                        layer.msg("评论内容超出字数限制!");
+                        return;
+                    }
+                    var loadingLayer = null;
+                    var url = '/common/commentSubmit/' + workId;
+                    $.ajax({
+                        type: "get",
+                        url: url,
+                        data: {
+                            content: commentText,
+                            score: score,
+                            typeid: 0,
+                        },
+                        dataType: "json",
+                        beforeSend: function() {
+                            loadingLayer = layer.load(2, {
+                                shade: [0.6, '#fff']
+                            });
+                        },
+                        success: function(response) {
+                            if (response.code == 0) {
+                                commentInput.val('');
+                                $('.commentBox .textarea .count i').text(0);
+                                layer.msg("提交成功，等待审核后显示！");
+                            }
+                        },
+                        complete: function(XMLHttpRequest, textStatus) {
+                            if (loadingLayer != undefined && loadingLayer != null)
+                                layer.close(loadingLayer);
+                        }
+
+                    });
+                });
+            </script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../layouts/headLayout', {}) %>
+    <link rel="stylesheet" type="text/css" href="/css/personalCenter/personal.css"/>
+    <script src="/js/divSelect.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/jquery.promptToggle.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body bgcolor="#F4F4F4">
+<%- include('../layouts/navLayout', {current:null}) %>
+<div class="personalMain clearfix">
+    <%- include('../layouts/personal/menuLayout', {current:1,active:3}) %>
+    <div class="contentWrap">
+        <h1 class="gz">
+            <span>我关注的看典号</span>
+            <div class="condition">
+                <a href="javascript:;" class="cur">时间</a>
+                <a href="javascript:;">热门</a>
+            </div>
+        </h1>
+        <div class="followList clearfix">
+            <% for(var i = 0;i < viewModel.data.concernlist.length;i++){ var concernList = viewModel.data.concernlist; %>
+            <div class="follow">
+                <a target="_blank" href="/kdh/home/<%= concernList[i].orgid %>" class="img left">
+                    <img src="<%= concernList[i].logopic %>"/>
+                </a>
+                <div class="info">
+                    <p class="name"><a href="#"><%= concernList[i].orgname %></a></p>
+                    <p class="p"><%= concernList[i].memo %></p>
+                    <div class="btn">
+                        <span class="span1">已关注</span><span class="span2">|</span><a href="javascript:;"
+                                                                                     class="a">取消</a>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+        <div class="sp-page">
+            <span class="current">1</span><a href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">2</a><a
+                    href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">3</a><a
+                    href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">4</a><a
+                    href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">5</a><a
+                    href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">6</a><span>...</span><a
+                    href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">下一页</a><a
+                    href="?page=1&amp;type=ch&amp;keys=sdfsd&amp;sort=0">尾页</a>
+        </div>
+
+    </div>
+</div>
+<%- include('../layouts/footerLayout', {}) %>
+<script>
+    'use strict'
+    //列表大图切换
+    $(".condition a").click(function () {
+        $(this).addClass("cur").siblings().removeClass("cur")
+    })
+
+
+</script>
+</body>
+</html>

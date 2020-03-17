@@ -1,0 +1,52 @@
+<div class="pheader mall-header">
+    <div class="phwrap">
+        <a href="/" class="logoimg <% if(sublogo == true){ %>sublogoimg
+            <% } %> left"></a>
+        <div class="hl left">     
+            <a <% if(current == 0){ %>class="cur"
+                    <% } %>
+                href="/">精选</a>
+            <a <% if(current == 1){ %>class="cur"
+                    <% } %>
+                href="/discovery">期刊</a>
+            <a <% if(current == 2){ %>class="cur"
+                    <% } %>
+                href="/works">图书</a>
+        </div>
+        <div class="hr right">
+            <% if(viewModel && viewModel.user.name != null){ %>
+            <%- include('../../components/userOptionMenu', {}) %>
+            <% }else{ %>
+            <a href="/userCenter/register">注册</a>
+            <div class="line"></div>
+            <a href="/userCenter/login">登录</a>
+            <% } %>
+            <div class="search right">
+                <input type="text"/>
+                <a href="javascript:;" class="btn" id="searchBtn"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".pheader .phwrap .hr .search .btn").click(function () {
+        $(this).siblings().addClass("click").focus();
+    })
+    
+    // var searchBtn = $('#searchBtn');
+    // searchBtn.on('click',function () {
+    //     var keyword = $(this).siblings('input').val();
+    //     if (keyword.trim().length == 0) {
+    //         return;
+    //     }
+    //     location.href = encodeURI('/search/home?keyword='+keyword);
+    // })
+
+    // // 回车 提交
+    $(document).bind("keydown", function (e) {
+        if (e.keyCode == 13) {
+            searchBtn.click();
+        }
+    })
+</script>

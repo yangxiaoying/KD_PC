@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../layouts/headLayout', {}) %>
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/details.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/player/player.css"/>
+    <script src="/js/wordLimit.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/jquery.mousewheel-3.0.6.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/jquery.mCustomScrollbar.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <link href="//imgcache.qq.com/open/qcloud/video/tcplayer/tcplayer.css" rel="stylesheet">
+    <!--如果需要在 Chrome 和 Firefox 等现代浏览器中通过 H5 播放 HLS 和 Dash 格式的视频，需要在 tcplayer.min.js 之前引入 hls.js 和 dash.js。-->
+    <script src="//imgcache.qq.com/open/qcloud/video/tcplayer/libs/hls.min.0.12.4.js"></script>
+    <script src="//imgcache.qq.com/open/qcloud/video/tcplayer/libs/dash.all.min.2.9.3.js"></script>
+    <!--播放器脚本文件-->
+    <script src="//imgcache.qq.com/open/qcloud/video/tcplayer/tcplayer.min.js"></script>
+    <!--<script src="//imgcache.qq.com/open/qcloud/video/vcplayer/TcPlayer-2.2.0.js" charset="utf-8"></script>-->
+    <script src="/moment/moment.js"></script>
+    <script src="/js/player/TcPlayer-2.2.0.js"></script>
+</head>
+<body class="bg">
+<%- include('../layouts/navLayout', {current: null}) %>
+<div class="topBlock">
+    <div class="topcenter">
+        <div class="route">
+            <a href="/">首页</a>
+            <% if(viewModel.platformcatename && viewModel.platformcatename.length > 0){ var first = ejsFunctions.workCodeParseToCoord(viewModel.platformcatename[0].code) %>
+            >
+            <a href="/works?mediatype=<%= viewModel.data.collection.mediatype %>&positionX=<%= first.x %>&classifyId=<%= viewModel.platformcatename[0].code %>"><%= viewModel.platformcatename[0].name %></a>
+            <% } %>
+            <% if(viewModel.platformcatename && viewModel.platformcatename.length > 1){ var second = ejsFunctions.workCodeParseToCoord(viewModel.platformcatename[1].code) %>
+            >
+            <a href="/works?mediatype=<%= viewModel.data.collection.mediatype %>&positionX=<%= second.x %>&positionY=<%= second.y %>&classifyId=<%= viewModel.platformcatename[1].code %>"><%= viewModel.platformcatename[1].name %></a>
+            <% } %>
+            <!--有三级菜单-->
+            <% if(viewModel.platformcatename && viewModel.platformcatename.length == 3) { %>
+            <% if(true){ var third = ejsFunctions.workCodeParseToCoord(viewModel.platformcatename[2].code) %>
+            >
+            <a href="/works?mediatype=<%= viewModel.data.collection.mediatype %>&positionX=<%= third.x %>&positionY=<%= third.y %>&positionZ=<%= third.z %>&classifyId=<%= viewModel.platformcatename[2].code %>"><%= viewModel.platformcatename[2].name %></a>
+            <% } %>
+            <% } %>
+        </div>
+        <div class="info iv">
+            <div class="play clearfix">
+                <div class="box left" data-isfree="<%= viewModel.data.collection.isfree %>"
+                     data-purchased="<%= viewModel.isPurchased %>"
+                     data-multimedia-url="<%= viewModel.data.collection.mediafilecloudid %>">
+                    <% if(viewModel.mediatype == 2) { %>
+                    <!--音频-->
+                    <img width="823px" height="460px" src="<%= viewModel.data.collection.coverpic %>">
+                    <span id="mediaIcon" class="mediaIcon mediaIcon-static" href="javascript:;">
+                        <span class="mediaIcon-stop"></span>
+                    </span>
+                    <div id="player-tools" class="player" data-media-url="<%= viewModel.data.collection.mediaurl %>">
+                        <a href="javascript:;" class="btn btn-play left" id="playBtn" onclick="Play(this)"></a>
+                        <div class="progress">
+                            <div class="loading" style="width: 0%;"></div>
+                            <a href="javascript:;" class="drag" style="left: 0%;"></a>
+                        </div>
+                        <div class="time"><span id="playedTime">00:00 </span> / <span id="totalTime">00:00</span></div>
+                        <div id="id_video_container" style="display: none"></div>
+                    </div>
+                    <div class="poptip" style="display: none;">
+                        <p class="p1">1分钟预览结束</p>
+                        <p class="p2">购买后可观看完整视频</p>
+                        <p class="p2">作品价格：<%= viewModel.data.collection.realprice %>元</p>
+                        <a href="javascript:;" class="btn">立即购买</a>
+                    </div>
+                    <% } %>
+                    <% if(viewModel.mediatype == 3) { %>
+                    <!--视频-->
+                    <video id="player-container-id" width="823px" height="538px" preload="auto" playsinline
+                           webkit-playsinline></video>
+                    <% } %>
+
+                    <% if(viewModel.data.collection.isfree == 0){ %>
+                    <!--<div class="poptip">-->
+                    <!--<p class="p1">1分钟预览结束</p>-->
+                    <!--<p class="p2">购买后可观看完整视频</p>-->
+                    <!--<p class="p2">作品价格：<%= viewModel.data.collection.realprice %>元</p>-->
+                    <!--<a href="javascript:;" class="btn">立即购买</a>-->
+                    <!--</div>-->
+                    <% } %>
+                </div>
+                <script>
+                    // 播放器
+                    // 本地函数
+                    function handlePlayerState() {
+                        $('#player-tools .btn').toggleClass('btn-pause');  // 切换播放和暂停
+                        $('#mediaIcon span').toggleClass('mediaIcon-move');      // 切换中心图标
+                    }
+
+                    $('#player-tools .btn').click(function () {
+                        handlePlayerState();
+                    })
+
+                    var clouldId = $('.play .box').attr('data-multimedia-url');
+                    var player = TCPlayer('player-container-id', { // player-container-id 为播放器容器 ID，必须与 html 中一致
+                        fileID: clouldId, // 请传入需要播放的视频 filID（必须）
+                        appID: '1254166853' // 请传入点播账号的 appID（必须）
+                    });
+                </script>
+
+
+                <script type="text/javascript">
+                    var mediaUrl = $('#player-tools').attr('data-media-url');
+
+                    // var cloudurl = 'http://1254166853.vod2.myqcloud.com/742674e8vodgzp1254166853/636c545c5285890795338206599/T7dRu8hoUyAA.mp3';
+                    var cloudurl = mediaUrl;
+                    if (cloudurl != "") {
+                        InitPlay(cloudurl);
+                    }
+                    $(function () {
+                        if (cloudurl != "") {
+                            InitPlay(cloudurl);
+                        }
+                    });
+
+                    // 初始化进度条
+                    function InitProcess() {
+                        $('#playedTime').text('00:00');
+                        $('.load').css('width', '0%');
+                        $('.drag').css('left', '0%');
+                    }
+
+                    // var duration = [[${duration}]];
+                    var duration = 0;
+
+                    var loadingId; //加载的id
+
+                    var player;
+
+                    function InitPlay(url) {
+                        if (url != undefined && url != '') {
+                            $('#id_video_container').html('');
+                            InitProcess();
+                        }
+
+                        player = new TcPlayer('id_video_container', {
+                            "mp4": url,
+                            "width": '1', //视频的显示宽度，请尽量使用视频分辨率宽度
+                            "height": '1', //视频的显示高度，请尽量使用视频分辨率高度
+                            "flash": false,
+                            "listener": function (status) {
+                                if (status.type == "timeupdate") {
+                                    SetPro(player.currentTime());
+                                } else if (status.type == "ended") {
+                                    // $("#playBtn").css({
+                                    //     "background-image": "url('player3-play.png')",
+                                    //     "background-repeat": "no-repeat",
+                                    //     "background-position": "center"
+                                    // })
+                                    handlePlayerState();
+                                }
+                                var totalTime = $(".vcp-timelabel").html();
+                                if (totalTime != "" && totalTime != undefined) {
+                                    $("#totalTime").html(totalTime.split("/")[1]);
+                                }
+                                if (totalTime != "" && totalTime != undefined && duration <= 0) {
+                                    duration = makeDurationToSeconds(totalTime.split("/")[1])
+                                }
+                            }
+                        });
+                    }
+
+                    var isFree = $('.play .box').attr('data-isfree');
+                    var isPurchased = $('.play .box').attr('data-purchased');
+
+                    function SetPro(time) {
+                        var playPostionPageX = (time * 100 / duration).toFixed(0);
+                        $(".load").css({"width": playPostionPageX + "%"});
+                        $(".drag").css({"left": playPostionPageX + "%"});
+                        var playtime = secondToDate(time);
+                        $('#playedTime').text(playtime);
+                        var duration = makeDurationToSeconds($('#playedTime').html());
+                        if (isFree == 0 && isPurchased == 0 && duration >= 60) {
+                            $('.poptip').css('display', 'block');
+                            Play(null)
+                        }
+                    }
+                    function makeDurationToSeconds(time) {
+                        var str = time;
+                        var arr = str.split(':');
+                        if (arr.length > 2) {
+                            var hs = parseInt(arr[0] * 3600);
+                            var ms = parseInt(arr[1] * 60);
+                            var ss = parseInt(arr[2]);
+                            var seconds = hs + ms + ss;
+                            return seconds;
+                        } else {
+                            var ms = parseInt(arr[0] * 60);
+                            var ss = parseInt(arr[1]);
+                            var seconds = ms + ss;
+                            return seconds;
+                        }
+                    }
+
+
+                    //秒转化成 时分秒
+                    function secondToDate(result) {
+                        var h = Math.floor(result / 3600);
+                        h = h > 9 ? h : "0" + h;
+                        var m = Math.floor((result / 60 % 60));
+                        m = m > 9 ? m : "0" + m;
+                        var s = Math.floor((result % 60));
+                        s = s > 9 ? s : "0" + s;
+                        return h > 0 ? (h + ":" + m + ":" + s) : (m + ":" + s);
+                    }
+
+                    //播放暂停视频
+                    function Play(obj) {
+                        player.togglePlay();
+                        // if (player.playing()) {
+                        //     $("#playBtn").css({"background-image":"url('player3-pause.png')","background-repeat":"no-repeat","background-position":"center"})
+                        //
+                        // } else {
+                        //     $("#playBtn").css({"background-image":"url('player3-play.png')","background-repeat":"no-repeat","background-position":"center"})
+                        // }
+
+                    }
+
+
+                    var playStartSlide = false;
+                    var playIndex = 0;
+
+                    $(document).ready(function () {
+                        /***以下为进度调节***/
+                        var playStartPageX = 0;
+                        var playPostionPageX = 0;
+                        var currentWidth = 0;
+
+                        var isDragClicked = false;
+                        $(".drag").bind("mousedown", function (e) {
+                            // console.log("mousedown")
+                            // player.pause();
+                            // if (player.playing()) {
+                            //     $("#playBtn").css({"background-image":"url('player3-pause.png')","background-repeat":"no-repeat","background-position":"center"})
+                            //
+                            // } else {
+                            //     $("#playBtn").css({"background-image":"url('player3-play.png')","background-repeat":"no-repeat","background-position":"center"})
+                            // }
+
+                            isDragClicked = true;
+                            $('#playBtn').addClass('btn-pause');
+                            $('#mediaIcon span').addClass('mediaIcon-move');
+                        });
+
+                        const progressLeftValue = $(".progress").offset().left;
+                        const progressWidth = $(".progress").width();
+
+                        $(document).bind("mousemove", function (e) {
+                            if (isDragClicked) {
+                                /*   var touch = e.originalEvent.targetTouches[0];*/
+                                var e = e || window.event;
+                                e.preventDefault();
+                                e.returnValue = false;
+                                var x = e.pageX;
+
+                                // console.log('x', x)
+                                // console.log("progressLeftValue", progressLeftValue);
+                                // console.log("progressWidth", progressLeftValue + progressWidth);
+
+                                if (x > progressLeftValue && x < progressLeftValue + progressWidth) {
+
+
+                                    var offsetLeft = x - progressLeftValue;
+
+                                    // console.log("offsetLeft:" + offsetLeft)
+
+                                    // var preloadWidth = $(".progress").width();
+
+                                    var prentageX = (offsetLeft / progressWidth).toFixed(2);
+
+                                    $(".load").css("width", prentageX * 100 + "%")
+                                    $(".drag").css("left", prentageX * 100 + "%")
+                                    var currentTime = prentageX * duration;
+                                    // $(".drag").html(secondToDate(currentTime.toFixed(0)))
+                                    player.currentTime(currentTime.toFixed(0));
+                                }
+                            }
+                        });
+
+                        // $(".drag").bind("mouseup", function (e) {
+                        //     //player.play();
+                        //     if (player.playing()) {
+                        //         $("#playBtn").css({
+                        //             "background-image": "url('player3-pause.png')",
+                        //             "background-repeat": "no-repeat",
+                        //             "background-position": "center"
+                        //         })
+                        //
+                        //     } else {
+                        //         $("#playBtn").css({
+                        //             "background-image": "url('player3-play.png')",
+                        //             "background-repeat": "no-repeat",
+                        //             "background-position": "center"
+                        //         })
+                        //     }
+                        // });
+
+                        // 点击定位进度条具体位置
+                        $(".progress").click(function (e) {
+
+                            player.play();
+                            if (e.pageX > $(this).offset().left) {
+                                var offsetLeft = e.pageX - $(this).offset().left;
+                                var preloadWidth = $(this).width();
+                                if (preloadWidth > 0) {
+                                    var postionX = (offsetLeft * 100 / preloadWidth).toFixed(0);
+                                    if (duration > 0 && postionX > 0) {
+                                        var currentTime = postionX * duration / 100;
+                                        player.currentTime(currentTime);
+                                        $("#playBtn").css({
+                                            "background-image": "url('" + ctxPath + "/img/sound/player3-pause.png')",
+                                            "background-repeat": "no-repeat",
+                                            "background-position": "center"
+                                        })
+                                    }
+                                }
+                            }
+                            /**/
+                        });
+                        /***以上为进度调节***/
+
+
+                        $(document).mouseup(function (e) {
+                            isDragClicked = false;
+                            // console.log('解除拖拽绑定事件');
+                        })
+
+
+                    });
+
+
+                </script>
+
+
+                <div class="list left">
+                    <div class="scrollWrap">
+                        <ul id="listUl" data-work-id="<%= viewModel.workId %>"
+                            data-image-url="<%= addr.imgServerAddr %>"></ul>
+                    </div>
+                </div>
+                <script>
+                    // 获取多媒体推荐列表
+                    $(function () {
+                        var listUl = $('#listUl');
+                        var workId = listUl.attr('data-work-id');
+                        var imgAddr = listUl.attr('data-image-url');
+                        $.ajax({
+                            url: "/detail/getMultimediaRecommendList",
+                            dataType: "json", //返回格式
+                            data: {id: workId},
+                            type: "POST",
+                            success: function (response) {
+                                // console.log(response)
+                                if (response.code == 0) {
+                                    var liStr = '';
+                                    for (var i = 0; i < response.data.list.length; i++) {
+                                        liStr += '<li><a  title="' + response.data.list[i].title + '" target="_blank" href="/detail/workDetail?id=' + response.data.list[i].id + '&mediatype=' + response.data.list[i].mediatype + '"><img title="' + response.data.list[i].title + '" src="' + response.data.list[i].coverpic + '"><span class="time">' + moment(response.data.list[i].cloudduration).format('mm:ss') + '</span></a></li>'
+                                    }
+                                    listUl.append(liStr);
+                                } else {
+                                    console.log('请检查PC端音视频作品详情页推荐作品播放列表！')
+                                }
+                            },
+                            error: function (error) {
+                                //请求出错处理
+                                console.log(error);
+                            }
+                        });
+                    })
+
+                </script>
+
+            </div>
+            <div class="intro">
+                <h1><span class="tit"><%= viewModel.data.collection.title %></span><span class="right name"><a
+                                target="_blank" href="/kdh/home/<%= viewModel.data.collection.orgid %>"><img width="20"
+                                                                                                             height="20"
+                                                                                                             src="<%= viewModel.data.collection.logopic %>"
+                                                                                                             align="absmiddle"><%= viewModel.data.collection.orgname %></span></a>
+                </h1>
+                <p><%= viewModel.data.collection.intromemo %></p>
+                <div class="bottom">
+                    <div class="left">
+                        <span><%= viewModel.data.collection.author %>
+                            &nbsp;&nbsp;<%= ejsFunctions.dateFormatBySetting(viewModel.data.collection.updatatime, 'YYYY-MM-DD') %></span><span><img
+                                    src="/images/details/deicon5.png" align="absmiddle">
+                            <% for(var j = 0, keywords = ejsFunctions.arrayParseByBlank(viewModel.data.collection.keywords);j < keywords.length;j++){ %>
+                            <%= keywords[j] %>&nbsp;
+                            <% } %>
+                        </span></div>
+                    <div class="right">
+                        <a href="javascript:;" class="bshare right"></a>
+                        <a href="javascript:;" class="bcollect right"></a>
+                        <span class="right">播放：<%= viewModel.data.collection.viewcount %>
+                            次</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="dcont clearfix">
+    <!--左侧内容-->
+    <div class="dcl left">
+        <div class="article">
+            <% if(viewModel.data.collection.mediatype == 2){ %>
+            <h1>音频简介</h1>
+            <% } %>
+            <% if(viewModel.data.collection.mediatype == 3){ %>
+            <h1>视频简介</h1>
+            <% } %>
+            <% if(viewModel.data.collection.mediatype == 4){ %>
+            <h1>图文简介</h1>
+            <% } %>
+            <%- viewModel.data.collection.content %>
+        </div>
+        <div class="commentBox">
+            <div class="write">
+                <p>我来评两句</p>
+                <div class="textarea">
+                    <textarea></textarea>
+                    <span class="count"><i>0</i>/400</span>
+                    <script>
+                        //PromptToggle($(".textarea textarea"),"请输入您的评论内容，评论内容将由主编筛选后显示，对所有人可见。","colorGrey")
+                        wordLimit($(".textarea textarea"), 400)
+                        $(".textarea textarea").keyup(function () {
+                            var counts = $(this).val().length
+                            $(".textarea .count i").text(counts)
+                        })
+                    </script>
+                </div>
+                <a href="javascript:;" class="tj">提交</a>
+            </div>
+            <div class="showArea">
+                <div class="content">
+                    <% if(viewModel.data.commentlist.list && viewModel.data.commentlist.list.length > 0){ %>
+                    <% for (var i = 0;i < viewModel.data.commentlist.list.length;i++) { %>
+                    <div class="block clearfix">
+                        <div class="bc">
+                            <div class="part1 clearfix"><a href="#" target="_blank" class="img1 left"><img
+                                            src="<%= viewModel.data.commentlist.list[i].avatar %>" width="32"
+                                            height="32"></a><a href="#"
+                                                               target="_blank"
+                                                               class="name left"><%= viewModel.data.commentlist.list[i].nickname %></span>
+                                    <span
+                                            class="left"><%= ejsFunctions.dateFormat(viewModel.data.commentlist.list[i].addtime) %> </span><a
+                                            href="javascript:;"
+                                            class="zan right"><%= viewModel.data.commentlist.list[i].agreecount %></a><a
+                                            href="javascript:;" class="collect right"></a></div>
+                            <p class="part2"><%= viewModel.data.commentlist.list[i].memo %></p>
+                        </div>
+
+                    </div>
+                    <% } %>
+                    <% } %>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--右侧内容-->
+    <div class="drl left">
+        <% if(viewModel.data.mircbooklist.length > 0){ %>
+        <div class="aside">
+            <h1>微刊推荐</h1>
+            <ul class="list1">
+                <% for(var i = 0, list = viewModel.data.mircbooklist;i < list.length;i++){ %>
+                <li>
+                    <a target="_blank"
+                       href="<%= '/detail/microBookDetail?id=' + viewModel.data.mircbooklist[i].id %>"><img
+                                src="<%= list[i].coverpic %>"></a>
+                    <p><a target="_blank"
+                          href="<%= '/detail/microBookDetail?id=' + viewModel.data.mircbooklist[i].id %>"><%= list[i].title %></a>
+                    </p>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+        <% } %>
+        <% if(viewModel.data.collection.periodicalcode){ %>
+        <div class="aside">
+            <h1>期刊推荐</h1>
+            <dl>
+                <dt><img src="<%= viewModel.data.collection.periodicalimage %>"></dt>
+                <dd class="tit"><%= viewModel.data.collection.periodicalname %></dd>
+                <dd>
+                    <p>主办：<%= viewModel.data.collection.periodicalorg %></p>
+                    <p>周期：<%= viewModel.data.collection.periodicalperiod %> </p>
+                    <p>收录：<%= viewModel.data.collection.periodicaltime %> </p>
+                </dd>
+                <dd><a href="#" class="btn">阅读本刊</a></dd>
+            </dl>
+        </div>
+        <% } %>
+        <% if(viewModel.data.recommendlist.length > 0){ %>
+        <div class="aside">
+            <h1>作品推荐</h1>
+            <ul class="list1">
+                <% for(var i = 0, list = viewModel.data.recommendlist;i < list.length;i++){ %>
+                <li>
+                    <a target="_blank"
+                       href="<%= '/detail/workDetail?id=' + list[i].id + '&mediatype=' + list[i].mediatype %>"><img
+                                src="<%= list[i].coverpic %>"></a>
+                    <p><a target="_blank"
+                          href="<%= '/detail/workDetail?id=' + list[i].id + '&mediatype=' + list[i].mediatype %>"><%= list[i].title %></a>
+                    </p>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+        <% } %>
+
+    </div>
+    <!--小工具-->
+    <!--<div class="tools">-->
+    <!--<a href="javascript:;" class="a1"></a>-->
+    <!--<a href="javascript:;" class="a2"></a>-->
+    <!--&lt;!&ndash;<a href="javascript:;" class="a3"></a>&ndash;&gt;-->
+    <!--</div>-->
+</div>
+
+
+<%- include('../layouts/footerLayout', {}) %>
+<script>
+    //滚动条
+    (function ($) {
+        $(window).load(function () {
+            $(".scrollWrap").mCustomScrollbar();
+        });
+    })(jQuery);
+    //点赞
+    $(".bc .part1 .zan").click(function () {
+        $(this).toggleClass("click")
+    })
+    //右侧列表点击
+    $(".scrollWrap ul li").click(function () {
+        $(this).addClass("click").siblings().removeClass("click")
+    })
+    //最后的评论没有边框
+    $(".showArea .block:last").css("border-bottom-width", "0px")
+
+</script>
+</body>
+</html>

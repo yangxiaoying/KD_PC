@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include('../layouts/headLayout', {}) %>
+    <link rel="stylesheet" type="text/css" href="/css/jquery.mCustomScrollbar.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/personalCenter/personal.css"/>
+    <script src="/js/divSelect.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/jquery.promptToggle.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/jquery.mousewheel-3.0.6.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/jquery.mCustomScrollbar.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body bgcolor="#F4F4F4">
+    <div class="modal transfermodal">
+        <a href="javascrpt:;" class="close"></a>
+    	<h1 class="mtit">转移至收藏夹</h1>
+    	<div class="transbox">
+    		<div class="scrollWrap">
+    		    <% for(var i=0;i<9;i++){ %>
+    			<div class="item">最美古诗词<span class="icon"></span></div>
+    			<% } %>
+    		</div>
+    		<div class="create">
+    			<a href="javascript:;" class="btn">+新建收藏夹</a>
+    			<div class="creatbox">
+    				<input type="text" name="" id="" value="" />
+    				<a href="javascript:;" class="a1">创建</a>
+    				<a href="javascript:;" class="a2">取消</a>
+    			</div>
+    		</div>
+    	</div>
+    	<div class="bottom">
+    		<div class="btn">
+    			<a href="javascript:;" class="sure left">确定</a>
+    			<a href="javascript:;" class="cancel right">取消</a>
+    		</div>
+    	</div>
+        //创建成功tip
+        <div class="tips">创建成功</div>
+    </div>
+<script>
+   'use strict'
+   $.divselect($(".select p"),$(".select ul"),$(".select ul li"));
+   PromptToggle($(".editbox input"),"请输入收藏夹名称","colorGrey")
+   //列表大图切换
+   $(".showtab a").click(function(){
+       var index=$(".showtab a").index(this)
+       $(this).addClass("cur").siblings().removeClass("cur")
+       $(".tabarea").eq(index).show().siblings(".tabarea").hide()
+       console.log(index)
+   })
+   
+   //编辑收藏夹名称
+   $(".widget .edit").click(function(){
+$(this).parents(".box").find(".name").hide().siblings(".editbox").show()
+   })
+   $(".editbox .cancel").click(function(){
+       $(this).parent().hide().siblings(".name").show()
+   })
+   //批量管理操作
+   $(".sc .ba2").click(function(){
+       var text=$(this).text()
+       if(text=="批量管理"){
+           $(this).text("取消管理");
+           $(".sc .tools").show();
+           $(".boxlist .box .shadow").show();
+       }
+       else{
+           $(this).text("批量管理");
+           $(".sc .tools").hide();
+           $(".boxlist .box .shadow").hide();
+       }
+   })
+   //全选
+   $(".sc .tools .checkbox").click(function(){
+       $(this).toggleClass("checked")
+     if($(this).hasClass("checked")){
+        $(".box .shadow").addClass("cur") 
+     }
+     else{$(".box .shadow").removeClass("cur") }
+   })
+   //选择
+   $(".box .shadow").click(function(){
+       $(this).toggleClass("cur")
+   })
+   //列表选中
+   $(".box .doc").click(function(){
+       $(this).toggleClass("checked")
+   })
+   //转移到收藏夹弹窗
+   $(".scrollWrap .item").click(function(){
+       $(this).toggleClass("cur")
+   })
+   //滚动条
+    $(window).load(function(){
+       $(".scrollWrap").mCustomScrollbar();
+     });
+    //创建收藏夹
+    $(".create .btn").click(function(){
+        $(this).hide().siblings().show()
+    })
+    $(".creatbox .a2").click(function(){
+        $(this).parent().hide().siblings().show()
+    })
+</script>
+</body>
+</html>
