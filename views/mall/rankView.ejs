@@ -196,16 +196,34 @@
                         var bookArr = [] , magaArr = [];
                         for (var i = 0; i < data.length; i++) {
                             if(data[i].rankingType == 'book'){
-                                // bookArr.push(data[i]);
-                                bookStr += '<span class="rank-sidebar-item">'+data[i].title+'</span>';
+                                bookArr.push(data[i]);
+                                // bookStr += '<span class="rank-sidebar-item">'+data[i].title+'</span>';
                             }else{
-                                // magaArr.push(data[i]);
-                                magaStr += '<span class="rank-sidebar-item">'+data[i].title+'</span>';        
+                                magaArr.push(data[i]);
+                                // magaStr += '<span class="rank-sidebar-item">'+data[i].title+'</span>';        
                             }
                         }
+                        console.log(bookArr);
+                        console.log(magaArr);
+                        for (var j = 0; j < bookArr.length; j++) {
+                            if(j==0){
+                                bookStr += '<span class="rank-sidebar-item rank-sidebar-item-select">'+bookArr[j].title+'</span>';
+                            }else{
+                                bookStr += '<span class="rank-sidebar-item">'+bookArr[j].title+'</span>';                                
+                            }
+                        }
+                        for (var i = 0; i < magaArr.length; i++) {
+                            if(i==0){
+                                magaStr += '<span class="rank-sidebar-item rank-sidebar-item-select">'+magaArr[i].title+'</span>';
+                            }else{
+                                magaStr += '<span class="rank-sidebar-item">'+magaArr[i].title+'</span>';                                
+                            }
+                        }
+                        console.log(bookStr)
                         $('.rank-sidebar-bookbody').html(bookStr);
                         $('.rank-sidebar-magabody').html(magaStr);
-                        $('.rank-sidebar-body').children().eq(0).addClass('rank-sidebar-item-select');
+                        
+                        // $('.rank-sidebar-body').children().eq(0).addClass('rank-sidebar-item-select');
                         // var pageStr = $.kd.outputPager(total, limit, 5, pageNum);
                         // $('.booklist-pages').html(pageStr);
                     }
